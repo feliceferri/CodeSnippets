@@ -1,0 +1,148 @@
+WPF 
+
+-----------------------------------------------------
+
+WPF SYSTEM CONSTANTS 
+
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\DesignTools\SystemThemes\Wpf
+
+-------------------------------------------------
+
+DATAGRID FONT SIZE
+
+<Page.Resources>
+	<DiscreteObjectKeyFrame x:Key="DataGrindFontSize" Value="{Binding Path=OnePercentHeightInPixels, Converter={StaticResource FontSizeConverter}, ConverterParameter=2.5}"/>
+</Page.Resources>
+
+<DataGridTextColumn Header="Angle" Binding="{Binding Path = Angle}" Width="*"   FontSize="{Binding Value, Source={StaticResource DataGrindFontSize}}"/>
+
+
+<DataGridTemplateColumn Header="Angle" Width="*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock FontSize="{Binding Value, Source={StaticResource DataGrindFontSize}}" Foreground="{DynamicResource SelectedText}"  FontWeight="Bold"
+                                               Margin="0,5,0,5">
+                                         <Run Text="{Binding Angle}"></Run>
+                                        <Run Text="&#186;"></Run>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+-----------------------------------------------------------
+
+WIDTH == HEIGHT
+
+Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+
+-------------------------------------------
+
+BUTTON INSIDE DATAGRIDVIEW
+
+<Button Command="{Binding Path=DataContext.EditGridRowCommand, RelativeSource= {RelativeSource FindAncestor,AncestorType={x:Type DataGrid}}}" CommandParameter="{Binding Id}" 
+                                             HorizontalContentAlignment="Right" HorizontalAlignment="Right" />
+
+------------------------------------------
+
+COMMAND EN EL DATACONTEXT
+
+<local:myUserControl Command="{Binding ElementName=someName, Path=DataContext.someCommand}"/>
+
+----------------------------------------
+
+TRIGGER DESDE UN EVENTO DE UN BOTON
+
+EventTrigger RoutedEvent="Button.Click" SourceName="BeginButton">
+          <BeginStoryboard Name="MyBeginStoryboard">
+            <Storyboard >
+              <DoubleAnimation 
+                Storyboard.TargetName="myRectangle" 
+                Storyboard.TargetProperty="Width" 
+                Duration="0:0:5" From="100" To="500" />
+            </Storyboard>
+          </BeginStoryboard>
+        </EventTrigger>
+-----------------------------------------
+
+BINDGING TO PAGE CONTEXT FROM DATAGRID OR OTHER SUB CONTROLS
+
+ <Page.DataContext>
+        <ViewModels:ShaftSensitivities_ViewModel x:Name="VM"/>
+    </Page.DataContext>
+
+
+"{Binding ElementName=VM, Path=OnePercentHeightInPixels, Converter={StaticResource FontSizeConverter}, ConverterParameter=3}"
+
+-----------------------------------------------
+
+
+
+LIST VIEW
+a) Se le escondio los column headers
+b) Tiene DOUBLE CLICK
+c) Se le quito el hover
+d) Se le quito la opcion de seleccionar dependiedo, "tiene un condicional"
+
+<ListView x:Name="ListView1" Grid.Row="2" Grid.Column="1"  Background="{DynamicResource PanelBackgroundColor}" 
+                  Foreground="{DynamicResource TextColor}" BorderThickness="0" > 
+           <ListView.Resources>
+                <Style TargetType="GridViewColumnHeader">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                </Style>
+             </ListView.Resources>
+
+            <ListView.ItemContainerStyle>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="Black" />
+                            <Setter Property="BorderBrush" Value="{DynamicResource DarkSolidColor}"></Setter>
+                            <Setter Property="BorderThickness" Value="1"></Setter>
+                        </Trigger>
+
+                    </Style.Triggers>
+
+                    <Setter Property="Focusable" Value="{Binding ElementName=GridLoadFile, Path=IsVisible}"/> <!--NO SELECTION-->
+
+                    <EventSetter Event="MouseDoubleClick" Handler="HandleDoubleClick" />
+                </Style>
+            </ListView.ItemContainerStyle>
+            
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="File Name"></GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+private void HandleDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var file = ((ListViewItem)sender).Content as Persistance.File;
+            _VM.LoadFileCommand.Execute(file);
+        }
+
+
+--------------------------------------------
+
+DEPENDENCY PROPERTY WITH NOTIFICATIONS FOR VALUE CHANGES (CALLBACK)
+
+  public double OnePercentHeightInPixels
+        {
+            get { return (double)GetValue(OnePercentHeightInPixelsProperty); }
+            set
+            {
+                SetValue(OnePercentHeightInPixelsProperty, value);
+            }
+        }
+
+        // Using a DependencyProperty as the backing store for OnePercentHeightInPixels.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty OnePercentHeightInPixelsProperty =
+            DependencyProperty.Register("OnePercentHeightInPixels", typeof(double), typeof(CustomButton), new PropertyMetadata(1.0, new PropertyChangedCallback(OnercentHeightInPixelsChanged)));
+
+
+        private static void OnercentHeightInPixelsChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            CustomButton Instance = sender as CustomButton;
+            Instance._VM.OnePercentHeightInPixels = Convert.ToDouble(e.NewValue);
+        }
+
+------------------------------------
