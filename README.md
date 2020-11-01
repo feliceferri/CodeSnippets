@@ -1,1 +1,1 @@
-# CodeSnipets
+# Code Snipets
