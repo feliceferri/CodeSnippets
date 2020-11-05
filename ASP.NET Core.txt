@@ -196,11 +196,62 @@ In the View:
 
 <form enctype="multipart/form-data" asp-action="Create">
 
-<div class="imageEntryWrapper">
-                <span asp-validation-for="floorPlanFile" class="text-danger"></span>
-                <label asp-for="floorPlanFile">Select Floor plan</label>
-                <input asp-for="floorPlanFile" type="file" class="customFileInput" />
+ <div class="form-group">
+            <label asp-for="floorPlanFile">Select Floor plan:</label>
+
+            <div style="margin-top:5px">
+                <i class="fa fa-camera" style="cursor: pointer;font-size: 30px;opacity: 0.6;" onclick="document.getElementById('floorPlanFile').click();"></i>
+                <span id="SelectedFileLabel" class="name" onclick="document.getElementById('floorPlanFile').click();" style="cursor:pointer;margin-left:10px;">No file selected</span>
+                <input asp-for="floorPlanFile" type="file" id="floorPlanFile" onchange="document.getElementById('SelectedFileLabel').innerText = this.value;" style=" display: none;">
             </div>
+        </div>
+
+On the Controller:
 
 
+----------------------------
 
+MODAL  (With Back Button, Form and PartialView)
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <form enctype="multipart/form-data" asp-action="Create" class="text-center">
+            <div class="modal-content">
+                <div class="modal-header"  style="padding:0px">
+                    
+                    <table width="100%" style="margin:0% 2% 0% 2%">
+                        <tr>
+                            <td width="20%">
+                                <a asp-action="Index" class="fa-pull-left"><i class="fas fa-arrow-circle-left fa-2x"></i></a>
+                            </td>
+                            <td width="60%">
+                                <p style="text-align:center"><h4>New Map/Location</h4></p>
+                            </td>
+                            <td width="20%" style="vertical-align:top;padding-top:5px">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" >
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </td>
+                        </tr>
+                    </table>
+                        
+                    
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="offset-1 col-10">
+                            <br />
+                            <partial name="_Create" model="Model.newLocation" />
+                            <br />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" value="Create" class="btn btn-success fa-pull-right" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+-----------------------------------------------------------------------------
