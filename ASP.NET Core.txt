@@ -1,0 +1,206 @@
+ERRORS HANDLING
+
+ModelState.AddModelError(string.Empty, "There is not User assigned");
+
+
+ @if (!ViewContext.ViewData.ModelState.IsValid)
+    {
+        var sb = new System.Text.StringBuilder();
+        foreach (var modelState in ViewContext.ViewData.ModelState.Values)
+        {
+            foreach (var error in modelState.Errors)
+            {
+                sb.Append(error.ErrorMessage);
+            }
+        }
+       <div class="alert alert-danger alert-dismissible fade show" role="alert" style="width:100%">
+    @sb.ToString()
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+    }
+
+
+------------------------------------------------------------------------
+
+PARTIAL VIEW 
+
+  <div class="form-group">
+                                <span asp-validation-for="DeviceIdToAnalize" class="text-danger"></span>
+                                <label>Device Id:</label>
+                                <input class="form-control" asp-for="DeviceIdToAnalize" />
+                            </div>
+ <input type="submit" value="Run Device Analysis" class="btn btn-primary" id="centered-submit"
+ onclick="DeviceAnalysis(document.getElementById('@nameof(Model.DeviceIdToAnalize)').value)"/>
+
+<tbody id="MainTable">
+	 <partial name="_ListDailyFeeds" model="Model" />
+</tbody>
+
+<script>
+    function DeviceAnalysis(value) {
+
+        $("body").css("cursor", "progress");
+
+        try {
+            $.ajax({
+                type: "POST",
+                url: "/Troubleshooting/DeviceAnalysis?DeviceIdToAnalize=" + value,
+                //data: SchValues,
+                //contentType: "application/json; charset=utf-8",
+                success: function (response) {
+
+
+                    $('#DeviceAnalysis').empty();
+                    $('#DeviceAnalysis').append(response);
+
+                },
+                failure: function (response) {
+                    alert('Error: ' + response);
+                }
+            });
+        }
+        catch (err) {
+
+        }
+        finall {
+            $("body").css("cursor", "default");
+        }
+    }
+</script>
+
+  public async Task<ActionResult> RefreshGrid(bool Filter)
+        {
+            try
+            {
+
+                List<DailyDataFeed> res = null;
+                if (Filter == true)
+                {
+                    res = await _context.DailyDataFeeds.Where(x => Codes.Contains(x.PointCode)).OrderByDescending(x => x.IssueDate).Take(100).ToListAsync();
+                }
+                else
+                {
+                    res= await _context.DailyDataFeeds.OrderByDescending(x => x.IssueDate).Take(500).ToListAsync();
+                }
+                
+                return PartialView("~/Views/DailyDataFeeds/_ListDailyFeeds.cshtml", res);
+                
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+
+----------------------------------------------------------------------------------------
+INJECT HttpContext in AplicationDbContext
+
+En Startup.cs => en ConfigureServices agregar: 
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+En ApplicationDbContext =>
+
+ private IHttpContextAccessor _contextAccessor = null;
+
+public ApplicationDbContext():base()
+        {
+            //FF: Couldn't make this work. Missing a piece, althugh is not really needed as I'm injecting ApplicationDbContext on the Controller and thats it
+            IServiceCollection services = new ServiceCollection();
+            var serviceProvider = services.BuildServiceProvider();
+            _contextAccessor = (IHttpContextAccessor)serviceProvider.GetService(typeof(IHttpContextAccessor));
+        }
+
+        public ApplicationDbContext(IHttpContextAccessor contextAccessor)
+        {
+            _contextAccessor = contextAccessor;
+        }
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IHttpContextAccessor contextAccessor)
+            : base(options)
+        {
+            _contextAccessor = contextAccessor;
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(_contextAccessor.HttpContext.Session.GetString("databaseconnection"));
+            base.OnConfiguring(optionsBuilder);
+        }
+
+--------------------------------
+
+UI Local Time <time> (JS)
+
+En Shared\_Layout.cshtml
+
+<script>
+        //FF: Way to use it in razor => <time>Model.CreatedDateUtc.ToString("yyyy-MM-ddTHH:mm:ssZ")</time> InvarianCulture may be needed to add, in case having trouble with :
+        var elements = document.getElementsByTagName('time');
+        Array.prototype.forEach.call(elements, function (element) {
+            utctimeval = element.innerText;
+            if (utctimeval) {
+                var date = new Date(utctimeval);
+                element.innerText = date.toLocaleString();
+            }
+        });
+    </script>
+
+---------------------------------
+
+FULL WIDTH PAGES (Not Container)
+
+En Shared\_Layout.cshtml
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            <h1 style="margin-top:15px">@ViewData["Title"]</h1>
+            @RenderBody()
+        </main>
+    </div>
+
+    <div class="container-fluid">
+        @RenderSection("FullWidth", required: false)
+    </div>
+
+
+En los pages
+
+@section FullWidth
+{
+  Poner codigo HTML aqui adentro
+}
+
+OTRA FORMA ES PONER ESTO EN LA PANTALLA DONDE SE QUIERE EL FULL SCREEN
+
+ <style>
+        .container {
+            width: 100% !important
+        }
+    </style>
+
+---------------------------------
+
+
+UPLOAD A FILE
+
+In the Model:
+
+[NotMapped]
+public IFormFile floorPlanFile { get; set; }
+
+In the View:
+
+<form enctype="multipart/form-data" asp-action="Create">
+
+<div class="imageEntryWrapper">
+                <span asp-validation-for="floorPlanFile" class="text-danger"></span>
+                <label asp-for="floorPlanFile">Select Floor plan</label>
+                <input asp-for="floorPlanFile" type="file" class="customFileInput" />
+            </div>
+
+
+
