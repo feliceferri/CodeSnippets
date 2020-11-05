@@ -213,6 +213,8 @@ On the Controller:
 
 MODAL  (With Back Button, Form and PartialView)
 
+<a class="btn btn-success" asp-action="Create" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus-circle fa-lg"></i>&nbsp; Add New Employee</a>
+
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <form enctype="multipart/form-data" asp-action="Create" class="text-center">
