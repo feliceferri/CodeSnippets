@@ -1,0 +1,82 @@
+REFERENCE
+
+builder.Entity<ApplicationUser>(entity =>
+            {
+                entity.HasOne(d => d.BloqueadoPor)
+               .WithMany(p => p.BloqueadosPorMi)
+               .HasForeignKey(d => d.BloqueadoPorUserId)
+               .HasConstraintName("FK_ApplicationUser_BloqueadoPor");
+            });
+
+-------------------------------------
+
+SELF REFERENCING
+
+  public class ApplicationUser : IdentityUser
+    {
+        
+        [PersonalData, Required]
+        [Display(Name = "Nombre Completo")]
+        public string NombreCompleto { get; set; }
+
+        public Guid EmpresaId { get; set; }
+        
+        public DateTime BloqueadoFecha { get; set; }
+        
+        [MaxLength(450)]
+        public string BloqueadoPorUserId { get; set; }
+
+        public virtual ApplicationUser BloqueadoPor { get; set; }
+        public virtual List<ApplicationUser> BloqueadosPorMi { get; set; }
+    }
+
+            
+
+
+ builder.Entity<PedidoRow>(entity =>
+            {
+                entity.HasOne(d => d.MejorProveedor)
+               .WithMany(p => p.PedidosRows)
+               .HasForeignKey(d => d.MejorProveedorId)
+               .HasConstraintName("FK_PedidoRow_Proveedor");
+            });
+
+---------------------------------------------------------------------
+
+INDEX 
+
+builder.Entity<Matriz>().HasIndex(b => b.ProveedorId);
+
+--------------------------------------
+
+SEED
+
+builder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "Admin", NormalizedName = "Admin".ToUpper() });
+
+-----------------------------
+
+
+STORE ENUM AS STRING (ENUM TO STRING CONVERTER)
+
+ protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            var enumChannelsConverter = new EnumToStringConverter<NewsArticle.eChannels>();
+
+            modelBuilder
+                .Entity<NewsArticle>()
+                .Property(e => e.ChannelName)
+                .HasConversion(enumChannelsConverter);
+
+        }
+
+(HTML)
+<select asp-for="ChannelName" asp-items="Html.GetEnumSelectList<NewsArticle.eChannels>()" class="form-control">
+                    <option selected="selected" value="">Please select</option>
+                </select>
+
+Nota! si le pongo MaxLenght el Razor da Error, no puede tenerlo
+--------------------------------------------------------------------
+
+

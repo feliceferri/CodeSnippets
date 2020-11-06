@@ -1,0 +1,40 @@
+
+TOGGLE (No necesita ninguna otra libreria)
+
+<div class="custom-control custom-switch pull-right">
+            <input type="checkbox" class="custom-control-input" id="customSwitch1" checked onchange="FilterChanged(this.checked)">
+            <label class="custom-control-label" for="customSwitch1">Filter</label>
+</div>
+ 
+function FilterChanged(value)
+    {  
+        alert(value);
+	//false/true
+    }
+
+
+  public async Task<ActionResult> RefreshGrid(bool Filter)
+        {
+            try
+            {
+
+                List<DailyDataFeed> res = null;
+                if (Filter == true)
+                {
+
+                }
+                else
+                {
+                    res= await _context.DailyDataFeeds.ToListAsync();
+                }
+                
+                return PartialView("~/Views/DailyDataFeeds/_ListDailyFeeds.cshtml", res);
+                
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+-----------------------------------------------------------

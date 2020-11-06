@@ -1,0 +1,23 @@
+CLEAR CACHE => WINDOWS RUN
+ rundll32 dfshim CleanOnlineAppCache
+
+---------------------------------
+
+HAVE TO ADD MIME TYPE ON THE SERVER
+
+<configuration>
+  <system.webServer>
+    <security>
+      <requestFiltering>
+        <fileExtensions allowUnlisted="true" >
+          <remove fileExtension=".mdb" />
+          <add fileExtension=".mdb" allowed="true"/>
+        </fileExtensions>
+     </requestFiltering>
+   </security>
+ </system.webServer>
+</configuration>
+
+https://stackoverflow.com/questions/2066981/allow-mdb-downloads-in-iis7
+
+----------------------------

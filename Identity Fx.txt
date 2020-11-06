@@ -1,0 +1,5 @@
+GET USER ID
+
+user.BloqueadoPorUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+---------------------------------

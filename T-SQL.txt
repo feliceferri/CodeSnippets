@@ -1,0 +1,9 @@
+
+
+-----------------------------------------
+CREATE A COLUMNS CONSTRAINT THAT DOESNT ALLOW DUPLICATES BUT IT ALLOWS REPEATING NULLs
+
+CREATE UNIQUE NONCLUSTERED INDEX AK_MSAuthenticationID_Unique
+ON datospersonales(MSAuthentication_ID)
+WHERE MSAuthentication_ID IS NOT NULL;
+----------------------------------------------------------------

@@ -1,0 +1,22 @@
+Para que un connectionstring funcione en IOS Agregar:
+
+Encrypt=True;TrustServerCertificate=True;
+
+Luego dara este error => Encoding 1252 data could not be found. Make sure you have correct international codeset assembly installed and enabled.
+IOS => From the "iOS Build" Project Options page in Visual Studio for Mac you should check "west" checkbox. Same for Android properties
+
+ANDROID =>  Properties -> Android Options
+
+(En realidad me funciono Android sin seleccionar nada)
+Then Linker Options, in the "Additional supported encodings" check "West".
+
+---------------------------------------
+
+
+ANIMACION TIENDA DE RELOJES => https://www.youtube.com/watch?v=jSP4hb_0WFY&feature=youtu.be
+
+TELERIK 4 Xamarin Forms App, open source
+
+TRANSPORTER
+
+~/Library/Caches/Xamarin/mtbs

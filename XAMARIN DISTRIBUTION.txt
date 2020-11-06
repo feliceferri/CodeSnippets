@@ -1,0 +1,32 @@
+Create an App ID
+
+Visual Studio => Tools => Apple Account
+
+PASOS
+https://instabug.com/blog/how-to-release-xamarin-app-ios-and-android/
+
+** VERIFICAR QUE EL info.plist tenga el nombre como corresponde => ej:  com.harvestlaw.mobile
+(Sino, no va a conseguir el provisioning profile)
+
+
+Iconos para IOS y Android
+
+https://www.iconsgenerator.com/Home/AppIcons
+
+------------------
+
+ITMS-90809: Deprecated API Usage - New apps that use UIWebView are no longer accepted. Instead, use WKWebView for improved security and reliability.
+
+Solucion => https://devblogs.microsoft.com/xamarin/uiwebview-deprecation-xamarin-forms/
+---------------------
+
+Screenshots  
+Boton camarita del emulador
+
+Resolucion requerida 6.5 inch 1242x2688 (Iphone 11 Pro Max) 
+Resolucion requerida 5.5 inch 1242x2208 (Iphone 8 Plus) 
+Resolucion requerida Ipad 12.9 3er 2048x2732 (Ipad 12.9 4ta Gen) 
+Resolucion requerida Ipad 12.9 2nd 2048x2732 (Ipad 12.9 4ta Gen) 
+
+
+Iphone 8 Plus 

@@ -1,0 +1,14 @@
+VM CONFIGURATION
+
+MENU Networking
+Inbound Port Rules
+Source: Any
+Source Port Ranges: *
+Destination: Any
+Destination port Ranges: 3389
+Protocol: TCP
+Action: Allow
+Priority: 100
+Name: Cualquiera => Allow_My_RDP
+
+https://mymicrosoftexchange.wordpress.com/2019/03/20/allow-external-rdp-to-your-newly-created-azure-vm/
