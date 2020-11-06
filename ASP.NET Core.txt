@@ -257,3 +257,11 @@ MODAL  (With Back Button, Form and PartialView)
 </div>
 
 -----------------------------------------------------------------------------
+
+FORM SUBMIT ON SELECT/COMBOBOX SELECTION (Without a submit button)
+
+<form  asp-action="LocationMap" asp-controller="Management" method="post">
+	 <select asp-for="locationId" asp-items="Model.locations_select" onchange="this.form.submit();">
+        	<option disabled selected style="text-align: center ">Select Location</option>
+         </select>
+</<form 
