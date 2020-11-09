@@ -50,6 +50,9 @@ PARTIAL VIEW
                 url: "/Troubleshooting/DeviceAnalysis?DeviceIdToAnalize=" + value,
                 //data: SchValues,
                 //contentType: "application/json; charset=utf-8",
+		beforeSend: function (request) {
+                    request.setRequestHeader("RequestVerificationToken", $("[name='__RequestVerificationToken']").val());
+                },
                 success: function (response) {
 
 
@@ -71,6 +74,8 @@ PARTIAL VIEW
     }
 </script>
 
+ [HttpPost]
+ [ValidateAntiForgeryToken]
   public async Task<ActionResult> RefreshGrid(bool Filter)
         {
             try
