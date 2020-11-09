@@ -65,7 +65,7 @@ PARTIAL VIEW
         catch (err) {
 
         }
-        finall {
+        finally {
             $("body").css("cursor", "default");
         }
     }
@@ -208,6 +208,106 @@ In the View:
 
 On the Controller:
 
+ [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create( Location model)
+        {
+            if (ModelState.IsValid)
+            {
+                model.Id = Guid.NewGuid();
+
+                try
+                {
+                    await SaveImageAndFillModelWithSizes(model);
+                }
+                catch(Exception ex)
+                {
+                    ModelState.AddModelError(string.Empty,ex.Message);
+                    return View(model);
+                }
+
+****
+
+  private async Task SaveImageAndFillModelWithSizes(Location model)
+        {
+            if (model.floorPlanFile.Length > 0)
+            {
+
+                model.extension = Path.GetExtension(model.floorPlanFile.FileName);
+                model.floorplan_ptc = model.floorPlanFile.FileName;
+
+                try
+                {
+                    using (var image = Image.FromStream(model.floorPlanFile.OpenReadStream()))
+                    {
+                        model.pixels_width = image.Width;
+                        model.pixels_height = image.Height;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("The Image is not in a valid format.");
+                }
+
+
+                string filePath = _env.WebRootPath + @"\images\FloorPlans\" + model.Id.ToString() + model.extension;
+                using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    await model.floorPlanFile.CopyToAsync(fileStream);
+                }
+
+            }
+        }
+*************
+
+ON THE EDIT PAGE/MODEL
+
+	Add the code to display errors at the top
+
+        <div class="form-group">
+            <input type="hidden" asp-for="floorplan_ptc" />
+            <label asp-for="floorplan_ptc" class="control-label"></label>
+            : &nbsp;
+            <label id="existingFileLabel">@Model.floorplan_ptc</label>
+        </div>
+
+            <div class="form-group">
+                <label asp-for="floorPlanFile">Change Floor plan:</label>
+
+                <div style="margin-top:5px">
+                    <i class="fa fa-camera" style="cursor: pointer;font-size: 30px;opacity: 0.6;" onclick="document.getElementById('floorPlanFile').click();"></i>
+                    <span id="SelectedFileLabel" class="name" onclick="document.getElementById('floorPlanFile').click();" style="cursor:pointer;margin-left:10px;">No file selected</span>
+                    <input asp-for="floorPlanFile" type="file" id="floorPlanFile" onchange="document.getElementById('SelectedFileLabel').innerText = this.value;
+                                                                                            document.getElementById('existingFileLabel').innerText = this.value;" style=" display: none;">
+                </div>
+            </div>
+
+
+
+ [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(Guid id, Location model)
+        {
+            
+            if (id != model.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+
+                    try
+                    {
+                        await SaveImageAndFillModelWithSizes(model);
+                    }
+                    catch (Exception ex)
+                    {
+                        ModelState.AddModelError(string.Empty, ex.Message);
+                        return View(model);
+                    }
 
 ----------------------------
 
