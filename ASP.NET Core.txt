@@ -190,19 +190,19 @@ UPLOAD A FILE
 In the Model:
 
 [NotMapped]
-public IFormFile floorPlanFile { get; set; }
+public IFormFile imagefile { get; set; }
 
 In the View:
 
 <form enctype="multipart/form-data" asp-action="Create">
 
  <div class="form-group">
-            <label asp-for="floorPlanFile">Select Floor plan:</label>
+            <label asp-for="imagefile">Select Image:</label>
 
             <div style="margin-top:5px">
-                <i class="fa fa-camera" style="cursor: pointer;font-size: 30px;opacity: 0.6;" onclick="document.getElementById('floorPlanFile').click();"></i>
-                <span id="SelectedFileLabel" class="name" onclick="document.getElementById('floorPlanFile').click();" style="cursor:pointer;margin-left:10px;">No file selected</span>
-                <input asp-for="floorPlanFile" type="file" id="floorPlanFile" onchange="document.getElementById('SelectedFileLabel').innerText = this.value;" style=" display: none;">
+                <i class="fa fa-camera" style="cursor: pointer;font-size: 30px;opacity: 0.6;" onclick="document.getElementById('imagefile').click();"></i>
+                <span id="SelectedFileLabel" class="name" onclick="document.getElementById('imagefile').click();" style="cursor:pointer;margin-left:10px;">No file selected</span>
+                <input asp-for="imagefile" type="file" id="imagefile" onchange="document.getElementById('SelectedFileLabel').innerText = this.value;" style=" display: none;">
             </div>
         </div>
 
@@ -230,15 +230,15 @@ On the Controller:
 
   private async Task SaveImageAndFillModelWithSizes(Location model)
         {
-            if (model.floorPlanFile.Length > 0)
+            if (model.imagefile.Length > 0)
             {
 
-                model.extension = Path.GetExtension(model.floorPlanFile.FileName);
-                model.floorplan_ptc = model.floorPlanFile.FileName;
+                model.extension = Path.GetExtension(model.imagefile.FileName);
+                model.imageFileName = model.imagefile.FileName;
 
                 try
                 {
-                    using (var image = Image.FromStream(model.floorPlanFile.OpenReadStream()))
+                    using (var image = Image.FromStream(model.imagefile.OpenReadStream()))
                     {
                         model.pixels_width = image.Width;
                         model.pixels_height = image.Height;
@@ -253,7 +253,7 @@ On the Controller:
                 string filePath = _env.WebRootPath + @"\images\FloorPlans\" + model.Id.ToString() + model.extension;
                 using (Stream fileStream = new FileStream(filePath, FileMode.Create))
                 {
-                    await model.floorPlanFile.CopyToAsync(fileStream);
+                    await model.imagefile.CopyToAsync(fileStream);
                 }
 
             }
@@ -265,19 +265,19 @@ ON THE EDIT PAGE/MODEL
 	Add the code to display errors at the top
 
         <div class="form-group">
-            <input type="hidden" asp-for="floorplan_ptc" />
-            <label asp-for="floorplan_ptc" class="control-label"></label>
+            <input type="hidden" asp-for="imageFileName" />
+            <label asp-for="imageFileName" class="control-label"></label>
             : &nbsp;
-            <label id="existingFileLabel">@Model.floorplan_ptc</label>
+            <label id="existingFileLabel">@Model.imageFileName</label>
         </div>
 
             <div class="form-group">
-                <label asp-for="floorPlanFile">Change Floor plan:</label>
+                <label asp-for="imagefile">Change Image:</label>
 
                 <div style="margin-top:5px">
-                    <i class="fa fa-camera" style="cursor: pointer;font-size: 30px;opacity: 0.6;" onclick="document.getElementById('floorPlanFile').click();"></i>
-                    <span id="SelectedFileLabel" class="name" onclick="document.getElementById('floorPlanFile').click();" style="cursor:pointer;margin-left:10px;">No file selected</span>
-                    <input asp-for="floorPlanFile" type="file" id="floorPlanFile" onchange="document.getElementById('SelectedFileLabel').innerText = this.value;
+                    <i class="fa fa-camera" style="cursor: pointer;font-size: 30px;opacity: 0.6;" onclick="document.getElementById('imagefile').click();"></i>
+                    <span id="SelectedFileLabel" class="name" onclick="document.getElementById('imagefile').click();" style="cursor:pointer;margin-left:10px;">No file selected</span>
+                    <input asp-for="imagefile" type="file" id="imagefile" onchange="document.getElementById('SelectedFileLabel').innerText = this.value;
                                                                                             document.getElementById('existingFileLabel').innerText = this.value;" style=" display: none;">
                 </div>
             </div>
