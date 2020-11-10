@@ -102,6 +102,22 @@ PARTIAL VIEW
 
 
 ----------------------------------------------------------------------------------------
+
+HIDRATE MODEL FROM FORM CONTENT IN JAVASCRIPT & CHANGE A VALUE IN THE ARRAY
+
+ var data = $("#formCreateZone").serializeArray();
+ 
+for (index = 0; index < data.length; ++index) {
+            if (data[index].name == "LocationId") {
+                data[index].value = _SelectedLocationId;
+                break;
+            }
+        }
+
+
+-----------------------------
+
+
 INJECT HttpContext in AplicationDbContext
 
 En Startup.cs => en ConfigureServices agregar: 
