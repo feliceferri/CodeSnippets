@@ -66,7 +66,7 @@ PARTIAL VIEW
             });
         }
         catch (err) {
-
+		alert('Error: ' + err);
         }
         finally {
             $("body").css("cursor", "default");

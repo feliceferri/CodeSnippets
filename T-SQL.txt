@@ -7,3 +7,12 @@ CREATE UNIQUE NONCLUSTERED INDEX AK_MSAuthenticationID_Unique
 ON datospersonales(MSAuthentication_ID)
 WHERE MSAuthentication_ID IS NOT NULL;
 ----------------------------------------------------------------
+
+TRUNCATE ALL TABLES (Clean a Database)
+
+SELECT 'TRUNCATE TABLE ' + '['+ TABLE_CATALOG + '].['+ TABLE_SCHEMA + '].['+ TABLE_NAME + ']'
+FROM INFORMATION_SCHEMA.TABLES 
+WHERE Table_Type = 'BASE TABLE' 
+ORDER by TABLE_NAME
+
+-----------------------------------------------------------------
