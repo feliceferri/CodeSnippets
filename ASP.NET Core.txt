@@ -548,3 +548,20 @@ TABLE WITH VERTICAL SCROLLBAR (without afecting parent row height)
     </div>
 
 ** this article how to do a scrollable body, with a fixed Header and Footer => https://stackoverflow.com/questions/10420168/twitter-bootstrap-scrollable-table/47859095
+---------------------------------------------------------
+
+FILL SELECT (COMBOBOX) FROM AJAX RESPONSE
+
+Model=> public List<SelectListItem> zonesForDemoing { get; set; }
+
+Controller=> _dbContext.zones.Take(50).Select(x => new SelectListItem() { Text = x.zone, Value = x.Id.ToString() }).ToList();
+
+View =>  if (response.zonesForDemoing)
+                            {
+                          
+                                var s = '<option disabled style="text-align: center">Select Zone</option>';
+                                for (var i = 0; i < response.zonesForDemoing.length; i++) {
+                                    s += '<option value="' + response.zonesForDemoing[i].value + '">' + response.zonesForDemoing[i].text + '</option>';
+                                }
+                                $("#Demoing_ZoneId").html(s);
+                            }
