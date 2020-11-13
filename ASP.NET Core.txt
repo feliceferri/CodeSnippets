@@ -318,16 +318,19 @@ En los pages
 
 @section FullWidth
 {
-  Poner codigo HTML aqui adentro
+  HTML goes here
 }
 
-OTRA FORMA ES PONER ESTO EN LA PANTALLA DONDE SE QUIERE EL FULL SCREEN
+********************
 
- <style>
-        .container {
-            width: 100% !important
-        }
-    </style>
+ANOTHER WAY IS JUST TO WRITE THIS IN THE PAGE WE WANT FULL SCREEN
+
+ .container {
+        margin-left: 0px;
+        margin-right: 0px;
+        width: 100% !important;
+        max-width: 100%;
+    }
 
 ---------------------------------
 
@@ -531,7 +534,7 @@ TABLE WITH VERTICAL SCROLLBAR (without afecting parent row height)
 </style>
 
 <div class="row">
-    <div class="col-4" " >
+    <div class="col-4">
         <div class="table-responsive"  >
             <div class="bodycontainer scrollable">
                 <table class="table table-sm table-hover">
