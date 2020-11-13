@@ -512,3 +512,36 @@ FORM SUBMIT ON SELECT/COMBOBOX SELECTION (Without a submit button)
         	<option disabled selected style="text-align: center ">Select Location</option>
          </select>
 </<form 
+
+-----------------------------------------------------------------------
+
+TABLE WITH VERTICAL SCROLLBAR (without afecting parent row height)
+
+<style>
+    .bodycontainer {
+        max-height: 40vh;
+        margin: 0;
+        overflow-y: auto;
+    }
+
+    .table-scrollable {
+        margin: 0;
+        padding: 0;
+    }
+</style>
+
+<div class="row">
+    <div class="col-4" " >
+        <div class="table-responsive"  >
+            <div class="bodycontainer scrollable">
+                <table class="table table-sm table-hover">
+                    <thead>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+** this article how to do a scrollable body, with a fixed Header and Footer => https://stackoverflow.com/questions/10420168/twitter-bootstrap-scrollable-table/47859095
