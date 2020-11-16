@@ -80,3 +80,10 @@ Nota! si le pongo MaxLenght el Razor da Error, no puede tenerlo
 --------------------------------------------------------------------
 
 
+CREATE CONTEXT ON THE FLY WITH DbContextOptionsBuilder
+
+var optionsBuilder = new Microsoft.EntityFrameworkCore.DbContextOptionsBuilder<ApplicationDbContext>();
+//optionsBuilder.UseSqlServer(Configuration.GetConnectionStringSecureValue("DefaultConnection"));
+optionsBuilder.UseSqlServer(databaseconnection);
+ApplicationDbContext context = new ApplicationDbContext(optionsBuilder.Options, _contextAccessor);
+Controller controller = new Controller(context);

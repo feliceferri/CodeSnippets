@@ -107,6 +107,7 @@ HIDRATE MODEL FROM FORM CONTENT IN JAVASCRIPT & CHANGE A VALUE IN THE ARRAY
 
  var data = $("#formCreateZone").serializeArray();
  
+//Fill a value inside the array
 for (index = 0; index < data.length; ++index) {
             if (data[index].name == "LocationId") {
                 data[index].value = _SelectedLocationId;
