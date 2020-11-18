@@ -566,3 +566,15 @@ View =>  if (response.zonesForDemoing)
                                 }
                                 $("#Demoing_ZoneId").html(s);
                             }
+
+----------------------
+
+BOOTRAP 4 TOGGLE SWITCH THAT RETURNS TRUE INTEAD OF ON/OFF
+
+** SET value="true", this not mean checked, this means return true/false instead of on/off
+
+<div class="custom-control custom-switch" style="float:right">
+                    @{string checkbox_facemask = Model?.facemask == true ? "checked" : "";}
+                    <input type="checkbox" class="custom-control-input" id="facemask_switch" name="facemask" value="true">
+                    <label class="custom-control-label" for="facemask_switch">Wearing a Face Mask</label>
+                </div>
