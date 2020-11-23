@@ -1,0 +1,20 @@
+https://dev.to/ebarrioscode/azure-functions-serverless-entity-framework-core-y-sql-azure-1ngd
+
+
+Nugets
+
+Microsoft.EntityFrameworkCore.SqlServer
+Microsoft.Azure.Functions.Extensions (for Dependency Injections)
+Microsoft.EntityFramewrokCore.Tools (for migrations)
+
+
+------------------
+
+GET CONNECTION STRING
+
+Environment.GetEnvironmentVariable("AzureSQLCustomers")
+
+local.settings.json => "Values": {"AzureSQLCustomers": "connectionStringHere"}
+
+-------------------------
+
