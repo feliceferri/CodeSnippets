@@ -1,0 +1,45 @@
+AZURE EVENT HUBS
+
+Create the Namespace
+Create the Hub Event
+
+
+------------------------------------
+SENDER
+
+Nuget
+Azure.Messaging.EventHubs
+
+
+using Azure.Messaging.EventHubs;
+using Azure.Messaging.EventHubs.Producer;
+
+
+string EventHubName = Environment.GetEnvironmentVariable("EventHubName");
+string EventHubConnectionString = Environment.GetEnvironmentVariable("EventHubConnectionString");
+                
+await using(var producerClient = new EventHubProducerClient(EventHubName,EventHubConnectionString))
+{
+
+        using EventDataBatch eventBatch = await producerClient.CreateBatchAsync();
+        eventBatch.TryAdd(new EventData(Encoding.UTF8.GetBytes("Event1")));
+        eventBatch.TryAdd(new EventData(Encoding.UTF8.GetBytes("Event2")));
+        await producerClient.SendAsync(eventBatch);
+                    
+}
+
+--------------------------------
+
+RECEIVER
+
+Azure Function EventHub Trigger.
+
+Change to V3 & 3.1
+
+This error: Microsoft.Azure.WebJobs.Host: Error indexing method 'Function1'. Microsoft.Azure.WebJobs.EventHubs: Value cannot be null. (Parameter 'receiverConnectionString').
+(Is when the connection string is hardcoded in the Run parameters in Connection, what goes there is the name of the Environment Variable in local.settings.json
+
+public static async Task Run([EventHubTrigger("btw_adddata", Connection = "receiverConnectionString")] EventData[] events, ILogger log)
+
+How to consume from EventHub with plain code, No Azure Function with Event Trigger => https://www.youtube.com/watch?v=Dc3P27BsK3E
+
