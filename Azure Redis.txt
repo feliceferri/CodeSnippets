@@ -1,0 +1,47 @@
+AZURE REDIS CACHE
+
+Nuget
+StackExchange.Redis v1.2.6 otherwise Error => System.IO.Pipelines 5.0.0
+
+
+using StackExchange.Redis
+
+SERVICE 
+
+using StackExchange.Redis;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading;
+
+namespace Function_CompaniesConnectionStrings.Services
+{
+    class Redis
+    {
+        private static Lazy<ConnectionMultiplexer> lazyConnection = new Lazy<ConnectionMultiplexer>(() =>
+        {
+            var redisConnectionString = Environment.GetEnvironmentVariable("DaxeosRedisConnectionString");
+            return ConnectionMultiplexer.Connect(redisConnectionString);
+        }, LazyThreadSafetyMode.PublicationOnly);
+
+        public static ConnectionMultiplexer Connection
+        {
+            get
+            {
+                return lazyConnection.Value;
+            }
+        }
+    }
+}
+
+
+CODE
+
+StackExchange.Redis.IDatabase Rediscache = Services.Redis.Connection.GetDatabase();
+string ConnectionString = await Rediscache.StringGetAsync($"ConnectionString:{CompanyCode}");
+
+if (string.IsNullOrWhiteSpace(ConnectionString))
+{
+	ConnectionString = await _databaseService.GetDBConnectionString(CompanyCode);
+        await Rediscache.StringSetAsync($"ConnectionString:{CompanyCode}", ConnectionString);
+}
