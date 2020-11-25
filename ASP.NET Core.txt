@@ -578,3 +578,21 @@ BOOTRAP 4 TOGGLE SWITCH THAT RETURNS TRUE INTEAD OF ON/OFF
                     <input type="checkbox" class="custom-control-input" id="facemask_switch" name="facemask" value="true">
                     <label class="custom-control-label" for="facemask_switch">Wearing a Face Mask</label>
                 </div>
+
+------------------------------------------
+
+REMOTE DATAANNOTATION
+
+Model =>
+[Remote(action: "Func", controller: "controllerName")]
+public string ModelProperty { get; set; }
+
+[AcceptVerbs("GET", "POST")]
+public IActionResult Func(string ModelProperty)
+      
+	return Json(true);
+	
+	return Json(false);
+	return Json($"System Error Occurred.");
+      
+-------------------------------------------
