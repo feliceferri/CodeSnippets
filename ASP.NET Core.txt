@@ -3,8 +3,8 @@ ERRORS HANDLING
 ModelState.AddModelError(string.Empty, "There is not User assigned");
 
 
- @if (!ViewContext.ViewData.ModelState.IsValid)
-    {
+@if (!ViewContext.ViewData.ModelState.IsValid)
+{
         var sb = new System.Text.StringBuilder();
         foreach (var modelState in ViewContext.ViewData.ModelState.Values)
         {
@@ -13,14 +13,13 @@ ModelState.AddModelError(string.Empty, "There is not User assigned");
                 sb.Append(error.ErrorMessage);
             }
         }
-       <div class="alert alert-danger alert-dismissible fade show" role="alert" style="width:100%">
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" style="width:100%">
     @sb.ToString()
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>
-</div>
-
-    }
+    </div>
+}
 
 
 ------------------------------------------------------------------------
@@ -596,3 +595,24 @@ public IActionResult Func(string ModelProperty)
 	return Json($"System Error Occurred.");
       
 -------------------------------------------
+
+IDENTITY MANAGEMENT - AZURE SQL CONNECTION AD
+
+https://www.youtube.com/watch?v=FFBaw-ug2-I
+
+Add Nuget => Azure.Identity
+
+In Azure => In SQL Server => Active Directory Admin => Set the Admin or Group containing the VS User, so in local mode we can get the Token
+
+
+To allow the App in Azure to get the Token
+Custom Domain => To get the IP and added to the white-list
+Identity => Turn On (Turn on Manage Identity), => Get the Object ID
+Connect to the Database in SQL Management as Admin
+
+Execute code *Appname is the same name that appear in SQL App Service when clicking Identity (top-left)
+CREATE USER [appname] FROM EXTERNAL PROVIDER;
+ALTER ROLE db_datareader ADD MEMBER [appname]
+ALTER ROLE db_datawriter ADD MEMBER [appname]
+
+---------------------------------------------
