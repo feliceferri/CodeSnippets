@@ -22,6 +22,15 @@ ModelState.AddModelError(string.Empty, "There is not User assigned");
 }
 
 
+Close Alert by code
+
+var topAlert = document.getElementById('topAlert');
+if (topAlert != null) {
+	//topAlert.alert("close") //Vanilla JS doesnt work for this
+	$("#topAlert").alert("close");
+}
+
+
 ------------------------------------------------------------------------
 
 PARTIAL VIEW 
@@ -627,3 +636,4 @@ public AccountDbContext(DbContextOptions<AccountDbContext> options)
         }
 
 ---------------------------------------------
+
