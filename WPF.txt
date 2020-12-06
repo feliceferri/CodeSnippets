@@ -182,4 +182,18 @@ COMMAND IN USER CONTROL
             public static readonly DependencyProperty CommandTargetProperty =
                 DependencyProperty.Register("CommandTarget", typeof(IInputElement), typeof(CustomButton), new UIPropertyMetadata(null));
 
+** Code to execute the COMMAND
+
+ var routedCmd = this.Command as RoutedCommand; 
+            
+            if (routedCmd != null && routedCmd.CanExecute(this.CommandParameter, this.CommandTarget))
+            {
+                routedCmd.Execute(this.CommandParameter, this.CommandTarget);
+            }
+            else if (Command != null && Command.CanExecute(this.CommandParameter))
+            {
+                Command.Execute(this.CommandParameter);
+            }
+
+
 -------------------------------------
