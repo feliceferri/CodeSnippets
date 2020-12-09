@@ -21,12 +21,14 @@ In the EF Core DbContext Constructor =>
 If using SQLConnection =>
 	var defaultCredential = new DefaultAzureCredential();
         var token = defaultCredential.GetToken(new Azure.Core.TokenRequestContext(new[] { "https://database.windows.net/.default" }));
-	sqlConnection.AccessToken = token.
+	sqlConnection.AccessToken = token
 
 Vertical 3 (App deployed)
 
 Go to the Azure App Service => Identity => Turn On Managed Identities
 * Do the same for the Deployment Slots 
+
+IN SQL VIA SSMS =>
 
 CREATE USER [NameOfTheAppService] FROM EXTERNAL PROVIDER;
 ALTER ROLE db_datareader ADD MEMBER [NameOfTheAppService];
@@ -43,5 +45,21 @@ ALTER ROLE db_datareader ADD MEMBER [NameOfTheAppService/slots/NameOfTheSlot];
 ALTER ROLE db_datawriter ADD MEMBER [NameOfTheAppService/slots/NameOfTheSlot];
 ALTER ROLE db_ddladmin ADD MEMBER [NameOfTheAppService/slots/NameOfTheSlot];
 
+------------------------------
+
+
 
 Video: https://www.youtube.com/watch?v=FFBaw-ug2-I&t=428s
+
+---------------------------------
+
+
+SQL AZURE AUDITING
+
+To Activate
+SQL SERVER => Auditing
+* When activating a Logical SERVER all the databases in it will gain Auditing capabilities automatically
+** We can also activate Audit in specifics DB and not at the Server level.
+
+To See the Logs
+Database => Audit Records
