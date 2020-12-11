@@ -653,22 +653,14 @@ public class PaginatedList<T> : List<T>
 
             if (pageIndex == 0)
             {
-                pageIndex = 1; //There is a -1 bellow
+                pageIndex = 1; //There is a -1 below
             }
             var items = await source.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToListAsync();
 
 
             return new PaginatedList<T>(items, count, pageIndex, pageSize);
         }
-
-        ///FF: THIS IS THE WAY TO WORK WITHA GROUP BY 
-
-        //var data = (from p in _context.Precios
-        //            where p.CodigoInterno != null
-        //            group p by p.CodigoInterno into Groupped
-        //            select new PreciosAgrupados() { CodigoInterno = Groupped.Key, Descripcion = Groupped.First().Descripcion, Proveedores = Groupped.ToList() });
-
-        //FF: The SELECT is executed at the end as Lazy Loading.
+       
 
 
 In the Controller =>
