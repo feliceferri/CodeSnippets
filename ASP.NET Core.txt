@@ -605,3 +605,69 @@ public IActionResult Func(string ModelProperty)
       
 -------------------------------------------
 
+PAGINATED LIST
+
+public class PaginatedList<T> : List<T>
+    {
+        public int PageIndex { get; private set; }
+        public int TotalPages { get; private set; }
+
+        public int TotalRecords { get; private set; }
+
+        public PaginatedList(List<T> items, int count, int pageIndex, int pageSize)
+        {
+            PageIndex = pageIndex;
+            TotalPages = (int)Math.Ceiling(count / (double)pageSize);
+            TotalRecords = count;
+
+            if (TotalPages == 0)
+            {
+                PageIndex = 0;
+            }
+
+            this.AddRange(items);
+        }
+
+
+        public bool HasPreviousPage
+        {
+            get
+            {
+                return (PageIndex > 1);
+            }
+        }
+
+        public bool HasNextPage
+        {
+            get
+            {
+                return (PageIndex < TotalPages);
+            }
+        }
+
+        public static async Task<PaginatedList<T>> CreateAsync(IQueryable<T> source, int pageIndex, int pageSize)
+        {
+
+
+            var count = await source.CountAsync();
+
+            if (pageIndex == 0)
+            {
+                pageIndex = 1; //There is a -1 bellow
+            }
+            var items = await source.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToListAsync();
+
+
+            return new PaginatedList<T>(items, count, pageIndex, pageSize);
+        }
+
+        ///FF: THIS IS THE WAY TO WORK WITHA GROUP BY 
+
+        //var data = (from p in _context.Precios
+        //            where p.CodigoInterno != null
+        //            group p by p.CodigoInterno into Groupped
+        //            select new PreciosAgrupados() { CodigoInterno = Groupped.Key, Descripcion = Groupped.First().Descripcion, Proveedores = Groupped.ToList() });
+
+        //FF: The SELECT is executed at the end as Lazy Loading.
+
+
