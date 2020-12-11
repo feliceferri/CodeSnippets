@@ -653,48 +653,50 @@ public class PaginatedList<T> : List<T>
 
             if (pageIndex == 0)
             {
-                pageIndex = 1; //There is a -1 below
+                pageIndex = 1; //There is a -1 bellow
             }
             var items = await source.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToListAsync();
 
 
             return new PaginatedList<T>(items, count, pageIndex, pageSize);
         }
-       
+
+        ///FF: THIS IS THE WAY TO WORK WITHA GROUP BY 
+
+        //var data = (from p in _context.Precios
+        //            where p.CodigoInterno != null
+        //            group p by p.CodigoInterno into Groupped
+        //            select new PreciosAgrupados() { CodigoInterno = Groupped.Key, Descripcion = Groupped.First().Descripcion, Proveedores = Groupped.ToList() });
+
+        //FF: The SELECT is executed at the end as Lazy Loading.
 
 
-In the Controller =>
+Convert the Body of the table into a PartialView
+At the bottom of the PartialView goes =>
 
-private async Task<EmployeeIndexview> GetIndexModelAsync(bool? ShowDeleted, string searchString, int? pageNumber)
-        {
-	   int pageSize = 10;
-	   PaginatedList<Models.DbModels.Employee> results = new PaginatedList<Models.DbModels.Employee>(new List<Models.DbModels.Employee>(), 0, 0, pageSize);
-            
-            try
-            {
-                IQueryable<Employee> query;
+<br />
 
-                if (string.IsNullOrWhiteSpace(searchString) == false)
-                {
-
-                    query = _context.Employees.Where(x => x).AsNoTracking();
-                }
-                else
-                {
-	                 query = _context.Employees.Where(x => x).AsNoTracking();
-                }
-
-                if (ShowDeleted.GetValueOrDefault() == false)
-                    query = query.Where(x => x.DeletedDateUtc == null);
-
-                results = await PaginatedList<Models.DbModels.Employee>.CreateAsync(query, pageNumber ?? 1, pageSize);
-            }
-            catch (Exception ex)
-            {
-		ModelState.AddModelError("", "...System Error Occurred..." + ex.Message);
-	    }
-
-            return results ;
+<tr>
+    <td colspan="3">
+        @{
+            var prevDisabled = !Model.ListPrecios.HasPreviousPage ? "disabled" : "";
+            var nextDisabled = !Model.ListPrecios.HasNextPage ? "disabled" : "";
         }
 
+        @if (prevDisabled != "disabled" || nextDisabled != "disabled")
+        {
+            <a onclick="SearchT($('#search').val(),@Model.ListPrecios.PageIndex -1)"
+               class="btn btn-default @prevDisabled">
+                Anterior
+            </a>
+            <a a onclick="SearchT($('#search').val(),@Model.ListPrecios.PageIndex +1)"
+               class="btn btn-default @nextDisabled">
+                Siguiente
+            </a>
+            <a style="margin-left:15px">
+                Página @Model.ListPrecios.PageIndex of @Model.ListPrecios.TotalPages
+            </a>
+        }
+    </td>
+</tr>
 
