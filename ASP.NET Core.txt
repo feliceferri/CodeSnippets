@@ -671,3 +671,38 @@ public class PaginatedList<T> : List<T>
         //FF: The SELECT is executed at the end as Lazy Loading.
 
 
+In the Controller =>
+
+private async Task<EmployeeIndexview> GetIndexModelAsync(bool? ShowDeleted, string searchString, int? pageNumber)
+        {
+	   int pageSize = 10;
+	   PaginatedList<Models.DbModels.Employee> results = new PaginatedList<Models.DbModels.Employee>(new List<Models.DbModels.Employee>(), 0, 0, pageSize);
+            
+            try
+            {
+                IQueryable<Employee> query;
+
+                if (string.IsNullOrWhiteSpace(searchString) == false)
+                {
+
+                    query = _context.Employees.Where(x => x).AsNoTracking();
+                }
+                else
+                {
+	                 query = _context.Employees.Where(x => x).AsNoTracking();
+                }
+
+                if (ShowDeleted.GetValueOrDefault() == false)
+                    query = query.Where(x => x.DeletedDateUtc == null);
+
+                results = await PaginatedList<Models.DbModels.Employee>.CreateAsync(query, pageNumber ?? 1, pageSize);
+            }
+            catch (Exception ex)
+            {
+		ModelState.AddModelError("", "...System Error Occurred..." + ex.Message);
+	    }
+
+            return results ;
+        }
+
+
