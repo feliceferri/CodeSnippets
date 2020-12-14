@@ -684,11 +684,11 @@ At the bottom of the PartialView goes =>
 
         @if (prevDisabled != "disabled" || nextDisabled != "disabled")
         {
-            <a onclick="RefreshTable($('#search').val(),@Model.PageIndex -1)"
+            <a onclick="RefreshTable($('#txtSearch').val(),@Model.PageIndex -1)"
                class="btn btn-light @prevDisabled" style="cursor:pointer">
                 Prev
             </a>
-            <a a onclick="RefreshTable($('#search').val(),@Model.PageIndex +1)"
+            <a a onclick="RefreshTable($('#txtSearch').val(),@Model.PageIndex +1)"
                class="btn btn-light @nextDisabled"  style="cursor:pointer">
                 Next
             </a>
