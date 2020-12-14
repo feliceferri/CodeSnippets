@@ -677,24 +677,24 @@ At the bottom of the PartialView goes =>
 <br />
 
 <tr>
-    <td colspan="3">
+    <td colspan="3" class="fa-pull-left">
         @{
-            var prevDisabled = !Model.ListPrecios.HasPreviousPage ? "disabled" : "";
-            var nextDisabled = !Model.ListPrecios.HasNextPage ? "disabled" : "";
+            var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+            var nextDisabled = !Model.HasNextPage ? "disabled" : "";
         }
 
         @if (prevDisabled != "disabled" || nextDisabled != "disabled")
         {
-            <a onclick="SearchT($('#search').val(),@Model.ListPrecios.PageIndex -1)"
-               class="btn btn-default @prevDisabled">
-                Anterior
+            <a onclick="SearchT($('#search').val(),@Model.PageIndex -1)"
+               class="btn btn-light @prevDisabled" style="cursor:pointer">
+                Prev
             </a>
-            <a a onclick="SearchT($('#search').val(),@Model.ListPrecios.PageIndex +1)"
-               class="btn btn-default @nextDisabled">
-                Siguiente
+            <a a onclick="SearchT($('#search').val(),@Model.PageIndex +1)"
+               class="btn btn-light @nextDisabled"  style="cursor:pointer">
+                Next
             </a>
             <a style="margin-left:15px">
-                Página @Model.ListPrecios.PageIndex of @Model.ListPrecios.TotalPages
+                Page @Model.PageIndex of @Model.TotalPages
             </a>
         }
     </td>
