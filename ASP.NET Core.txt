@@ -661,22 +661,21 @@ public class PaginatedList<T> : List<T>
             return new PaginatedList<T>(items, count, pageIndex, pageSize);
         }
 
-        ///FF: THIS IS THE WAY TO WORK WITHA GROUP BY 
+      
 
-        //var data = (from p in _context.Precios
-        //            where p.CodigoInterno != null
-        //            group p by p.CodigoInterno into Groupped
-        //            select new PreciosAgrupados() { CodigoInterno = Groupped.Key, Descripcion = Groupped.First().Descripcion, Proveedores = Groupped.ToList() });
-
-        //FF: The SELECT is executed at the end as Lazy Loading.
-
+***********
+ <input id="txtSearch" type="text" class="form-control" name="search" placeholder="Find Employee by Name or Id/Alias"
+               onkeyup="RefreshTable($('#txtSearch').val(),@Model.List.PageIndex)"
+               style="max-width:400px">
 
 Convert the Body of the table into a PartialView
+
+****************************
 At the bottom of the PartialView goes =>
 
-<br />
 
-<tr>
+<tr style="margin-top:20px">
+    <tr>
     <td colspan="3" class="fa-pull-left">
         @{
             var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
@@ -685,11 +684,11 @@ At the bottom of the PartialView goes =>
 
         @if (prevDisabled != "disabled" || nextDisabled != "disabled")
         {
-            <a onclick="SearchT($('#search').val(),@Model.PageIndex -1)"
+            <a onclick="RefreshTable($('#search').val(),@Model.PageIndex -1)"
                class="btn btn-light @prevDisabled" style="cursor:pointer">
                 Prev
             </a>
-            <a a onclick="SearchT($('#search').val(),@Model.PageIndex +1)"
+            <a a onclick="RefreshTable($('#search').val(),@Model.PageIndex +1)"
                class="btn btn-light @nextDisabled"  style="cursor:pointer">
                 Next
             </a>
@@ -698,5 +697,6 @@ At the bottom of the PartialView goes =>
             </a>
         }
     </td>
+</tr>
 </tr>
 
