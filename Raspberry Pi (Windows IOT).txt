@@ -1,0 +1,32 @@
+LCD Configuration  (1024x600)
+
+***** Last 3 lines are the ones that has to be copied ***
+
+init_uart_clock=16000000    # set uart clock to 16mhz
+
+kernel_old=1                # load kernel.img at physical memory address 0x0
+
+safe_mode_gpio=8            # a temp firmware limitation workaround
+
+max_usb_current=1           # enable maximum usb current
+
+gpu_mem=32
+hdmi_force_hotplug=1        # enable hdmi display even if it is not connected (640x480)
+
+core_freq=250               # frequency of gpu processor core in mhz
+
+framebuffer_ignore_alpha=1  # ignore the alpha channel for windows.
+
+framebuffer_swap=1          # set the frame buffer to be windows bgr compatible.
+
+disable_overscan=1          # disable overscan
+
+hdmi_group=2                # use vesa display mode timing over cea
+
+hdmi_mode=87
+
+hdmi_cvt=1024 600 60 6 0 0 0 # Add custom 1024x600 resolution (group 2 mode 87)
+
+display_rotate=0
+
+-------------------------------------------------

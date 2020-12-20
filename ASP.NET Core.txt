@@ -661,20 +661,22 @@ public class PaginatedList<T> : List<T>
             return new PaginatedList<T>(items, count, pageIndex, pageSize);
         }
 
-      
+        ///FF: THIS IS THE WAY TO WORK WITHA GROUP BY 
 
-***********
- <input id="txtSearch" type="text" class="form-control" name="search" placeholder="Find Employee by Name or Id/Alias"
-               onkeyup="RefreshTable($('#txtSearch').val(),@Model.List.PageIndex)"
-               style="max-width:400px">
+        //var data = (from p in _context.Precios
+        //            where p.CodigoInterno != null
+        //            group p by p.CodigoInterno into Groupped
+        //            select new PreciosAgrupados() { CodigoInterno = Groupped.Key, Descripcion = Groupped.First().Descripcion, Proveedores = Groupped.ToList() });
+
+        //FF: The SELECT is executed at the end as Lazy Loading.
+
 
 Convert the Body of the table into a PartialView
-
-****************************
 At the bottom of the PartialView goes =>
 
+<br />
 
-<tr style="margin-top:20px">
+<tr>
     <tr>
     <td colspan="3" class="fa-pull-left">
         @{
@@ -684,11 +686,11 @@ At the bottom of the PartialView goes =>
 
         @if (prevDisabled != "disabled" || nextDisabled != "disabled")
         {
-            <a onclick="RefreshTable($('#txtSearch').val(),@Model.PageIndex -1)"
+            <a onclick="RefreshTable($('#search').val(),@Model.PageIndex -1)"
                class="btn btn-light @prevDisabled" style="cursor:pointer">
                 Prev
             </a>
-            <a a onclick="RefreshTable($('#txtSearch').val(),@Model.PageIndex +1)"
+            <a a onclick="RefreshTable($('#search').val(),@Model.PageIndex +1)"
                class="btn btn-light @nextDisabled"  style="cursor:pointer">
                 Next
             </a>
@@ -700,3 +702,23 @@ At the bottom of the PartialView goes =>
 </tr>
 </tr>
 
+  function RefreshTable(SchValues, CurrentPage) {
+
+                $.ajax({
+                    type: "GET",
+                    url: "/Employees/GetIndexModelAsync?ShowDeleted=" + ShowDeletedCheckbox.checked +  "&searchString=" + SchValues + "&pageNumber=" + CurrentPage,
+                    //data: SchValues,
+                    //contentType: "application/json; charset=utf-8",
+                    success: function (response) {
+
+                        $('#TableBody').empty();
+                        $('#TableBody').append(response);
+
+                    },
+                    failure: function (response) {
+                        alert(response);
+                    }
+                });
+            }
+
+---------------------------------------------------------
