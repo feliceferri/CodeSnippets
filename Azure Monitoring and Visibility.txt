@@ -1,0 +1,43 @@
+1) CREATE Log Analytic WorksPace (Pay as you go 2.75 GB/month, charge base on ingestion)
+2) Azure function => Diagnostics Settings => Send to Log Analytics Workspace
+3) To Query Azure Analytics from a Web Page
+    Add nuget Microsoft.Azure.OperationalInsights
+    Add nuget Microsoft.Rest.ClientRuntime.Azure.Authentication
+
+   Azure Log Analytic Workspace => Advance Settings => Agents Management  (Here we get the Workspace ID and the Keys)
+
+   Azure Active Directory => App Registration => New Registration => "lhptloganalyticviewer"
+   "lhptloganalyticviewer" => Api Permissions => Add a Permision => Apis my Origanization uses => Log Analytics API => Background Service or daemon
+
+   Log Analytic Worspace => Access Control (IAM) => Add Role Assignments => Owner lhptloganalyticviewer
+
+   App Client Id  and Tenant Id (are in Overview Window)
+   AAD Domain Name comes from => Azure Active Directory => Custom domains
+
+
+	   var workspaceId = "<your workspace ID>";
+            var clientId = "<your client ID>";
+            var clientSecret = "<your client secret>";
+
+            var domain = "<your AAD domain>";
+            var authEndpoint = "https://login.microsoftonline.com";
+            var tokenAudience = "https://api.loganalytics.io/";
+
+            var adSettings = new ActiveDirectoryServiceSettings
+            {
+                AuthenticationEndpoint = new Uri(authEndpoint),
+                TokenAudience = new Uri(tokenAudience),
+                ValidateAuthority = true
+            };
+
+            var creds = ApplicationTokenProvider.LoginSilentAsync(domain, clientId, clientSecret, adSettings).GetAwaiter().GetResult();
+
+            var client = new OperationalInsightsDataClient(creds);
+            client.WorkspaceId = workspaceId;
+
+            var results = client.Query("union * | take 5");
+
+
+help:
+https://dev.loganalytics.io/
+https://stackoverflow.com/questions/53915236/querying-azure-log-analytics-from-c-sharp-application
