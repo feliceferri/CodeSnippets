@@ -4,6 +4,7 @@ AZURE IOT HUB
 
 UWP => Set the connection String (from step 1)
 
+Built-in endpoints to set the Consumer Groups
 --------------
 
 AZURE FUNCTION TO CONSUME
@@ -15,6 +16,9 @@ Microsoft.Azure.WebJobs.Extensions.EventHubs v4.1.0
 Microsoft.Azure.EventHubs.Processor v4.1.0  
 
 The connectionstring goes in the local.settings.json not in the Run default paramaters (Better to use Environment Variables instead)
+
+* Have to change the Environment Variable (In Azure) for the AzureWebStorage, copying the local.settings.one, they both start the same, but the local one is different (longer)
+* Have to create the Environment Variable (In Azure) with the connectionstring of the IOT Hub
 ------------------------------------------
 
 AUTOMATIC PROVISIONING
