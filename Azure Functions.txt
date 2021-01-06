@@ -18,3 +18,11 @@ local.settings.json => "Values": {"AzureSQLCustomers": "connectionStringHere"}
 
 -------------------------
 
+INJECT EXECUTIONCONTEXT
+
+ExecutionContext exCtx
+
+public static void Run([IoTHubTrigger("messages/events", Connection = "IOTHubConnectionString", ConsumerGroup = "coldstoragetocosmosdb")]EventData message, ILogger log, ExecutionContext exCtx)
+
+InvocationId = exCtx.InvocationId
+ServiceName = exCtx.FunctionName
