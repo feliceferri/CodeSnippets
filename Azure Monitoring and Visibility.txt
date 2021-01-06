@@ -1,3 +1,5 @@
+AZURE LOG ANALYTICS
+
 1) CREATE Log Analytic WorksPace (Pay as you go 2.75 GB/month, charge base on ingestion)
 2) Azure function => Diagnostics Settings => Send to Log Analytics Workspace
 3) To Query Azure Analytics from a Web Page

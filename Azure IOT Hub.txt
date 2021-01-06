@@ -1,0 +1,25 @@
+AZURE IOT HUB
+
+1) Shared Access policies => click iothubowner => keys ang connection string
+
+UWP => Set the connection String (from step 1)
+
+--------------
+
+AZURE FUNCTION TO CONSUME
+
+Connection String => Comes from Azure IOT hub => EndPoints
+
+Add extra nuget package => 
+Microsoft.Azure.WebJobs.Extensions.EventHubs v4.1.0
+Microsoft.Azure.EventHubs.Processor v4.1.0  
+
+The connectionstring goes in the local.settings.json not in the Run default paramaters (Better to use Environment Variables instead)
+------------------------------------------
+
+AUTOMATIC PROVISIONING
+
+https://www.youtube.com/watch?v=SF8TJZnSIHE&t=1259s  (min 25)
+
+Azure Device Provisioning Service
+Nuget
