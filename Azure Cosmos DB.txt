@@ -1,3 +1,40 @@
 Azure Cosmos DB
 
+https://docs.microsoft.com/en-us/azure/cosmos-db/sql-api-get-started
+
 Nuget => Microsoft.Azure.Cosmos
+
+//Cosmos DB => Portal => Keys 
+const string EndpointUri = "https://xxxxx.documents.azure.com:443/";
+const string PrimaryKey = "xxxx";
+
+private static CosmosClient _cosmosClient;
+private static Database _database;
+private static Container _container;
+
+ try
+                {
+                    if (_cosmosClient == null)
+                        _cosmosClient = new CosmosClient(EndpointUri, PrimaryKey);
+
+                    if (_database == null)
+                        _database = await _cosmosClient.CreateDatabaseIfNotExistsAsync("CosmosDB");
+
+                    if (_container == null)
+                        _container = await _database.CreateContainerIfNotExistsAsync("RawPayloads", "/CorrelationId");
+
+                    ItemResponse<Models.EnvelopeV1> andersenFamilyResponse = await _container.CreateItemAsync<Models.EnvelopeV1>(env, new PartitionKey(env.CorrelationId.ToString()));
+
+                }
+                catch (CosmosException de)
+                {
+                    Exception baseException = de.GetBaseException();
+                    log.LogError(de, "");
+                    log.LogError(baseException, "");
+                }
+                catch (Exception e)
+                {
+                    log.LogError(e, "");
+                }
+
+-------------------------------------------------------
