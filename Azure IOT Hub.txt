@@ -21,6 +21,15 @@ The connectionstring goes in the local.settings.json not in the Run default para
 * Have to create the Environment Variable (In Azure) with the connectionstring of the IOT Hub
 ------------------------------------------
 
+SET CONSUMERGROUP AS ENVIRONMENT VARIABLE
+
+[FunctionName("xxxx")]
+public static async void Run([IoTHubTrigger("messages/events", Connection = "IOTHubConnectionString", ConsumerGroup = "%IOTHubConsumerGroup%")]EventData message, ILogger log, ExecutionContext exCtx)
+
+Local.Settings.Json => "Values" =>  "IOTHubConsumerGroup": "xxx"
+Then do the same in Setting => Environment Variables in the Azure function
+-------------------------------------------
+
 AUTOMATIC PROVISIONING
 
 https://www.youtube.com/watch?v=SF8TJZnSIHE&t=1259s  (min 25)

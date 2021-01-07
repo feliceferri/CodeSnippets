@@ -1,5 +1,8 @@
 https://dev.to/ebarrioscode/azure-functions-serverless-entity-framework-core-y-sql-azure-1ngd
 
+---------------------
+
+USING SQL
 
 Nugets
 
@@ -10,7 +13,7 @@ Microsoft.EntityFramewrokCore.Tools (for migrations)
 
 ------------------
 
-GET CONNECTION STRING
+ENVIRONMENT VARIABLES 
 
 Environment.GetEnvironmentVariable("AzureSQLCustomers")
 
