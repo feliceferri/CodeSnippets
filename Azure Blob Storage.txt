@@ -1,0 +1,55 @@
+AZURE BLOB STORAGE
+
+Nuget Azure.Storage.Blobs
+
+Container names have to be LOWERCASE!
+
+-Container names must start or end with a letter or number, and can contain only letters, numbers, and the dash (-) character.
+- Every dash (-) character must be immediately preceded and followed by a letter or number; consecutive dashes are not permitted in container names.
+- All letters in a container name must be lowercase.
+- Container names must be from 3 through 63 characters long
+
+
+ try
+                {
+                    string AzureStorageConnectionString = Environment.GetEnvironmentVariable("AzureStorageConnectionString");
+		   BlobServiceClient blobServiceClient = new BlobServiceClient(AzureStorageConnectionString);
+
+                    string containerName = "rawpayloads"; //!!! have to be lowercase
+                    BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(containerName.ToLower());
+                    
+                    if (await containerClient.ExistsAsync() == false)
+                    {
+                        try
+                        {
+                            containerClient = await blobServiceClient.CreateBlobContainerAsync(containerName.ToLower());
+                        }
+                        catch (Exception ex)
+                        {
+                            //It was probably created by another instance at the same time.
+                            containerClient = blobServiceClient.GetBlobContainerClient(containerName.ToLower());
+                        }
+                    }
+
+                    string folderName = env.IOTDeviceID;
+                    string fileName = folderName + "/" + env.id + ".json";
+                    
+                    BlobClient blobClient = containerClient.GetBlobClient(fileName);
+
+                    Console.WriteLine("Uploading to Blob storage as blob:\n\t {0}\n", blobClient.Uri);
+
+                    //This is to upload a file
+                    //using FileStream uploadFileStream = File.OpenRead(localFilePath);
+                    //await blobClient.UploadAsync(uploadFileStream, true);
+                    //uploadFileStream.Close();
+
+                    string EnvelopeSerialized = Newtonsoft.Json.JsonConvert.SerializeObject(env);
+                    using (MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(EnvelopeSerialized)))
+                    {
+                        await blobClient.UploadAsync(ms);
+                    }
+                }
+                catch (Exception e)
+                {
+                    log.LogError(e, "");
+                }
