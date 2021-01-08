@@ -11,6 +11,31 @@ Microsoft.Azure.Functions.Extensions (for Dependency Injections)
 Microsoft.EntityFrameworkCore.Tools (for migrations)
 
 
+//To do Dependency Injection for the Context
+=> Create Startup.cs inside the Azure Function
+
+using Microsoft.Azure.Functions.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using System;
+
+
+[assembly: FunctionsStartup(typeof(ProjectX.Startup))]
+namespace ProjectX
+{
+    class Startup : FunctionsStartup
+    {
+        public override void Configure(IFunctionsHostBuilder builder)
+        {
+            string SqlConnection = Environment.GetEnvironmentVariable("SqlConnectionString");
+            builder.Services.AddDbContext<Data.ApplicationDbContext>(
+                options => options.UseSqlServer(SqlConnection));
+        }
+    }
+}
+
+
+
 ------------------
 
 ENVIRONMENT VARIABLES 
