@@ -87,3 +87,25 @@ var optionsBuilder = new Microsoft.EntityFrameworkCore.DbContextOptionsBuilder<A
 optionsBuilder.UseSqlServer(databaseconnection);
 ApplicationDbContext context = new ApplicationDbContext(optionsBuilder.Options, _contextAccessor);
 Controller controller = new Controller(context);
+
+----------------------------------
+
+VALUE/PROPERTY CONVERTER
+
+Ex: To store a List<x> as a Json, instead of creating another table with a FK relation, it will store those values in a column.
+
+In the ApplictionDbContext:
+
+  protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            var converter = new ValueConverter<List<Services>, string>(x => Newtonsoft.Json.JsonConvert.SerializeObject(x, Newtonsoft.Json.Formatting.Indented),
+                                                                        x => Newtonsoft.Json.JsonConvert.DeserializeObject<List<Services>>(x));
+
+            builder.Entity<EnvelopeV1>()
+                .Property(x => x.Services)
+                .HasConversion(converter);
+        }
+
+-------------------------------------------
