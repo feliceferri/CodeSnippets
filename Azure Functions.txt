@@ -35,6 +35,51 @@ namespace ProjectX
 }
 
 
+Application.DbContext
+
+using System;
+using System.Collections.Generic;
+using System.Text;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
+
+namespace Data
+{
+    public class ApplicationDbContext : DbContext 
+    {
+        public ApplicationDbContext()
+        {
+            this.Database.EnsureCreated();
+        }
+      
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options): base(options)
+        {
+        }
+      
+        public DbSet<EnvelopeV1> RawData_EnvelopeV1 { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+        }
+    }
+}
+
+
+Injection in the function
+
+private readonly Data.ApplicationDbContext _context;
+
+public Func1(Data.ApplicationDbContext context)
+{
+	_context = context;
+}
+        
+[FunctionName("Func1")]
+public async Task Run([IoTHubTrigger("messages/events", Connection = "IOTHubConnectionString", ConsumerGroup = "%IOTHubConsumerGroup%")]EventData message, 
+
 
 ------------------
 
