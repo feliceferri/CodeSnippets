@@ -8,7 +8,7 @@ Nugets
 
 Microsoft.EntityFrameworkCore.SqlServer
 Microsoft.Azure.Functions.Extensions (for Dependency Injections)
-Microsoft.EntityFramewrokCore.Tools (for migrations)
+Microsoft.EntityFrameworkCore.Tools (for migrations)
 
 
 ------------------
