@@ -1,0 +1,32 @@
+AZURE DEVICE PROVISIONING SERVICES
+
+CREATE x.509 Certificate
+
+Download Distribute Version => https://slproweb.com/products/Win32OpenSSL.html 
+
+Installed OpenSSL v1.1.1 LTS
+
+CMD
+
+>openssl req -x509 -days 365 -newkey rsa:2048 -keyout deviceprovisioning-key.pem -out deviceprovisioning-cert.pem
+
+Merge the 2 .pem files into a single .pfx file
+
+** NOT NEEDED >openssl pkcs12 -export -in deviceprovisioning-cert.pem -inkey deviceprovisioning-key.pem -out deviceprovisioning-cert.pfx
+
+-------------
+
+AZURE => Device Provisioning Services => Certificates (Upload the .pem file)
+
+Click on it, to do the verification (Proof of posession)  (https://stackoverflow.com/questions/50337042/how-to-generate-a-proof-of-possesion-for-a-x509-certificate-using-openssl)
+
+=> Generate Verfication Code
+
+>openssl genrsa -out verification.key 2048
+
+>openssl req -new -key verification.key -out verification.csr     ** When asked about the "Common Name" there we have to paste the Verification Code that is comming from Azure
+
+>openssl x509 -req -in verification.csr -CA deviceprovisioning-cert.pem -CAkey deviceprovisioning-key.pem -CAcreateserial -out ProofOfPossession.pem -days 1024 -sha256
+
+
+https://www.youtube.com/watch?v=3EBXAtyB6ys
