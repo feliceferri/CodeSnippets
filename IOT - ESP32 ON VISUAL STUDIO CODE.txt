@@ -1,0 +1,48 @@
+IOT - ESP32 ON VISUAL STUDIO CODE
+
+Install Arduino ** NOT THE WINDOWS STORE VERSION, but the one with the installer.
+
+Extensions => Azure IOT Hub
+Extension => Arduino
+** DIDNT INSTALLED THIS Extensions => Azure Account
+
+Palette (Ctrl+Shift+P) => Azure IOT Hub Show welcome page
+=> Blue button Select IoT Hub => Select the Subscription
+
+=> Explorer (Ctrl+Shift+E) => very Bottom => Azure IOT HUB
+* If the Registered Device(s) doesnt appear, click Set IOT Hub Connection String and copy it from Azure => IOT Hub => Shared Policies => Owner
+
+Pallete => Azure IOT Device Workbench: Open Examples...
+=> ESP32 Get Started (Simulator)
+=> Set WiFi credentials in the .ino file
+=> copied the IOT Device ConnectionString in the .ino file
+
+File Menu => Preferences => Settings => Open Settings.jSon (Top Right corner icon, like a Page with an arrow)
+Add => "arduino.path": "C:\\Program Files (x86)\\Arduino"
+
+Palette => Arduino: Board Manager. => Search for esp32 => Install
+
+Palette => Arduino: Change Board Type
+
+Palette => Arduino: Select Serial Port => COM1
+
+If Using an ESP32 Chip, first need to install the UART Driver for Windows 10.
+Different Manufacturers can have different UART version this are the 2 main ones
+CP210x (this is mine) => https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers
+CH340 => https://sparks.gogo.co.nz/ch340.html
+
+Palette => Azure Iot Device: upload device code
+
+Source Code Wifi Error => 
+* that is because there are more than one WiFi.h in the tree
+Rename => C:\Program Files (x86)\Arduino\libraries\WiFi\src\WiFi.h
+
+---------------
+RESOURCES
+
+https://maker.pro/arduino/tutorial/how-to-use-visual-studio-code-for-arduino
+
+https://marketplace.visualstudio.com/items?itemName=vsciot-vscode.vscode-arduino
+
+https://github.com/Azure-Samples/esp32-iot-devkit-get-started
+* I haven't finish it  https://www.youtube.com/watch?v=zlrnIURkv-0

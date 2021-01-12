@@ -2,21 +2,17 @@ AZURE DEVICE PROVISIONING SERVICES
 
 CREATE x.509 Certificate
 
-Download Distribute Version => https://slproweb.com/products/Win32OpenSSL.html 
-
-Installed OpenSSL v1.1.1 LTS
+Download Distribute Version of OpenSSL => https://slproweb.com/products/Win32OpenSSL.html  (Installed OpenSSL v1.1.1 LTS)
 
 CMD
 
 >openssl req -x509 -days 365 -newkey rsa:2048 -keyout deviceprovisioning-key.pem -out deviceprovisioning-cert.pem
 
-Merge the 2 .pem files into a single .pfx file
-
-** NOT NEEDED >openssl pkcs12 -export -in deviceprovisioning-cert.pem -inkey deviceprovisioning-key.pem -out deviceprovisioning-cert.pfx
+** NOT NEEDED Merge the 2 .pem files into a single .pfx file >openssl pkcs12 -export -in deviceprovisioning-cert.pem -inkey deviceprovisioning-key.pem -out deviceprovisioning-cert.pfx
 
 -------------
 
-AZURE => Device Provisioning Services => Certificates (Upload the .pem file)
+AZURE => Device Provisioning Services => Certificates (Upload the cert .pem file)
 
 Click on it, to do the verification (Proof of posession)  (https://stackoverflow.com/questions/50337042/how-to-generate-a-proof-of-possesion-for-a-x509-certificate-using-openssl)
 
@@ -29,4 +25,11 @@ Click on it, to do the verification (Proof of posession)  (https://stackoverflow
 >openssl x509 -req -in verification.csr -CA deviceprovisioning-cert.pem -CAkey deviceprovisioning-key.pem -CAcreateserial -out ProofOfPossession.pem -days 1024 -sha256
 
 
+
 https://www.youtube.com/watch?v=3EBXAtyB6ys
+https://www.youtube.com/watch?v=o0xtIweuwdA (How to provisioning IoT devices at scale with IoT Hub Device Provisioning Service)
+--------------------
+
+AZURE => Device Provisioning Services => Linked IOT Hubs => Add the IOT hub
+
+AZURE => Device Provisioning Services => Manage Enrollments => Create an Enrollment Group using the Previous Certificate
