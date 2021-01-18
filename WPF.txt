@@ -49,7 +49,7 @@ COMMAND EN EL DATACONTEXT
 
 ----------------------------------------
 
-TRIGGER DESDE UN EVENTO DE UN BOTON
+TRIGGER INSIDE A BUTTON EVENT
 
 EventTrigger RoutedEvent="Button.Click" SourceName="BeginButton">
           <BeginStoryboard Name="MyBeginStoryboard">
@@ -149,51 +149,68 @@ DEPENDENCY PROPERTY WITH NOTIFICATIONS FOR VALUE CHANGES (CALLBACK)
 
 COMMAND IN USER CONTROL
 
- public partial class CustomButton : UserControl, ICommandSource
+ 
+ public partial class CustomButton : UserControl
     {
 
- public ICommand Command
+	CustomButton_ViewModel _VM;
+        public CustomButton()
+        {
+            InitializeComponent();
+
+            if (_VM == null)
             {
-                get { return (ICommand)GetValue(CommandProperty); }
-                set { SetValue(CommandProperty, value); }
-            }
+                //_VM = (CustomButton_ViewModel)this.DataContext;
+                _VM = new CustomButton_ViewModel();
+             }
 
-            public static readonly DependencyProperty CommandProperty =
-                DependencyProperty.Register("Command", typeof(ICommand), typeof(CustomButton), new UIPropertyMetadata(null));
+            _VM.OnePercentHeightInPixels = 5;
+
+            this.Loaded += CustomButton_Loaded;
+
+         }
+
+        private void CustomButton_Loaded(object sender, RoutedEventArgs e)
+        {
+	    //This code have to be done in _Loaded, if done in the constructor it wont work
+            ICommand originalCommand = this.Command;
+            this.DataContext = _VM;
+            this.Command = originalCommand;
+        }
 
 
-            public object CommandParameter
-            {
-                get { return (object)GetValue(CommandParameterProperty); }
-                set { SetValue(CommandParameterProperty, value); }
-            }
+	 //////// COMMAND IMPLEMENTATION //////////////////////////////////////////
+        public ICommand Command
+        {
+            get { return (ICommand)GetValue(CommandProperty); }
+            set { SetValue(CommandProperty, value); }
+        }
 
-            // Using a DependencyProperty as the backing store for CommandParameter.  This enables animation, styling, binding, etc...
-            public static readonly DependencyProperty CommandParameterProperty =
-                DependencyProperty.Register("CommandParameter", typeof(object), typeof(CustomButton), new UIPropertyMetadata(null));
+        public static readonly DependencyProperty CommandProperty =
+            DependencyProperty.Register("Command", typeof(ICommand), typeof(CustomButton), new UIPropertyMetadata(null));
 
-            public IInputElement CommandTarget
-            {
-                get { return (IInputElement)GetValue(CommandTargetProperty); }
-                set { SetValue(CommandTargetProperty, value); }
-            }
 
-            // Using a DependencyProperty as the backing store for CommandTarget.  This enables animation, styling, binding, etc...
-            public static readonly DependencyProperty CommandTargetProperty =
-                DependencyProperty.Register("CommandTarget", typeof(IInputElement), typeof(CustomButton), new UIPropertyMetadata(null));
+        public object CommandParameter
+        {
+            get { return (object)GetValue(CommandParameterProperty); }
+            set { SetValue(CommandParameterProperty, value); }
+        }
 
-** Code to execute the COMMAND
+        // Using a DependencyProperty as the backing store for CommandParameter.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CommandParameterProperty =
+            DependencyProperty.Register("CommandParameter", typeof(object), typeof(CustomButton), new UIPropertyMetadata(null));
 
- var routedCmd = this.Command as RoutedCommand; 
-            
-            if (routedCmd != null && routedCmd.CanExecute(this.CommandParameter, this.CommandTarget))
-            {
-                routedCmd.Execute(this.CommandParameter, this.CommandTarget);
-            }
-            else if (Command != null && Command.CanExecute(this.CommandParameter))
+
+        //////// ~COMMAND IMPLEMENTATION //////////////////////////////////////////
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (Command != null && Command.CanExecute(this.CommandParameter))
             {
                 Command.Execute(this.CommandParameter);
             }
+
+        }
 
 
 -------------------------------------
