@@ -8,8 +8,9 @@ Nugets
 
 Microsoft.EntityFrameworkCore.SqlServer
 Microsoft.Azure.Functions.Extensions (for Dependency Injections)
-** Microsoft.EntityFrameworkCore.Tools (for migrations) I have not been able to make Migrations Works with Azure Functions
-** Microsoft.EntityFrameworkCore.Design (for migrations)
+Microsoft.EntityFrameworkCore.Tools (for migrations) 
+Microsoft.EntityFrameworkCore.Design (for migrations)
+Microsoft.EntityFrameworkCore (for migrations)
 
 
 //To do Dependency Injection for the Context
@@ -52,10 +53,21 @@ namespace Data
         public ApplicationDbContext()
         {
             this.Database.EnsureCreated();
+	    IEnumerable<string> pendingMigrations = this.Database.GetPendingMigrations();
+            if (pendingMigrations != null && pendingMigrations.Count() > 0)
+            {
+                this.Database.Migrate();
+            }
         }
       
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options): base(options)
         {
+	    this.Database.EnsureCreated();
+	    IEnumerable<string> pendingMigrations = this.Database.GetPendingMigrations();
+            if (pendingMigrations != null && pendingMigrations.Count() > 0)
+            {
+                this.Database.Migrate();
+            }
         }
       
         public DbSet<EnvelopeV1> RawData_EnvelopeV1 { get; set; }
@@ -98,7 +110,9 @@ namespace Data
         public ApplicationDbContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
-            optionsBuilder.UseSqlServer(Environment.GetEnvironmentVariable("SqlConnectionString"));
+	    
+            string SqlConnection = Environment.GetEnvironmentVariable("SqlConnectionString");
+            optionsBuilder.UseSqlServer(SqlConnection);
 
             return new ApplicationDbContext(optionsBuilder.Options);
         }
