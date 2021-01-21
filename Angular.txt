@@ -1,0 +1,47 @@
+ANGULAR
+
+Error => The NPM script 'start' exited without indicating that the Angular CLI was listening for requests
+      => Create the project without the HTTPS
+
+
+----------------------
+ADD BOOTSTRAP
+
+1. Terminal pointing to the ClientApp folder
+2. npm install save bootstrap    
+
+
+------------------------
+
+ADD FONTAWESOME
+
+npm install save @fortawesome/fontawesome-free
+Manually go to angular.json => projects => architect => options => styles = add =>
+"node_modules/@fortawesome/fontawesome-free/css/all.css",
+
+---------------------
+
+npm install save leaflet@1.6.0
+the Heat library was added manually as .js file
+
+Manually go to angular.json => projects => architect => options => styles = add =>
+"node_modules/leaflet/dist/leaflet.css",
+
+Manually go to angular.json => projects => architect => options => scripts
+-----------------
+STATIC CONTENT
+
+Goes into App/Assets  *Any other folder should be declared in angular.json (there is assets for build & for test)
+or in wwwroot
+
+---------------
+USE A STYLE IN A SPECIFIC COMPONENT
+
+@Component({
+  selector: 'app-my-map',
+  templateUrl: './my-map.component.html',
+  styleUrls: ['./my-map.component.scss']
+})
+
+
+Upload Image https://www.youtube.com/watch?v=v67NunIp5w8
