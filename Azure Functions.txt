@@ -143,3 +143,27 @@ public static void Run([IoTHubTrigger("messages/events", Connection = "IOTHubCon
 
 InvocationId = exCtx.InvocationId
 ServiceName = exCtx.FunctionName
+
+---------------------
+
+CALLING A TRIGGERED FUNCTION (LIKE TIME TRIGGERED) MANUALLY "ON-DEMAND"
+
+Method: POST
+URI: https://lhptcleanupservice.azurewebsites.net/admin/functions/CleanupService  */admin/functions is a constant in order to meake the call, the last parameter at the right is the name of the Function
+Header: x-functions-key  key *this key comos from Azure functions Access keys, and is the _master key
+        Content-Type  application/json
+
+If the call is being made fromt he browser it will receive a CORS error, it has to be made from the back-end. It also works in Advances Rest Client
+
+using (var client = new HttpClient())
+                {
+                    //client.DefaultRequestHeaders.Clear();
+                    client.DefaultRequestHeaders.Add("x-functions-key", "Key goes here");
+                    //client.DefaultRequestHeaders.Add("Content-Type", "application/json");
+		   
+		    HttpResponseMessage response = await client.PostAsync("https://lhptcleanupservice.azurewebsites.net/admin/functions/CleanupService", 
+                                                                            new StringContent("{}", Encoding.UTF8,"application/json"));
+                    response.EnsureSuccessStatusCode();
+                    var result = await response.Content.ReadAsStringAsync();
+                    return Ok(result);
+                }
