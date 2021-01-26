@@ -150,10 +150,12 @@ CALLING A TRIGGERED FUNCTION (LIKE TIME TRIGGERED) MANUALLY "ON-DEMAND"
 
 Method: POST
 URI: https://lhptcleanupservice.azurewebsites.net/admin/functions/CleanupService  */admin/functions is a constant in order to meake the call, the last parameter at the right is the name of the Function
-Header: x-functions-key  key *this key comos from Azure functions Access keys, and is the _master key
+Header: x-functions-key  key *this key comes from Azure function => Access keys => _master key
         Content-Type  application/json
 
-If the call is being made fromt he browser it will receive a CORS error, it has to be made from the back-end. It also works in Advances Rest Client
+If the call is being made from the browser it will receive a CORS error, it has to be made from the back-end. It also works in Advances Rest Client
+
+Example that works:
 
 using (var client = new HttpClient())
                 {
