@@ -50,8 +50,12 @@ namespace Data
 {
     public class ApplicationDbContext : DbContext 
     {
-        public ApplicationDbContext()
+	
+	private readonly ILogger<ApplicationDbContext> _log;
+	
+	public ApplicationDbContext()
         {
+		//*** This constructor can't have ILogger, has to be an empty constructor, otherwise we would have a Runtime Error related to the DbContext
             this.Database.EnsureCreated();
 	    IEnumerable<string> pendingMigrations = this.Database.GetPendingMigrations();
             if (pendingMigrations != null && pendingMigrations.Count() > 0)
@@ -60,13 +64,19 @@ namespace Data
             }
         }
       
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options): base(options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, ILogger<ApplicationDbContext> log): base(options)
         {
-	    this.Database.EnsureCreated();
+try
+{	    this.Database.EnsureCreated();
 	    IEnumerable<string> pendingMigrations = this.Database.GetPendingMigrations();
             if (pendingMigrations != null && pendingMigrations.Count() > 0)
             {
                 this.Database.Migrate();
+            }
+}
+ catch (Exception ex)
+            {
+                _log.LogError(ex, "");
             }
         }
       
@@ -107,6 +117,12 @@ namespace Data
 {
     public class DbContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext>
     {
+	private readonly ILogger<ApplicationDbContext> _log;
+        public DbContextFactory(ILogger<ApplicationDbContext> log)
+        {
+            this._log = log;
+        }
+
         public ApplicationDbContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
@@ -114,7 +130,7 @@ namespace Data
             string SqlConnection = Environment.GetEnvironmentVariable("SqlConnectionString");
             optionsBuilder.UseSqlServer(SqlConnection);
 
-            return new ApplicationDbContext(optionsBuilder.Options);
+            return new ApplicationDbContext(optionsBuilder.Options, this._log);
         }
     }
 }

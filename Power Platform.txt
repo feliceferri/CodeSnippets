@@ -5,3 +5,6 @@ Info comming from Event Hub going to MS Teams as Post Message
 show all DataEvent payload => triggerOutputs()?['body/ContentData']
 
 Parse an individual variable => json(base64ToString(triggerOutputs()?['body/ContentData']))?['temp']
+
+This is how conditions are executed **not tested
+equals(triggerOutputs()?['body/Editor/Email'],'username@domain.com')
