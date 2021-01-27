@@ -1,5 +1,12 @@
 https://dev.to/ebarrioscode/azure-functions-serverless-entity-framework-core-y-sql-azure-1ngd
 
+-------------------
+Expose QueryString arguments as binding
+
+[FunctionName("GetErrorCodeInformation")]
+[Route("GetErrorCodeInformation/{ErrorCode}")]
+
+
 ---------------------
 
 USING SQL
