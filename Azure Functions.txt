@@ -4,7 +4,9 @@ https://dev.to/ebarrioscode/azure-functions-serverless-entity-framework-core-y-s
 Expose QueryString arguments as binding
 
 [FunctionName("GetErrorCodeInformation")]
-[Route("GetErrorCodeInformation/{ErrorCode}")]
+        public static async Task<IActionResult> Run(
+            [HttpTrigger(AuthorizationLevel.function, "get", "post", Route = "GetErrorCodeInformation/{ErrorCode}")] HttpRequest req,
+            ILogger log, string ErrorCode)
 
 
 ---------------------
