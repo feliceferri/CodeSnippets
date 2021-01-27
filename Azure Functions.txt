@@ -76,7 +76,10 @@ try
 }
  catch (Exception ex)
             {
-                _log.LogError(ex, "");
+		if (_log != null)
+                    _log.LogError(ex, "");
+                else
+                    throw (ex);
             }
         }
       
