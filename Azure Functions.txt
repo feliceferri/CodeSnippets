@@ -197,3 +197,19 @@ using (var client = new HttpClient())
                     var result = await response.Content.ReadAsStringAsync();
                     return Ok(result);
                 }
+
+
+------------------------
+
+ADD OUTPUT SCHEMA IN AP MANAGEMENT SERVICES FOR POWER APP CONNECTIVITY
+
+API Management Service
+Add the Function
+Front-End (Edit Pencil)
+Responses => Add Response => Add Representation
+
+Write: application/json (in the textbox)
+Click in Definition (right side)
++ New Definition => Copy JSON
+
+-----------------------------
