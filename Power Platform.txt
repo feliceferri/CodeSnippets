@@ -1,3 +1,12 @@
+POWER PLATFORM ADMIN CENTER
+
+https://admin.powerplatform.microsoft.com/
+
+CREATE AN ENVIRONMENT
+
+** When Creating a Database, the very last (bottom) option says Offline => Enable for mobile offline
+-------------------------
+
 Power Platform
 
 Info comming from Event Hub going to MS Teams as Post Message
@@ -38,3 +47,69 @@ Set(nombrevariable,Param("subEntityId")
 
 
 If(!IsBlank(),)
+
+-------------------------
+
+ App.OnStart
+
+In a button =>
+Collect(itemsToKeep, {TextInput1_Value: TextInput1.Text, DropDown1_Value: Dropdown1.Selected.Value})
+
+Other button => 
+SaveData(itemsToKeep, "SavedItemsToKeep")
+
+LoadData(itemsToKeep, "SavedItemsToKeep", true);
+
+https://apps.powerapps.com/play/ff368a5a-9001-418b-9b31-b78f6f1683d6?tenantId=1e96b7bb-fe74-4183-aff2-a44534266433&subEntityId=103
+
+------------------------
+
+ Notify( "Hello, World")
+ Notify( "Hello, World", NotificationType.Error )   *Red Square
+Notify( "Hello, World", NotificationType.Success, 0 ) *Green square, 0 timeout
+
+---------------
+
+Global Variables (Scope= The whole app) => SET
+Context Variables (Scope = Screen) => UpdateContext
+Collections (Scope= the whole app)
+
+------
+Update => replace the whole record
+Patch => update a specific field
+
+-----------
+
+UPDATE AND REFRESH TEXTINPUT
+
+UpdateContext({varFlag2:"Test"}); Reset(TextInput1)
+
+UpdateContext({Text1_Value:First(itemsToKeep).TextInput1_Value}); Reset(TextInput1);
+
+----------------
+FUNCTIONS
+
+EncodeUrl()
+
+
+-----------
+
+WORKING WITH BING MAPS
+
+
+bing.com/partners/developers
+
+https://www.microsoft.com/en-us/maps/create-a-bing-maps-key => Basic Key
+
+["roadmap","terrain", "satellite", "hybrid"]
+
+working URL => 
+"http://dev.virtualearth.net/REST/v1/Imagery/Map/Road/" & "39.2483476,-85.9050851" & "/18?mapSize=" & "320,320" & "&pp=" & "39.2483476,-85.9050851" & ";66&mapLayer=Basemap,Buildings&key={Bing Maps Key here}"
+
+Conf Examples: https://docs.microsoft.com/en-us/bingmaps/rest-services/imagery/get-a-static-map
+
+Tutorial: https://powerapps.microsoft.com/en-us/blog/image-control-static-maps-api/
+------------------
+CODE EXAMPLES
+
+ClearCollect(colChores, AddColumns(ShowColumns(colChoreList,"ID","Title"),"Answer","-"))
