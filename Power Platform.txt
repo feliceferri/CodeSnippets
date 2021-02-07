@@ -90,9 +90,17 @@ UpdateContext({Text1_Value:First(itemsToKeep).TextInput1_Value}); Reset(TextInpu
 FUNCTIONS
 
 EncodeUrl()
+Text(variable) => like .ToString()
 
 
 -----------
+
+DROP DOWN STATIC VALUES
+
+Items => ["Indoor","Outdoor"]
+
+---------------
+
 
 WORKING WITH BING MAPS
 
@@ -113,3 +121,9 @@ Tutorial: https://powerapps.microsoft.com/en-us/blog/image-control-static-maps-a
 CODE EXAMPLES
 
 ClearCollect(colChores, AddColumns(ShowColumns(colChoreList,"ID","Title"),"Answer","-"))
+
+---------------
+
+
+CUSTOM API CONNECTORS 
+https://medium.com/@mkbehera01/connect-to-custom-api-using-custom-connector-power-apps-981a86fbd5cf
