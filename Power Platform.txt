@@ -82,9 +82,23 @@ Patch => update a specific field
 
 UPDATE AND REFRESH TEXTINPUT
 
-UpdateContext({varFlag2:"Test"}); Reset(TextInput1)
+1) Create a variable App => OnStart => Set(Title,"")
 
-UpdateContext({Text1_Value:First(itemsToKeep).TextInput1_Value}); Reset(TextInput1);
+2) TextInput => Default => Title
+
+3) Gallery => OnSelect =>  UpdateContext({Title:ThisItem.'Resolution Title'});
+			Reset(txtTitle)
+
+-------------
+
+ADD A RECORD TO A TABLE/ENTITY
+
+TypesOfResolutions
+Patch(NameOfTheEntity/TalbeConnector,Defaults(NameOfTheEntity/TalbeConnector),{'Code': txtCode.Text, 'Title': txtTitle.Text});
+txtCode.Text ="";
+txtTitle.Text ="";
+
+The Defaults fill the properties that were not set
 
 ----------------
 FUNCTIONS
@@ -126,11 +140,26 @@ ClearCollect(colChores, AddColumns(ShowColumns(colChoreList,"ID","Title"),"Answe
 
 CREATING A OBJECT AND SENDING IT AS JSON
 
-ClearCollect(DataToSend, {data:CameraPictures,Notes: txtNotes.Text}); 
+ClearCollect(DataToSend, {data:CameraPictures, notes: txtNotes.Text, resolutionTime:txtResolutionTime.Text,resolved: Checkbox_Resolved.Value,resolutionForm: DropdownResolution.Selected.Value}); 
 DirectToAzureSaveForm.SaveResolutionForm({data:JSON(DataToSend,JSONFormat.IncludeBinaryData)})
 
 -------------------------------------------
 
+TEAMS CONTEXT VARIABLES
+
+locale
+channelId
+channelType
+chatId
+groupId
+hostClientType
+subEntityId
+teamId
+teamType
+theme
+userTeamRol
+
+---------------------------------
 
 CUSTOM API CONNECTORS 
 https://medium.com/@mkbehera01/connect-to-custom-api-using-custom-connector-power-apps-981a86fbd5cf
