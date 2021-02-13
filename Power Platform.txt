@@ -80,7 +80,25 @@ Patch => update a specific field
 
 -----------
 
-UPDATE AND REFRESH TEXTINPUT
+
+ADD A RECORD TO A TABLE/ENTITY
+
+TypesOfResolutions
+Patch(NameOfTheEntity/TalbeConnector,Defaults(NameOfTheEntity/TalbeConnector),{'Code': txtCode.Text, 'Title': txtTitle.Text});
+
+
+The Defaults fill the properties that were not set
+
+------------------------------
+
+UPDATE A RECORD IN A TABLE/ENTITY
+
+On the Gallery => Set(SelectedItem,ThisItem);
+
+Patch(TypesOfResolutions,SelectedItem,{'Resolution Code': txtEditCode.Text, 'Resolution Title': txtEditTle.Text});
+----------------
+
+UPDATE A TEXT INPUT FROM SOMETHING SELECTED IN A GALLERY 
 
 1) Create a variable App => OnStart => Set(Title,"")
 
@@ -91,16 +109,7 @@ UPDATE AND REFRESH TEXTINPUT
 
 -------------
 
-ADD A RECORD TO A TABLE/ENTITY
 
-TypesOfResolutions
-Patch(NameOfTheEntity/TalbeConnector,Defaults(NameOfTheEntity/TalbeConnector),{'Code': txtCode.Text, 'Title': txtTitle.Text});
-txtCode.Text ="";
-txtTitle.Text ="";
-
-The Defaults fill the properties that were not set
-
-----------------
 FUNCTIONS
 
 EncodeUrl()
