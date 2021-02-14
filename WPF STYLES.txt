@@ -32,3 +32,26 @@ ROUNDED BUTTON WITH ROUNDED HOVER EFFECT
                     </Setter.Value>
                 </Setter>
             </Style>
+
+---------------------
+
+BUTTON WHERE HOVERS CHANGED THE OPACITY JUST A LITTLE BIT
+
+<Style TargetType="Button" x:Key="OpaqueHoverEffect">
+                <Setter Property="OverridesDefaultStyle" Value="True" />
+                <Setter Property="Cursor" Value="Hand" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Name="border" BorderThickness="0" BorderBrush="Black" Background="{TemplateBinding Background}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Opacity" Value="0.8" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
