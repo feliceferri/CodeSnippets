@@ -242,3 +242,22 @@ namespace WPF.Utilities
         }
     }
 }
+
+---------------------------------------
+
+CLOSE VIEW FROM VIEW MODEL
+
+<Button Command="{Binding CloseCommand}" CommandParameter="{Binding ElementName=ProfileView}"/>
+
+CloseCommand = new CommandHandler(async (parameter) => await CloseCommandAction((Window)parameter), () => true);
+
+ public async Task CloseCommandAction(Window window)
+        {
+            if (window != null)
+            {
+                window.Close();
+            }
+        }
+
+--------------------------
+
