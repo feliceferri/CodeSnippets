@@ -261,3 +261,11 @@ CloseCommand = new CommandHandler(async (parameter) => await CloseCommandAction(
 
 --------------------------
 
+LOAD IMAGESOURCE IN CODE BEHIND 
+
+ public ImageSource AvatarImageSource()
+ {
+	return new BitmapImage(new Uri(@"/Images/No_Photo.png", UriKind.Relative));
+ }
+
+------------------------------
