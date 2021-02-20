@@ -269,3 +269,10 @@ LOAD IMAGESOURCE IN CODE BEHIND
  }
 
 ------------------------------
+
+ACCESS A PROJECT RESOURCE
+
+{DefaultNamespace}.Properties.Resources.{ResourceName}
+WPF.Properties.Resources.AvatarMale75x75
+
+-------------------------------

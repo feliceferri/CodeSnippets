@@ -16,3 +16,7 @@ WHERE Table_Type = 'BASE TABLE'
 ORDER by TABLE_NAME
 
 -----------------------------------------------------------------
+
+LIST TABLES IN A DATABASE 
+
+SELECT * FROM SYSOBJECTS WHERE xtype = 'U';

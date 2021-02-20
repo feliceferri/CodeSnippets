@@ -213,3 +213,25 @@ Click in Definition (right side)
 + New Definition => Copy JSON
 
 -----------------------------
+
+INTERNAL CALL BETWEEN TWO AZURE FUNCTIONS INSIDE THE SAME PROJECT
+
+  [FunctionName("TestingInternalCall")]
+        public async Task<IActionResult> Run(
+          [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequest req,
+          ILogger log)
+        {
+
+            ResolutionForms.Models.Resolution data = null;
+
+            Microsoft.AspNetCore.Mvc.ActionResult<ResolutionForms.Models.Resolution> response = await GetResolution.getResolution(req, log, "300");
+            if (response.Result is Microsoft.AspNetCore.Mvc.OkObjectResult OkResult)
+            {
+                data = (ResolutionForms.Models.Resolution)OkResult.Value;
+            }
+            
+            
+            return new OkObjectResult("");
+        }
+
+-------------------------------------------
