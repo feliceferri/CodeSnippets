@@ -39,3 +39,9 @@ WHERE t.is_ms_shipped = 0
 PRINT @sql;
 
 ------------------------------
+
+GET ALL TABLES AS A CONCATENATED STRING
+
+SELECT STRING_AGG(CONVERT(NVARCHAR(max), ISNULL([Name],'N/A')), '|') AS Tables FROM SYSOBJECTS WHERE xtype = 'U';
+
+-----------------------------
