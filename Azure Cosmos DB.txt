@@ -37,6 +37,15 @@ private static Container _container;
                     log.LogError(e, "");
                 }
 
+
+//REPLACE
+ItemResponse<ResolutionForms.Models.Resolution> response2 = await container.ReplaceItemAsync<ResolutionForms.Models.Resolution>(storedData, storedData.correlationId);
+
+// DELETE AND RECREATE 
+//ItemResponse<ResolutionForms.Models.Resolution> response2 = await container.DeleteItemAsync<ResolutionForms.Models.Resolution>(storedData.correlationId, new PartitionKey(storedData.correlationId));
+//response2 = await container.CreateItemAsync<ResolutionForms.Models.Resolution>(storedData, new PartitionKey(storedData.correlationId));
+
+
 -------------------------------------------------------
 
 QUERIES
