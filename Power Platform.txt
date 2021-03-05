@@ -124,6 +124,10 @@ Items => ["Indoor","Outdoor"]
 
 ---------------
 
+IfError *Like Try Catch
+
+--------------------
+
 
 WORKING WITH BING MAPS
 
@@ -172,3 +176,11 @@ userTeamRol
 
 CUSTOM API CONNECTORS 
 https://medium.com/@mkbehera01/connect-to-custom-api-using-custom-connector-power-apps-981a86fbd5cf
+
+------------------------------
+
+TEAMS BOT => POWER AUTOMATION
+
+Cosmos DB Query: SELECT c.correlationId, c.errorCode, c.rawPayload.dateLocalTime, c.rawPayload.dateUTC FROM c WHERE c.status = "Open"
+
+Power Virtual Agent Flow => Get the json coming from Cosmos: base64ToString(outputs('Query_documents_V3')?['body'])
