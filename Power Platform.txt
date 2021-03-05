@@ -183,4 +183,14 @@ TEAMS BOT => POWER AUTOMATION
 
 Cosmos DB Query: SELECT c.correlationId, c.errorCode, c.rawPayload.dateLocalTime, c.rawPayload.dateUTC FROM c WHERE c.status = "Open"
 
-Power Virtual Agent Flow => Get the json coming from Cosmos: base64ToString(outputs('Query_documents_V3')?['body'])
+Power Virtual Agent Flow => Get the json coming from Cosmos: 
+
+outputs('Query_documents_V3')?['body']  
+
+ "{“value”:[{“correlationId”:“299”,“errorCode”:“103”,“dateLocalTime”:“2021-02-19T15:07:58.8051366+00:00”,“dateUTC”:“2021-02-19T15:07:58.805083Z”},
+	   {“correlationId”:“300”,“errorCode”:“103”,“dateLocalTime”:“2021-02-19T15:44:12.9214197+00:00”,“dateUTC”:“2021-02-19T15:44:12.9213652Z”}]}"
+
+outputs('Query_documents_V3')?['body/value'] ** This wont work as returns an Array
+
+ "[{“correlationId”:“299”,“errorCode”:“103”,“dateLocalTime”:“2021-02-19T15:07:58.8051366+00:00”,“dateUTC”:“2021-02-19T15:07:58.805083Z”},
+   {“correlationId”:“300”,“errorCode”:“103”,“dateLocalTime”:“2021-02-19T15:44:12.9214197+00:00”,“dateUTC”:“2021-02-19T15:44:12.9213652Z”}]"
