@@ -179,7 +179,7 @@ https://medium.com/@mkbehera01/connect-to-custom-api-using-custom-connector-powe
 
 ------------------------------
 
-TEAMS BOT => POWER AUTOMATION
+TEAMS VIRTUAL AGENT => FLOW
 
 Cosmos DB Query: SELECT c.correlationId, c.errorCode, c.rawPayload.dateLocalTime, c.rawPayload.dateUTC FROM c WHERE c.status = "Open" Order By c.rawPayload.dateUTC Desc
 
@@ -195,6 +195,12 @@ outputs('Query_documents_V3')?['body/value'] ** This wont work as returns an Arr
  "[{“correlationId”:“299”,“errorCode”:“103”,“dateLocalTime”:“2021-02-19T15:07:58.8051366+00:00”,“dateUTC”:“2021-02-19T15:07:58.805083Z”},
    {“correlationId”:“300”,“errorCode”:“103”,“dateLocalTime”:“2021-02-19T15:44:12.9214197+00:00”,“dateUTC”:“2021-02-19T15:44:12.9213652Z”}]"
 
+
+EMTPY LINE:
+
+uriComponentToString('%0A%0A')
+
+MarkDown HyperLink => [Texto](https://www.microsoft.com)
 
 ------------------
 
