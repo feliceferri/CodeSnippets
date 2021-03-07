@@ -72,3 +72,52 @@ ORDER BY [TableName]
 GO
 
 ---------------------
+
+UPDATE THESE FIELDS IN ALL TABLES
+
+IF OBJECT_ID('tempdb..#BaseData') IS NOT NULL DROP TABLE #BaseData
+GO
+CREATE TABLE #BaseData (Schema_Name sysname, Table_Name sysname, Field_Name sysname, SQLScript varchar(max));
+
+DECLARE @FieldName varchar(20); SET @FieldName = 'ServerTimeUTC';
+
+INSERT INTO #BaseData (Schema_Name, Table_Name, Field_Name, SQLScript)
+SELECT
+s.name
+,o.name 
+,c.name
+,'UPDATE ' + s.name + '.' + o.name + ' SET ' + c.name + ' = ''' + convert(varchar, GETUTCDATE(), 121) + ''', LastUpdate_LocalUTCTime = ''' + convert(varchar, GETUTCDATE(), 121) +  ''''
+FROM sys.columns c
+JOIN sys.types t
+    ON c.user_type_id = t.user_type_id
+JOIN sys.objects o
+    ON c.object_id = o.object_id
+JOIN sys.schemas s ON o.schema_id=s.schema_id
+WHERE c.name LIKE @FieldName 
+    AND o.type_desc = 'USER_TABLE';
+    SELECT * FROM #BaseData
+
+	DECLARE @sql VARCHAR(MAX)
+DECLARE @SqlScript VARCHAR(max)
+
+DECLARE c CURSOR LOCAL FAST_FORWARD FOR
+    SELECT SQLScript
+    FROM #BaseData;
+OPEN c;
+FETCH NEXT FROM c INTO @SQLScript;
+
+WHILE @@FETCH_STATUS = 0
+BEGIN
+    SET @sql = @SqlScript
+
+    EXEC(@sql); 
+
+	PRINT 'Executing => ' + @sql
+
+    FETCH NEXT FROM c INTO @SQLScript;
+END
+
+CLOSE c;
+DEALLOCATE c;
+
+----------------------------------------
