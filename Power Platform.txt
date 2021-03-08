@@ -180,6 +180,10 @@ userTeamRol
 CUSTOM API CONNECTORS 
 https://medium.com/@mkbehera01/connect-to-custom-api-using-custom-connector-power-apps-981a86fbd5cf
 
+LINK to edit Custom Connector for Teams
+https://make.powerapps.com/environments/{EnvironmentId}/customconnectors
+https://make.powerapps.com/environments/3e5a86f0-4ad8-4179-99e3-fa27dc77472f/customconnectors
+
 ------------------------------
 
 TEAMS VIRTUAL AGENT => FLOW
@@ -204,6 +208,16 @@ EMTPY LINE:
 uriComponentToString('%0A%0A')
 
 MarkDown HyperLink => [Texto](https://www.microsoft.com)
+
+
+OCP-APIM-SUBSCRIPTION
+
+Header name: Ocp-Apim-Subscription-Key-Header
+Query parameter name: Ocp-Apim-Subscription-Key-QueryParameter
+
+1) Did Test then copied the result to get the Key
+2) Created the Request Header => Ocp-Apim-Subscription-Key-Header => !!!SET IT TO REQUIRED => cdf515a93a9141c3a6b5027bxxxxx hardcoded the Key value, but I don't think is neccesary
+3) Advanced Rest Client. Add Header => Ocp-Apim-Subscription-Key-Header  Key retrieved from the Test
 
 ------------------
 
