@@ -122,6 +122,9 @@ DROP DOWN STATIC VALUES
 
 Items => ["Indoor","Outdoor"]
 
+COMBOBOX
+Items: typeOfStatuses
+DefaultSelectedItems: LookUp(typeOfStatuses, Value="Open") //Sets the default value
 ---------------
 
 IfError *Like Try Catch
