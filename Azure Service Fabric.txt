@@ -1,0 +1,25 @@
+1) Need to Install Service Fabric SDK in order to create apps from Visual Studio
+
+2) PowerShell as Administrator => Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Force -Scope CurrentUser
+
+3) If I create the Service Cluster from Azure, then I can't publish from VS, 
+What worked was creating the Service Fabric App in Visual Studio and from there Publish => Create a new Service Fabric
+Last tab of this wizzard allows to Open Ports
+Ports are open by default as TCP, but then we can go into the Load Balancer and convert them to UDP
+
+
+Get the IP 
+=> Go To Load Balancers
+
+Error 403 when trying to Explore the Service Application App
+=> https://stackoverflow.com/questions/37898567/azure-service-fabric-explorer-returns-always-403
+
+----------------------
+
+Visual Studio Cloud Explorer
+
+Cluster TreeNode
+
+1) Enable Debugging
+2) Enable Streaming traces
+3) Open Service Fabric Explorer
