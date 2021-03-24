@@ -109,3 +109,14 @@ In the ApplictionDbContext:
         }
 
 -------------------------------------------
+
+APPLICATION DB CONTEXT IN CONSOLE APP
+
+Add this to the ApplicationDbContext => 
+
+  protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+  {
+            optionsBuilder.UseSqlServer(@"connection string");
+  }
+
+-----------------
