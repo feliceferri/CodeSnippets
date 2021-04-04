@@ -21,3 +21,21 @@ HAVE TO ADD MIME TYPE ON THE SERVER
 https://stackoverflow.com/questions/2066981/allow-mdb-downloads-in-iis7
 
 ----------------------------
+
+
+DISTRIBUTION USING PACKAGE PROJECT 
+
+Web.Config
+
+<configuration>
+   <system.webServer>
+      <staticContent>
+         <remove fileExtension=".appinstaller"/>
+         <mimeMap fileExtension=".appinstaller" mimeType="application/xml" />
+         <remove fileExtension=".appx"/>
+         <mimeMap fileExtension=".appx" mimeType="application/vns.ms-appx" />
+         <remove fileExtension=".appxbundle"/>
+         <mimeMap fileExtension=".appxbundle" mimeType="application/vns.ms-appx" />
+      </staticContent>
+   </system.webServer>
+</configuration>

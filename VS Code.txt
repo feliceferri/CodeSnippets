@@ -1,0 +1,14 @@
+VS CODE
+
+Ctrl+Shift+P => Palette
+Ctrl+Shift+B => Build
+
+ESP32
+
+.vscode folder => tasks.json
+"tasks":
+ add 
+   "group": {
+     "kind": "build", "isDefault": true
+    }
+

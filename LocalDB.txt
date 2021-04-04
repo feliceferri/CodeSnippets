@@ -1,0 +1,14 @@
+SILENT INSTALL
+
+Navigate to: https://www.microsoft.com/en-us/download/details.aspx?id=101064
+Download & Copy the SQL2019-SSEI-Expr.exe to a folder created at (C:\Downloads)
+Open an Elevated Command Prompt by Right-Clicking on Command Prompt and select Run as Administrator
+Navigate to the C:\Downloads folder
+Enter the following command to extract the SqlLocalDB.msi:
+SQL2019-SSEI-Expr.exe /ACTION=Download MEDIAPATH=C:\Downloads /MEDIATYPE=LocalDB /QUIET
+Navigate to the C:\Downloads\en-US folder
+Enter the following command:
+MsiExec.exe /i SqlLocalDB.msi IACCEPTSQLLOCALDBLICENSETERMS=YES /qn
+Press Enter
+
+https://silentinstallhq.com/microsoft-sql-server-2019-localdb-silent-install-how-to-guide/
