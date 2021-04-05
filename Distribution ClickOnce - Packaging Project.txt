@@ -39,3 +39,19 @@ Web.Config
       </staticContent>
    </system.webServer>
 </configuration>
+
+https://techcommunity.microsoft.com/t5/windows-dev-appconsult/handling-application-updates-with-app-installer-and-msix-in/ba-p/355389
+
+1) Change PackagingProject.Appinstaller from xmlns="http://schemas.microsoft.com/appx/appinstaller/2017/2" to xmlns="http://schemas.microsoft.com/appx/appinstaller/2018"
+
+2) Add the ShowPrompt Attribute in the same file PackagingProject.Appinstaller  (This will allow to update without waiting for the app to be closed)
+   <UpdateSettings>
+     <OnLaunch HoursBetweenUpdateChecks="0" ShowPrompt="true" />
+   </UpdateSettings>
+
+3) Optional property UpdateBlocksActivation="true", makes the update mandatory, the user can't pospone it onece the dialog has been shown, this is for CRITICAL UPDATES
+   <UpdateSettings>
+     <OnLaunch HoursBetweenUpdateChecks="0" ShowPrompt="true" UpdateBlocksActivation="true"/>
+   </UpdateSettings>
+
+--------------------------

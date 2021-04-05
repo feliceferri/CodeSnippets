@@ -722,3 +722,9 @@ At the bottom of the PartialView goes =>
             }
 
 ---------------------------------------------------------
+
+CONFIGURATION Appsettings.json
+
+Inject IConfiguration configuration
+var redisConnectionString = _configuration.GetValue<string>("RedisConnectionString");
+if its a child in the appsettings.json => _configuration.GetValue<string>("Values:RedisConnectionString");

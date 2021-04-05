@@ -12,3 +12,22 @@ MsiExec.exe /i SqlLocalDB.msi IACCEPTSQLLOCALDBLICENSETERMS=YES /qn
 Press Enter
 
 https://silentinstallhq.com/microsoft-sql-server-2019-localdb-silent-install-how-to-guide/
+
+MsiExec.exe /v SqlLocalDB.msi IACCEPTSQLLOCALDBLICENSETERMS=YES /passive
+
+MsiExec.exe /v SqlLocalDB.msi /passive
+
+MsiExec.exe /i SqlLocalDB.msi /qn
+
+msiexec.exe /qb /i SqlLocalDB.msi IAcceptSqlLocalDBLicenseTerms=YES
+
+msiexec.exe /qn /i SqlLocalDB.msi IAcceptSqlLocalDBLicenseTerms=YES
+
+----------------
+MsiExec.exe /x {F4F4157C-0951-4F00-8530-E3A6B2BE8606} /qn
+
+MsiExec.exe /x {F4F4157C-0951-4F00-8530-E3A6B2BE8606}
+
+-----------
+
+MsiExec.exe /i SqlLocalDB_2012_x64.msi IACCEPTSQLLOCALDBLICENSETERMS=YES /qn
