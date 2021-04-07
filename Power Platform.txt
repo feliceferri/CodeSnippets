@@ -184,6 +184,7 @@ LINK to edit Custom Connector for Teams
 https://make.powerapps.com/environments/{EnvironmentId}/customconnectors
 https://make.powerapps.com/environments/3e5a86f0-4ad8-4179-99e3-fa27dc77472f/customconnectors
 
+https://admin.powerplatform.microsoft.com/  (To list all the environments)
 ------------------------------
 
 TEAMS VIRTUAL AGENT => FLOW

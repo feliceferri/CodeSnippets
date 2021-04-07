@@ -1,0 +1,9 @@
+LOCALIZATION
+
+WPF
+
+1) Add the Resources files (name have to have the plural form resources.)
+Resources.en-US.resx
+Resources.es-ES.resx
+
+2) Open the files => Top Right => Access Modifier => Set to Public
