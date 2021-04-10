@@ -276,3 +276,40 @@ ACCESS A PROJECT RESOURCE
 WPF.Properties.Resources.AvatarMale75x75
 
 -------------------------------
+
+WPF DEPENDENCY INJECTION
+
+public partial class App : Application
+    {
+
+        private ServiceProvider serviceProvider;
+
+        public App()
+        {
+            ServiceCollection services = new ServiceCollection();
+            ConfigureServices(services);
+            serviceProvider = services.BuildServiceProvider();
+        }
+        private void ConfigureServices(ServiceCollection services)
+        {
+            //NOTE!! Go to App.xml and in the header change StatupUri to => Startup="OnStartup"
+
+            //services.AddDbContext<Data.ApplicationDbContext>(options =>
+            //{
+            //    options.UseSqlite("Data Source = Employee.db");
+            //});
+            services.AddDbContext<Data.ApplicationDbContext>();
+
+            services.AddSingleton<Helpers.Loggin>();
+
+            services.AddSingleton<MainWindow>();
+            
+        }
+        private void OnStartup(object sender, StartupEventArgs e)
+        {
+            var mainWindow = serviceProvider.GetService<MainWindow>();
+            mainWindow.Show();
+        }
+    }
+
+--------------------------------
