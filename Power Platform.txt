@@ -225,3 +225,11 @@ Query parameter name: Ocp-Apim-Subscription-Key-QueryParameter
 POWER AUTOMATE Expressions
 
 formatDateTime(body('Parse_JSON')?['dateLocalTime'],'g')
+
+---------------------
+
+NAVIGATE
+
+Navigate(Screen_ResolutionsAdmin, ScreenTransition.Cover)
+Back(ScreenTransition.Fade)
+---------------------------------------
