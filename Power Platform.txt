@@ -34,8 +34,9 @@ https://teams.microsoft.com/l/entity/ff368a5a-9001-418b-9b31-b78f6f1683d6/ff368a
 (tab)
 https://teams.microsoft.com/l/entity/a6b63365-31a4-4f43-92ec-710b71557af9/_djb2_msteams_prefix_1157901877?context=%7B%22subEntityId%22%3A + id + %2C%22channelId%22%3A%2219%3Aad9f3b4d5ab44c89bcc4ce767a7c165d%40thread.tacv2%22%7D&groupId=2c440820-f3d9-44f3-9c25-ba41d0747dd0&tenantId=1e96b7bb-fe74-4183-aff2-a44534266433
 
-
 tutorial video: https://www.youtube.com/watch?v=TwrwTAa1ePQ
+
+Get APP ID in Teams => Build => List => See All => Three dots => Details
 
 --------------------------------------------------------------
 
