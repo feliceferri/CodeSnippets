@@ -55,3 +55,35 @@ BUTTON WHERE HOVERS CHANGED THE OPACITY JUST A LITTLE BIT
                     </Setter.Value>
                 </Setter>
             </Style>
+
+------------------------------------
+
+ROUNDED BUTTON STYLE
+
+<Style x:Key="RoundedButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="6"  Background="#FF61B961"  BorderThickness="1" Padding="2">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+</Style>
+
+-------------------------
+
+
+TEXTBOX WITH ROUNDED CORNERS
+
+<TextBox x:Name="txtWhatsapp" Text="+1" Foreground="LightGray" TextAlignment="Center" Width="120" GotFocus="TxtWhatsapp_GotFocus" LostFocus="TxtWhatsapp_LostFocus" >
+                        <TextBox.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="5"/>
+                        </Style>
+</TextBox.Resources>
+
+--------------------------------
+
+
