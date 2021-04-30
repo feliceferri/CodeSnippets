@@ -1,3 +1,11 @@
+
+administrator
+admin
+
+-----------------------
+
+CONFIG.TXT
+
 LCD Configuration  (1024x600)
 
 ***** Last 3 lines are the ones that has to be copied ***
@@ -30,3 +38,4 @@ hdmi_cvt=1024 600 60 6 0 0 0 # Add custom 1024x600 resolution (group 2 mode 87)
 display_rotate=0
 
 -------------------------------------------------
+
