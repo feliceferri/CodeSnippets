@@ -313,3 +313,13 @@ public partial class App : Application
     }
 
 --------------------------------
+
+Application.Current == null when opening WPF from WinForms
+
+FIX =>
+//This is for when the WPF is launched from a windows form = https://stackoverflow.com/questions/35902815/why-does-application-current-null-in-a-winforms-application
+            if (System.Windows.Application.Current == null) 
+            {
+                new System.Windows.Application();
+            }
+---------------------------------------------
