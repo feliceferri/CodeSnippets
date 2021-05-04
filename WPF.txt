@@ -49,6 +49,11 @@ COMMAND EN EL DATACONTEXT
 
 ----------------------------------------
 
+ACCESS APP RESOURCES IN CODEBEHIND
+
+return (SolidColorBrush) System.Windows.Application.Current.FindResource("RegularText"); 
+
+------------------------------------
 TRIGGER INSIDE A BUTTON EVENT
 
 EventTrigger RoutedEvent="Button.Click" SourceName="BeginButton">
