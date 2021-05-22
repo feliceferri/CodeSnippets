@@ -44,21 +44,27 @@ WEB API CALLS
 
 myEndpoint = "https://lhptmeritortest.azurewebsites.net/api/MeritorTest?name=Test"
 GET => results = system.net.httpGet(myEndpoint)
-POST => results = system.net.httpGet(myEndpoint, {"name":"Test JSON"})
+POST => results = system.net.httpGet(myEndpoint,"application/json", {"name":"Test JSON"})
 #Vision => system.gui.messageBox(results)
 --------------------
 
-self.getSibling("Table").refreshBinding("props.data")
+POST JSON, GET ID
 
-lblPartNumber
-lblPartName
+import datetime
+import json
 
-self.getSibling('JobCardBarcodeScanner').focus()
-                 JobCardBarcodeScanner
+myEndpoint = "https://lhptmeritortest.azurewebsites.net/api/MeritorTest?name=Test"
+data = {"StartedDate": datetime.datetime.now(), 
+			"JobCardNumber":self.getSibling("JobCardBarcodeScanner").props.text , 
+			"PartNumber":self.getSibling("PartNumberBarcodeScanner").props.text , 
+			"UserId": "FeliceF"}
+results = system.net.httpPost(myEndpoint, "application/json",json.dumps(data,default=str))
+obj = json.loads(results)
+self.getSibling("lblSuccessfull").props.text = "Job created successfully Id:" + obj["id"]
+self.getSibling("lblSuccessfull").meta.visible = True
+	
+	
 
-
+---------
 time.sleep(3)
-		        self.getSibling('PartNumberBarcodeScanner').focus()
-		        time.sleep(3)
-		        self.getSibling('JobCardBarcodeScanner').focus()
-
+		    
