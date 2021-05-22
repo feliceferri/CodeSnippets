@@ -1,0 +1,63 @@
+MERITOR COLORS
+
+RED: 178 8 56
+
+-------------------------------------------------
+CONFIGURE VM => OPEN Azure PORT (Network Security Group) to load Web Pages outside the VM
+
+For this test I disabled the Firewall in the VM, I have to test it with the Firewall on
+
+Source-> any
+Source Port -> any
+Destination -> any
+Destination Port -> 8088
+Protocol -> TCP
+Access -> Allow
+
+----------------
+GET A COMPONENT
+
+From the root container: => system.gui.getParentWindow(event).getComponentForPath('root.JobCardBarcodeScanner').requestFocusInWindow()
+From another component:  => self.getSibling('TextField').focus()
+			 => self.view.rootContainer.getChild('TextField').focus()
+
+---------------------------
+KEYPRESS
+if event.key == 'Enter':
+	self.getSibling('PartNumberBarcodeScanner').focus()
+
+Accept: 7591057001285
+Back: 7591039504124
+
+
+
+------------------------
+RUN SQL DATABASE QUERY
+
+system.db.runNamedQuery("QueryName")
+mydata = system.db.runNamedQuery("JobCardQuery",{"CardNumber":self.getsSibling...}})
+myData.getValueAt(0,0)
+myData.getValueAt(0,"PartNumber")
+
+-------------------------
+WEB API CALLS
+
+myEndpoint = "https://lhptmeritortest.azurewebsites.net/api/MeritorTest?name=Test"
+results = system.net.httpGet(myEndpoint)
+#Vision => system.gui.messageBox(results)
+--------------------
+
+self.getSibling("Table").refreshBinding("props.data")
+
+lblPartNumber
+lblPartName
+
+self.getSibling('JobCardBarcodeScanner').focus()
+                 JobCardBarcodeScanner
+
+
+time.sleep(3)
+		        self.getSibling('PartNumberBarcodeScanner').focus()
+		        time.sleep(3)
+		        self.getSibling('JobCardBarcodeScanner').focus()
+
