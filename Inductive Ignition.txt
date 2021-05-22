@@ -43,7 +43,8 @@ myData.getValueAt(0,"PartNumber")
 WEB API CALLS
 
 myEndpoint = "https://lhptmeritortest.azurewebsites.net/api/MeritorTest?name=Test"
-results = system.net.httpGet(myEndpoint)
+GET => results = system.net.httpGet(myEndpoint)
+POST => results = system.net.httpGet(myEndpoint, {"name":"Test JSON"})
 #Vision => system.gui.messageBox(results)
 --------------------
 
