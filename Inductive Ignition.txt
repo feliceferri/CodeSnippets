@@ -62,9 +62,20 @@ results = system.net.httpPost(myEndpoint, "application/json",json.dumps(data,def
 obj = json.loads(results)
 self.getSibling("lblSuccessfull").props.text = "Job created successfully Id:" + obj["id"]
 self.getSibling("lblSuccessfull").meta.visible = True
-	
+-----------------
+
+JSON AND DATETIMES
+import datetime
+import json
+data = {"StartDateUTC": str(self.view.custom.DownTimeStart), 
+			"EndDateUTC": str(datetime.datetime.utcnow()), 
+			"IPAddress":system.net.getIpAddress() , 
+			"ReasonCode":ReasonCode}
+system.net.httpPost(myEndpoint,"application/json", json.dumps(data))
+		
 	
 
 ---------
 time.sleep(3)
-		    
+
+---------		    
