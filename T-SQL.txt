@@ -131,3 +131,20 @@ where I.type_desc = 'NONCLUSTERED'
 and I.name is not null
 
 -------------------------------------
+CREATE USER AND LOGIN AND GIVE HIM PERMISSIONS
+
+--ON MASTER DATABASE
+CREATE LOGIN IgnitionApp WITH password = 'xxxxx'
+GO
+CREATE USER [IgnitionApp] FOR LOGIN [IgnitionApp] WITH DEFAULT_SCHEMA = [dbo]
+GO
+
+--ON TARGET DATABASE
+CREATE USER [IgnitionApp] FOR LOGIN [IgnitionApp] WITH DEFAULT_SCHEMA = [dbo]
+--GO
+--EXEC sp_droprolemember 'db_owner', 'IgnitionApp';
+GO
+EXEC sp_addrolemember 'db_datareader', 'IgnitionApp';
+GO
+EXEC sp_addrolemember 'db_datawriter', 'IgnitionApp';
+GO
