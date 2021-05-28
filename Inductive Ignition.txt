@@ -15,6 +15,11 @@ Protocol -> TCP
 Access -> Allow
 
 ----------------
+DEBUG TO CONSOLE IN PERSPECTIVE
+
+system.perspective.print("xx")
+-------------------------------
+
 GET A COMPONENT
 
 From the root container: => system.gui.getParentWindow(event).getComponentForPath('root.JobCardBarcodeScanner').requestFocusInWindow()
