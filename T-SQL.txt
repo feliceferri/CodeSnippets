@@ -148,3 +148,36 @@ EXEC sp_addrolemember 'db_datareader', 'IgnitionApp';
 GO
 EXEC sp_addrolemember 'db_datawriter', 'IgnitionApp';
 GO
+
+--------------------------------
+
+COUNT NUMBER OF NULL COLUMNS IN A ROW
+
+DECLARE @SQL NVARCHAR(MAX)
+
+SET @SQL = 'SELECT SpecificColumns, '
+
+SELECT @SQL = @SQL + '
+
+       + CASE WHEN [' + [sys].[columns].[name] + '] IS NULL THEN 0 ELSE 1 END'
+
+FROM [sys].[columns]
+
+WHERE [sys].[columns].[object_id] = OBJECT_ID('Table Name')
+
+    AND [sys].[columns].is_nullable = 1
+
+ 
+SET @SQL = @SQL + '
+
+       AS [NullValuesCount] FROM [Table Name]'
+
+ 
+
+PRINT @SQL
+
+ 
+
+EXEC sp_executesql @SQL
+
+-------------------
