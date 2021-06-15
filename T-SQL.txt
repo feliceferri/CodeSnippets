@@ -181,3 +181,50 @@ PRINT @SQL
 EXEC sp_executesql @SQL
 
 -------------------
+
+DISTRIBUTION OF FILLED CELLS BY COLUMNS
+
+DECLARE @SQL nvarchar(MAX);
+DECLARE @Table sysname = 'TP1_Data';
+DECLARE @Schema sysname = 'dbo';
+
+SET @SQL = N'WITH Counts AS (' + NCHAR(13) + NCHAR(10) + 
+           N'    SELECT @Schema AS SchemaName,' + NCHAR(13) + NCHAR(10) +
+           N'           @Table AS TableName,' +
+           STUFF((SELECT N',' + NCHAR(13) + NCHAR(10) + 
+                         N'           COUNT(' + QUOTENAME(C.COLUMN_NAME) + N') AS ' + QUOTENAME(COLUMN_NAME)
+                  FROM INFORMATION_SCHEMA.COLUMNS C
+                  WHERE C.TABLE_SCHEMA = @Schema
+                    AND C.TABLE_NAME = @Table
+                  FOR XML PATH(N''),TYPE).value('.','nvarchar(MAX)'),1,14,N'') + NCHAR(13) + NCHAR(10) + 
+           N'    FROM ' + QUOTENAME(@Table) + N')' + NCHAR(13) + NCHAR(10) + 
+           N'SELECT V.ColumnName,' + NCHAR(13) + NCHAR(10) + 
+           N'       V.NonNullCount,' + NCHAR(13) + NCHAR(10) + 
+           N'       ISC.DATA_TYPE + ISNULL(DT.S,'''') AS Datatype,' + NCHAR(13) + NCHAR(10) +
+           N'       ISNULL(PK.IsPrimaryKey,''No'') AS PrimaryKey' + NCHAR(13) + NCHAR(10) +
+           N'FROM Counts C' + NCHAR(13) + NCHAR(10) + 
+           N'     CROSS APPLY(VALUES' + STUFF((SELECT N',' + NCHAR(13) + NCHAR(10) + 
+                                                      N'                       (N' + QUOTENAME(C.COLUMN_NAME,'''') + N',C.' + QUOTENAME(C.COLUMN_NAME) + N')'
+                                               FROM INFORMATION_SCHEMA.COLUMNS C
+                                               WHERE C.TABLE_NAME = @Table
+                                               FOR XML PATH(N''),TYPE).value('.','nvarchar(MAX)'),1,26,N'') + N')V(ColumnName,NonNullCount)' + NCHAR(13) + NCHAR(10) +
+           N'     JOIN INFORMATION_SCHEMA.COLUMNS ISC ON C.SchemaName = ISC.TABLE_SCHEMA' + NCHAR(13) + NCHAR(10) +
+           N'                                        AND C.TableName = ISC.TABLE_NAME' + NCHAR(13) + NCHAR(10) +
+           N'                                        AND V.ColumnName = ISC.COLUMN_NAME' + NCHAR(13) + NCHAR(10) + 
+           N'     CROSS APPLY (VALUES(''('' + STUFF(CONCAT('','' + CASE ISC.CHARACTER_MAXIMUM_LENGTH WHEN -1 THEN ''MAX'' ELSE CONVERT(varchar(4),ISC.CHARACTER_MAXIMUM_LENGTH) END,' + NCHAR(13) + NCHAR(10)+
+           N'                                            '','' + CASE WHEN ISC.DATA_TYPE NOT LIKE ''%int'' THEN CONVERT(varchar(4),ISC.NUMERIC_PRECISION) END,' + NCHAR(13) + NCHAR(10) +
+           N'                                            '','' + CASE WHEN ISC.DATA_TYPE NOT LIKE ''%int'' THEN CONVERT(varchar(4),ISC.NUMERIC_SCALE) END,' + NCHAR(13) + NCHAR(10) +
+           N'                                            '','' + CONVERT(varchar(4),ISC.DATETIME_PRECISION)),1,1,'''') + '')'')) DT(S)' + NCHAR(13) + NCHAR(10) +
+           N'     OUTER APPLY(SELECT ''Yes'' AS IsPrimaryKey ' + NCHAR(13) + NCHAR(10) + 
+           N'                 FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS TC' + NCHAR(13) + NCHAR(10) + 
+           N'                      JOIN INFORMATION_SCHEMA.KEY_COLUMN_USAGE KCU ON TC.TABLE_SCHEMA = KCU.TABLE_SCHEMA' + NCHAR(13) + NCHAR(10) + 
+           N'                                                                  AND TC.TABLE_NAME = KCU.TABLE_NAME' + NCHAR(13) + NCHAR(10) + 
+           N'                                                                  AND TC.CONSTRAINT_NAME = KCU.CONSTRAINT_NAME' + NCHAR(13) + NCHAR(10) + 
+           N'                 WHERE TC.CONSTRAINT_TYPE = ''PRIMARY KEY''' + NCHAR(13) + NCHAR(10) + 
+           N'                   AND KCU.COLUMN_NAME = V.ColumnName' + NCHAR(13) + NCHAR(10) + 
+           N'                   AND TC.TABLE_SCHEMA = ISC.TABLE_SCHEMA' + NCHAR(13) + NCHAR(10) + 
+           N'                   AND TC.TABLE_NAME = ISC.TABLE_NAME) PK ORDER BY V.NonNullCount DESC;';
+
+PRINT @SQL; --Might need to use SELECT here--SELECT @SQL;EXEC sp_executesql @SQL, N'@Schema sysname,@Table sysname',@Schema = @Schema, @Table = @Table;
+
+--------------------------------------------------------------
