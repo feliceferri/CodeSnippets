@@ -30,3 +30,10 @@ Resolucion requerida Ipad 12.9 2nd 2048x2732 (Ipad 12.9 4ta Gen)
 
 
 Iphone 8 Plus 
+
+
+-------
+
+TROUBLESHOOT
+
+Could not find the Signing Certificate => VS Tools => Apple Account => Add the Apple Developer Account => Project Properties => Re-Bind with the Apple Developer Certificate
