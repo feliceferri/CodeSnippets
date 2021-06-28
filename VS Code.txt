@@ -1,7 +1,26 @@
 VS CODE
 
+Tutorial => https://www.youtube.com/watch?v=r5dtl9Uq9V0
+
+EXTENSIONS
+C#
+VSCode Icons
+Visual Studio Intellicode
+Azure Repos
+Nuget Package Manager
+Microsoft Visual Studio Live Share
+
+-----------------------------
+
+Command Line Interface tools (CLI)
+
+https://docs.microsoft.com/en-us/dotnet/core/tools/
+
+-----------------------------------
+
 Ctrl+Shift+P => Palette
 Ctrl+Shift+B => Build
+
 
 ESP32
 
