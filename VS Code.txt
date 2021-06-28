@@ -31,3 +31,20 @@ ESP32
      "kind": "build", "isDefault": true
     }
 
+
+---------------
+COMMANDS
+
+CREATE a new Solution
+	dotnet new sln -n "SolutionA"
+
+CREATE a new Console Project
+	dotnet new console -n "ProjectA"
+
+ADD a Project to a Solution
+	dotnet sln SolutionA.sln add ./ProjecA/ProjectA.csproj
+
+ADD Reference between projects
+	dotnet add ProjA/projA.csproj reference ProjB/projB.csproj
+
+-----------
