@@ -1,0 +1,84 @@
+GET ENVIRONMENT VARIABLE
+
+import os
+os.getenv('AzureStorageConnectionString')
+-------------------------
+
+
+INSTALLED PACKAGES WITH VERSIONS
+
+pip list
+
+-------------------------------------------
+
+MORE VERBOSITY
+
+.vscode => launch.json => "preLaunchTask" => (Add --verbose) => "func: host start --verbose"
+
+------------------
+
+TRY CATCH
+import sys
+
+try:
+except:
+	logging.error("Error: " + str(sys.exc_info()[0]))
+
+-----------------------------------------
+
+DATE TIME
+
+import datetime
+x = datetime.datetime.now()
+
+'{:02d}'.format(date.day) + "_" + '{:02d}'.format(date.month) + "_" + '{:04d}'.format(date.year)
+----------------
+
+BLOB STORAGE
+
+Terminal => pip install azure-storage-blob
+
+requirements.txt
+	azure-functions
+	azure-storage-blob
+
+import os, uuid
+from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient, __version__
+
+blobStorageConnectionString = os.getenv('AzureStorageConnectionString')
+blob_service_client = BlobServiceClient.from_connection_string(blobStorageConnectionString)
+
+#Blob Container Instance
+blobContainerName = os.getenv('ContainerName')
+blob_container_client = blob_service_client.get_container_client(blobContainerName)
+if blob_container_client.exists() == False:
+blob_container_client.create_container()
+
+blob = BlobClient.from_connection_string(conn_str=blobStorageConnectionString, container_name=blobContainerName, blob_name=blobName)
+#if we run this function more than once a day
+if blob.exists() == True:
+	blob.delete_blob()
+
+with open(fileName, "rb") as data:
+	blob.upload_blob(data)
+----------------------
+
+CREATE FILE AND READ CONTENT
+
+file = open(fileName, 'w')
+file.write("Test => Workgroup => " + workGroup)
+file.close()
+with open(fileName, "rb") as data:
+	Do something with the data
+-----------------------
+
+KEY VAULT
+
+pip install azure-identity
+pip install azure-keyvault-secrets
+
+ KVUri = os.getenv('KeyVault_Service_URL')
+        azureIdentityCredential = DefaultAzureCredential()
+        KeyVaultClient = SecretClient(vault_url=KVUri, credential=azureIdentityCredential)
+
+-----------------------

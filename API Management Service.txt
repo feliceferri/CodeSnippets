@@ -1,0 +1,36 @@
+API MANAGEMENT SERVICE + OAUTH2.0
+
+https://www.youtube.com/watch?v=V83OqpG0vlI
+
+Register App for the Backend (APIM_OAUTH_BackendApp)
+	Redirect Uri => Web => leave it empty
+	Overview => Copy the ClientId be7bfc1a-5684-44dc-a68e-e3a55f17c420
+	Expose an API => Set application ID Uri with the default value, Copy that value api://be7bfc1a-5684-44dc-a68e-e3a55f17c420
+		      => Add Scope, per example Files.Read, add as many scopes as needed. Copy the scope api://be7bfc1a-5684-44dc-a68e-e3a55f17c420/Files.Read
+	
+Register App for the Client (API_OAUTH_ClientApp)
+	Select option => Accounts in any organization directory (any Azure AD directory - Multitenant)
+	Redirect Uri => Web => leave it empty
+	Overview => Copy the ClientId 	de1cc9e5-4c77-4e23-a335-2ff574c3e47b
+	Certifcate & Secrets => New Secret. Copy Secret Id 9e19206a-2540-498c-9521-6ce1d1bfc0f8 and Value ijWPo609s4pg1hvfsJ-L1a6YZg-_-C8VYa
+	API Permissions => Add Permission => Select 'My APIs' => Select the BackEndApp => Check the permissions then Add Permissions
+	API Permissions Grant Admin consent for LHP Engineering Solutions (In my case is disabled)
+
+API Management Instance
+	OAuth2.0 => Add
+		Client registratin page => http://localhost (As user won't need to create and configure their accounts)
+		Authorizatio Code check
+		Go to App Registrations => EndPoints (top) copy authorization endpoint: https://login.microsoftonline.com/1e96b7bb-fe74-4183-aff2-a44534266433/oauth2/v2.0/authorize
+					   		   copy token endpoint https://login.microsoftonline.com/1e96b7bb-fe74-4183-aff2-a44534266433/oauth2/v2.0/token
+		Copy those two
+		In the Default Scope copy the Scope
+		Set the client credentials (ClientApp) ID, and Secret Password
+		Copy the Authorization code URL
+		Create
+
+Go to the Client App Registration
+	Authentication => Add Platform => Web => Paste the Redirect URL from previous step.
+						 Don't select anything else, click Configure
+
+Go to API Management Services
+	Select the API => Settings => Security => OAuth2.0 and select the server that was configured earlier

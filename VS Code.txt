@@ -47,4 +47,7 @@ ADD a Project to a Solution
 ADD Reference between projects
 	dotnet add ProjA/projA.csproj reference ProjB/projB.csproj
 
+LAUNCH VS CODE
+	Code .
+
 -----------
