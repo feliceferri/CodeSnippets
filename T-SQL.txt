@@ -149,6 +149,9 @@ GO
 EXEC sp_addrolemember 'db_datawriter', 'IgnitionApp';
 GO
 
+ADD PERMISSION TO A SPECIFIC STORE PROCEDURE
+=> GRANT EXECUTE ON OBJECT::dbo.spCreateDailyReport TO GenerateReportUser;  
+
 --------------------------------
 
 COUNT NUMBER OF NULL COLUMNS IN A ROW
