@@ -235,3 +235,15 @@ INTERNAL CALL BETWEEN TWO AZURE FUNCTIONS INSIDE THE SAME PROJECT
         }
 
 -------------------------------------------
+
+RECIVE A FILE IN AZURE FUNCTION
+
+var file = req.Form.Files["file"];
+uploadedFilePath = SignToolTempFolder.FullName + @"\" + Guid.NewGuid().ToString() + ".exe.dig";
+Stream s = File.Create(uploadedFilePath);
+file.CopyTo(s);
+s.Close();
+
+To send a file with Advanced Rest Client => Headers => Content-Type : multipart/form-data 
+					    Body => multipart/form-data => Select the File, put a name to the Form Variable
+----------------------------------------------
