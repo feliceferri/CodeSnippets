@@ -238,12 +238,28 @@ INTERNAL CALL BETWEEN TWO AZURE FUNCTIONS INSIDE THE SAME PROJECT
 
 RECIVE A FILE IN AZURE FUNCTION
 
+
 var file = req.Form.Files["file"];
 uploadedFilePath = SignToolTempFolder.FullName + @"\" + Guid.NewGuid().ToString() + ".exe.dig";
 Stream s = File.Create(uploadedFilePath);
 file.CopyTo(s);
 s.Close();
 
+*req is part of the method signature (HttpRequest req)
+
 To send a file with Advanced Rest Client => Headers => Content-Type : multipart/form-data 
 					    Body => multipart/form-data => Select the File, put a name to the Form Variable
 ----------------------------------------------
+
+TO RETURN A FILE FROM THE AZURE FUNCTION
+
+Change the output Method signature to => public static async Task<HttpResponseMessage> Run(
+
+System.Net.Http.HttpResponseMessage result = new System.Net.Http.HttpResponseMessage(HttpStatusCode.OK);
+var fileToReturn = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.None, 4096, FileOptions.DeleteOnClose);
+result.Content = new System.Net.Http.StreamContent(fileToReturn);
+result.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
+result.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment")
+{
+	FileName = "FileName"
+};
