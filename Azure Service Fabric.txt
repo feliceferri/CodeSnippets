@@ -12,6 +12,14 @@ Get the IP
 Load Balancer => Load Balancing Rules => Add => PORT & BackEndport (Repeat Number), probe can be the default one TCP:19000 even if creating an UDP Rule
 Network SecurityGroup => Inbound Security Rules => Add => Source Any , port *, Destination Any, Service Custom, Destination Port Range 13000, Name = AllowAllTCPTOPort13000
 
+Add the Service endpoint to the ServerManifest.xml
+<Resources>
+    <Endpoints>
+      <Endpoint Name="ServiceEndpointTCP" Port="13000" Protocol="tcp"/>
+    </Endpoints>
+  </Resources>
+</ServiceManifest>
+
 Error 403 when trying to Explore the Service Application App
 => https://stackoverflow.com/questions/37898567/azure-service-fabric-explorer-returns-always-403
 
