@@ -1,0 +1,67 @@
+Ignition => HMI + SCADA (Supervesory Control & Data Acquisiton) + MES (Manufacturing Execution System, OEE, SPC, Track & Trace, Recipe Mgmt)
+		Modular Industrial Application Server
+		High Performance Historian => Log data to SQL DB
+		Reporting Engine => Creates dynamic PFD Reports
+		Applications
+		Alarming (SMS, email, voice)
+		Fully cross platform => Windows, Mac, Linux
+		Scale Out => Multiple Servers (Backend Gateways = Tag & I/O Gateways, Front-End Gateway)
+
+INSTALL
+	Comissioning
+
+Config => Backup/Restore
+Gateway Admin => LocalHost:8088
+
+
+Perspective => Runs in a webbrowser without any configuration
+               Clients that runs Perpective are called => Sessions
+		(Old) Visions clients runs as standalone app Perspective Session runs in the Web Browser.
+ 		Responsive.
+		Sessions are encrypted. Federated authentication. OAuth2.0. Security => Identity Providers => (Ignition, OpenID Connect, SAML)
+		Security Level => Project or Window (Authenticated, Roles)
+
+
+Inheritance
+	Parent Projects can share resources with child projects (Windows, Templates, Scripts)
+	Resources are grayed out (because are inherited from other projects)
+
+-----------------------------
+
+GATEWAY localhost:8088/web/home
+Hub for everything
+
+Ignition Designer Launcher => To desing the first proyect
+
+CMD => c:\program files\Inductive Automation\Ignition => command  gwcmd
+
+Backup (Projects, Tags, Configuration Changes {Authentications, DB Connections) ), Wont backup data inside the DB
+Gateway => Config => Backup/Restore
+
+Gateways connections. if using SSL default port is 8060 if not 8080
+
+--------------------------------
+
+UDT Data Layer Abstraction Tags
+
+Azure Service Inject Service
+
+Serialized Link (Outgoing connection)
+
+AS400
+
+Manual Input (everything on Ignition)
+
+Backend Report (Azure) OEE
+
+----------------------------------
+
+Job Card, Part Number.
+Bad Part Button
+Taken Break
+(20% Bar codes in the same screen)
+
+----------------------------------
+
+
+
