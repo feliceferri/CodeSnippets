@@ -231,3 +231,18 @@ SET @SQL = N'WITH Counts AS (' + NCHAR(13) + NCHAR(10) +
 PRINT @SQL; --Might need to use SELECT here--SELECT @SQL;EXEC sp_executesql @SQL, N'@Schema sysname,@Table sysname',@Schema = @Schema, @Table = @Table;
 
 --------------------------------------------------------------
+
+CLEAR CACHE
+
+//To show how many Caches are living
+SELECT count(*) from sys.dm_exec_cached_plans;
+SELECT * from sys.dm_exec_cached_plans;
+
+//To delete caches
+DBCC FREEPROCCACHE;
+ALTER DATABASE SCOPED CONFIGURATION CLEAR PROCEDURE_CACHE;  //This doesnt delete that many caches
+
+-------------------------------------
+
+
+
