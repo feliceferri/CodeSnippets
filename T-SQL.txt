@@ -245,4 +245,10 @@ ALTER DATABASE SCOPED CONFIGURATION CLEAR PROCEDURE_CACHE;  //This doesnt delete
 -------------------------------------
 
 
+RECOVERY MODEL
+
+Show current recovery model
+SELECT name AS [databasename], recovery_model_desc AS [Recovery Model] FROM sys.databases
+
+---------------------------
 

@@ -1,0 +1,32 @@
+CREATE VM
+Managed Disk
+Public IP => Change to Static Ip
+Network Security Group => new 3 inbound rules.
+			default-allow-ftp-command priority 1010 Source Any  Service FTP  TCP Port 21 Allow
+			default-allow-ftp-data             1020        Any        Custom TCP      20 Allow
+			default-allow-ftp-passive	   1030        Any        Custom TCP	  60000-65000 allow	
+
+No additional options needed
+
+Windows Server
+ => Server Manager
+    => Add Roles & Features
+	=> Add Web Server (IIS)
+	=> Jump to Roles Sevices (Left Menu)
+		=> Unselect everything
+		=> Only select FTP Service & ISS Management Console
+
+ => IIS Manager
+	=> Delete the Default Web Site 
+	=> Delete the DefaultAppPool
+	=> Sites Folder => Right Click => Add FTP Site
+		=> Physical Path => inetpub\ftproot
+		   if doing SSL => At the Server Level node => Certificates => Import (top right) .pfx
+	=> Server Level Node => FTP Firewall Support
+		=> Port Range 60000 - 65000
+		=> 127.0.0.1
+  => Cmd Administrator => netsh advfirewall set global StatefulFtp enable
+		       => net stop ftpsvc
+		       => net start ftpsvc
+
+https://www.youtube.com/watch?v=bHA790VbSZ0
