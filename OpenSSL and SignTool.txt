@@ -1,0 +1,1 @@
+For SignTool to work on an Azure Function the Environment Variable WEBSITE_LOAD_CERTIFICATES has to be set

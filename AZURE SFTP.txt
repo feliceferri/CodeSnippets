@@ -22,6 +22,7 @@ Windows Server
 	=> Sites Folder => Right Click => Add FTP Site
 		=> Physical Path => inetpub\ftproot
 		   if doing SSL => At the Server Level node => Certificates => Import (top right) .pfx
+		   Basic, All users, Read, Write
 	=> Server Level Node => FTP Firewall Support
 		=> Port Range 60000 - 65000
 		=> 127.0.0.1
