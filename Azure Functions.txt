@@ -263,3 +263,9 @@ result.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentD
 {
 	FileName = "FileName"
 };
+
+--------------
+
+SWAGGER
+
+https://www.codit.eu/blog/adding-swagger-ui-azure-functions/
