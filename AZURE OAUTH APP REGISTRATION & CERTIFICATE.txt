@@ -11,4 +11,22 @@ client_secret  bVR46kMA_IQzG~xxxxx
 client_id ad593129-eaeb-40xxxx  APP REGISTRATION ID
 scope api://ad593129-eaeb-40xxx APP REGISTRATION ID/.default  ** The /.default has to be added
 
-Secret: nXiQ.~U54~AXLWT7Vf4AKBzK3u4_N3Bs66
+--------------------------------------
+
+
+CREATE A CERTIFICATE
+
+Developer Console in Administrator mode
+
+makecert -sky exchange -r -n "CN=CumminsTest2" -pe -a sha1 -len 2048 -ss My "CumminsTest2.cer"
+
+certmgr.msc
+Navigate to Certificates > Personal > Certificates
+right click => All Tasks => Export
+No, do not export private key
+Base64 x.509
+------------------------------------------
+
+Upload the Certificate to App Registrations
+=> Get certificate Thumbprint
+

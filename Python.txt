@@ -1,5 +1,11 @@
 GET ENVIRONMENT VARIABLE
 
+VERSION
+
+python --version
+
+---------------------
+
 import os
 os.getenv('AzureStorageConnectionString')
 -------------------------
