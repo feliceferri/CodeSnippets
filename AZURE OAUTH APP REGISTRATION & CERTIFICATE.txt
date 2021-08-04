@@ -13,6 +13,7 @@ scope api://ad593129-eaeb-40xxx APP REGISTRATION ID/.default  ** The /.default h
 
 --------------------------------------
 
+CERTIFICATE BASED AUTHENTICATION
 
 CREATE A CERTIFICATE
 
@@ -25,8 +26,60 @@ Navigate to Certificates > Personal > Certificates
 right click => All Tasks => Export
 No, do not export private key
 Base64 x.509
-------------------------------------------
 
+
+WENT TO THE AZURE FUNCTION
+=> Authentication, created a new Identity Provider following defaults
+
+WENT TO THE APP REGISTRATION
 Upload the Certificate to App Registrations
 => Get certificate Thumbprint
+
+
+Code: 
+string clientId = "bf4b99b3-8dbf-45da-8c05-03ef736da118"; //App Registration Id
+string thumbprint = "F4FCC2AB6CE68968436CD3136B0F5BD7D639E011";  Certificate Thumbprint
+X509Certificate2 cert = GetCertificate(thumbprint);
+string resource = "api://bf4b99b3-8dbf-45da-8c05-03ef736da118"; //Got it from App Registration (Doesn't work with the /.default)
+
+            string authority = "https://login.microsoftonline.com/{TenantId}";
+            AuthenticationContext authContext = new AuthenticationContext(authority);
+            var result = authContext.AcquireTokenAsync(resource, new ClientAssertionCertificate(clientId, cert)).Result;
+            Console.WriteLine(result.AccessToken);
+
+            var _client = new HttpClient();
+            _client.DefaultRequestHeaders.Add("Authorization", "Bearer " + result.AccessToken);
+            var content = new StringContent("", Encoding.UTF8, "application/json");
+            HttpResponseMessage httpCallResult = await _client.PostAsync("https://xxx.azurewebsites.net/api/Function1", content);
+
+
+
+private static  X509Certificate2 GetCertificate(string certThumbPrint)
+        {
+            X509Store certStore = new X509Store(StoreName.My, StoreLocation.CurrentUser);
+            // Try to open the store.
+
+            certStore.Open(OpenFlags.ReadOnly);
+            // Find the certificate that matches the thumbprint.
+            X509Certificate2Collection certCollection = certStore.Certificates.Find(
+                X509FindType.FindByThumbprint, certThumbPrint, false);
+            certStore.Close();
+
+            // Check to see if our certificate was added to the collection. If no, 
+            // throw an error, if yes, create a certificate using it.
+            if (0 == certCollection.Count)
+            {
+                Console.WriteLine("Error: No certificate found containing thumbprint ");
+            }
+
+            return certCollection[0];
+        }
+------------------------
+
+APP REGISTRATION
+
+Followed this steps: https://www.eliostruyf.com/securing-azure-functions-existing-azure-ad-app/
+
+I just went with the default settings creating a new Identity Provider
+The only customization was for Advanced Rest Client y added .default to the scope api => the api://bf4b99b3-8dbf-45da-8c05-03ef736da118/.default
 
