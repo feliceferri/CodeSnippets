@@ -83,3 +83,20 @@ Followed this steps: https://www.eliostruyf.com/securing-azure-functions-existin
 I just went with the default settings creating a new Identity Provider
 The only customization was for Advanced Rest Client y added .default to the scope api => the api://bf4b99b3-8dbf-45da-8c05-03ef736da118/.default
 
+
+---------------------------------------------
+CLIENT AND SECRET AUTHENTICATION  MSAL.NET 
+
+using Microsoft.Identity.Client;
+
+IConfidentialClientApplication app;
+            app = ConfidentialClientApplicationBuilder.Create("a1a4a935-804f-419a-82dc-xxxxxxxxx") //App Registration ClientId
+                                                      .WithClientSecret("xxxxxx")  //Secret
+                                                      .WithAuthority(new Uri("https://login.microsoftonline.com/1e96b7bb-fe74-4183-aff2-xxxx"))  //TenantId
+                                                      .Build();
+
+            List<string> scopes = new List<string>() { "api://a1a4a935-804f-419a-82dc-xxxx/.default" }; //{Application ID URI}/.default
+            var result = await app.AcquireTokenForClient(scopes).ExecuteAsync();
+
+
+---------------------------------------------------------
