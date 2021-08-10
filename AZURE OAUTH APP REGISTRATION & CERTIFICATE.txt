@@ -83,7 +83,9 @@ Followed this steps: https://www.eliostruyf.com/securing-azure-functions-existin
 I just went with the default settings creating a new Identity Provider
 The only customization was for Advanced Rest Client y added .default to the scope api => the api://bf4b99b3-8dbf-45da-8c05-03ef736da118/.default
 
-Added http://localhost to the automatically created Web App Platform. ** Didn't need to create a Desktop Platform although I'm logging from a Console Desktop App
+A) Select the Access Token CheckBox
+
+B) Added the Desktop Platform, Selected the 3 checkboxes after created => Added http://localhost as URL
 
 ---------------------------------------------
 CLIENT AND SECRET AUTHENTICATION  MSAL.NET 
