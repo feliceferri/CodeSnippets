@@ -90,6 +90,7 @@ B) Added the Desktop Platform, Selected the 3 checkboxes after created => Added 
 ---------------------------------------------
 CLIENT AND SECRET AUTHENTICATION  MSAL.NET 
 
+
 using Microsoft.Identity.Client;
 
 IConfidentialClientApplication app;
@@ -103,3 +104,83 @@ IConfidentialClientApplication app;
 
 
 ---------------------------------------------------------
+
+USER CREDENTIALS WITH MSAL.NET
+
+ON THE APP Registration
+ => APIS
+ 	=> Add Permission
+		=> My APIS Tab
+			=> Select the same App of the App Registration
+				=> Check User Impersonation.
+ 
+         
+
+
+  var _clientApp = PublicClientApplicationBuilder.Create("9bfa828e-XXXXXX") //App Registration ClientID
+           .WithAuthority(AzureCloudInstance.AzurePublic, "1e96b7bb-XXXXXX") //Tenant ID
+           .WithRedirectUri("http://localhost") //FF: Had to add LocalHost as RedirectURI in Azure App Registration
+           //.WithDefaultRedirectUri()
+           .Build();
+
+            //string[] scopes = new string[] { "user.read" };
+            string[] scopes = new string[] { "9bfa828e-XXXXXXX/user_impersonation" };  //{App Registration ID}/user_impersonation
+
+
+
+            AuthenticationResult authResult = null;
+            var app = _clientApp;
+            //ResultText.Text = string.Empty;
+            //TokenInfoText.Text = string.Empty;
+
+            var accounts = await app.GetAccountsAsync();
+            var firstAccount = accounts.FirstOrDefault();
+
+            try
+            {
+                //authResult = await app.AcquireTokenSilent(scopes, firstAccount).ExecuteAsync();
+                authResult = await app.AcquireTokenInteractive(scopes)
+                       .WithAccount(accounts.FirstOrDefault())
+                       .WithPrompt(Prompt.SelectAccount)
+                       .ExecuteAsync();
+            }
+            catch (MsalUiRequiredException ex)
+            {
+                // A MsalUiRequiredException happened on AcquireTokenSilent.
+                // This indicates you need to call AcquireTokenInteractive to acquire a token
+                System.Diagnostics.Debug.WriteLine($"MsalUiRequiredException: {ex.Message}");
+
+                try
+                {
+                    authResult = await app.AcquireTokenInteractive(scopes)
+                        .WithAccount(accounts.FirstOrDefault())
+                        .WithPrompt(Prompt.SelectAccount)
+                        .ExecuteAsync();
+                }
+                catch (MsalException msalex)
+                {
+                    //ResultText.Text = $"Error Acquiring Token:{System.Environment.NewLine}{msalex}";
+                }
+            }
+            catch (Exception ex)
+            {
+                //ResultText.Text = $"Error Acquiring Token Silently:{System.Environment.NewLine}{ex}";
+                return;
+            }
+
+            if (authResult != null)
+            {
+                //ResultText.Text = await GetHttpContentWithToken(graphAPIEndpoint, authResult.AccessToken);
+                //DisplayBasicTokenInfo(authResult);
+                //this.SignOutButton.Visibility = Visibility.Visible;
+
+                Console.WriteLine(authResult.AccessToken);
+
+                var _client = new HttpClient();
+                _client.DefaultRequestHeaders.Add("Authorization", "Bearer " + authResult.AccessToken);
+                HttpResponseMessage httpCallResult = await _client.GetAsync("https://XXXXXXX.azurewebsites.net/api/Function1");
+
+                Console.ReadLine();
+            }
+
+-------------------------------------------------------------------------------------
