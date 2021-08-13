@@ -1,5 +1,8 @@
 AZURE OAUTH APP REGISTRATION & CERTIFICATE
 
+-------------------
+USING SECRET
+
 https://login.microsoftonline.com/{TenantId - Active Directory GUID or DNS}/oauth2/v2.0/token
 
 HEADER
@@ -184,3 +187,49 @@ ON THE APP Registration
             }
 
 -------------------------------------------------------------------------------------
+
+ASP.NET CORE WEB API JWT
+
+Startup.cs
+
+ConfigureServices
+
+	services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        .AddJwtBearer(options =>
+        {
+            options.Audience = Configuration["AzureAd:ClientId"];
+            options.Authority =
+                $"{Configuration["AzureAd:Instance"]}{Configuration["AzureAd:TenantId"]}";
+        });
+
+
+Configure
+
+    app.UseAuthentication();
+    app.UseMvc();
+
+
+appsettings.json
+  "AzureAd": {
+         "ClientId": "",
+         "Instance": "https//login.microsoftonline.com/",
+         "TenantId": ""
+	}
+
+
+-----------------------------------
+
+CALLING FROM AN AZURE SERVICE (AzureServiceTokenProvider)
+
+** This needs the Caller to have the Managed Identity turned On
+
+var ClientId = "<AD App Id of Web API>";
+var azureServiceTokenProvider = new AzureServiceTokenProvider();
+string accessToken = await azureServiceTokenProvider.GetAccessTokenAsync(ClientId );
+
+var wc = new System.Net.Http.HttpClient();
+wc.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+var result = await wc.GetAsync("<Secured API URL>");
+
+
+https://www.youtube.com/watch?v=r4QFBsT2YE8&t=51s
