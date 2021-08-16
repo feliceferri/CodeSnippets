@@ -1,0 +1,56 @@
+INDEX VIEW
+
+CREATE BUTTON 
+
+<a class="btn btn-success" asp-action="Create"><i class="fas fa-plus-circle fa-lg"></i>&nbsp; Create New Rule</a>
+
+<tr onclick="location.href = '@(Url.Action("Details", "WarningsAndErrorsRules", new { Id = item.Id }))'" style="cursor:pointer">
+
+DETAILS VIEW
+
+<br />
+    <div class="row">
+        <div class="col-6">
+            <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Id"><i class="far fa-edit"></i> Edit</a>
+        </div>
+        <div class="col-6">
+            @*@if (Model.DeletedDateUtc.HasValue == true)
+            {
+                <form asp-action="Recover">
+                    <input type="hidden" asp-for="Id" />
+                    <button type="submit" value="Recover" class="btn btn-success fa-pull-right"><i class="far fa-trash-alt"></i> Recover</button>
+                </form>
+            }
+            else
+            {*@
+                <form asp-action="Delete">
+                    <input type="hidden" asp-for="Id" />
+                    <button type="submit" value="Delete" class="btn btn-danger fa-pull-right"><i class="far fa-trash-alt"></i> Delete</button>
+                </form>
+            @*}  *@
+        </div>
+    </div>
+
+-------------------------
+
+SELECT
+
+<select asp-for="NumericRule" class="form-control">
+                <option value=">">></option>
+                <option value=">=">>=</option>
+                <option value="=">=</option>
+                <option value="<="><=</option>
+                <option value="<"><</option>
+                <option value="between">Between</option>
+                <option value="between">Not Between</option>
+</select>
+
+-----------------------------------
+
+
+TEXT AREA
+
+<textarea class="form-control" cols="20" id="DescriptionForNotification" name="DescriptionForNotification" rows="3"></textarea>
+
+-----------------------------
+                    
