@@ -22,6 +22,7 @@ CREATE A CERTIFICATE
 
 Developer Console in Administrator mode
 
+Open Visual Studio command Line
 makecert -sky exchange -r -n "CN=CumminsTest2" -pe -a sha1 -len 2048 -ss My "CumminsTest2.cer"
 
 certmgr.msc

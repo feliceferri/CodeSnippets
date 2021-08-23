@@ -8,6 +8,19 @@ CREATE BUTTON
 
 DETAILS VIEW
 
+** Back button at the top
+ <div class="row ml-1">
+        @*Centered Approach*@
+        @*<a asp-action="Index" style="position:absolute"><i class="fas fa-arrow-circle-left fa-2x" style="cursor:pointer; color:black"></i></a>
+        <a style="text-align:center"><h4>Warning/Errors Rule</h4></a>*@
+        <a asp-action="Index"><i class="fas fa-arrow-circle-left fa-2x" style="cursor:pointer; color:black"></i></a>
+        <h4 class="ml-3">Warning/Errors Rule</h4>
+    </div>
+<hr />
+
+
+** Edit and Delete buttons.
+
 <br />
     <div class="row">
         <div class="col-6">
@@ -50,7 +63,7 @@ SELECT
 
 TEXT AREA
 
-<textarea class="form-control" cols="20" id="DescriptionForNotification" name="DescriptionForNotification" rows="3"></textarea>
+@Html.TextAreaFor(model => model.DescriptionForNotification, new { cols = 20, @rows = 3, @class="form-control"  })
 
 -----------------------------
                     
