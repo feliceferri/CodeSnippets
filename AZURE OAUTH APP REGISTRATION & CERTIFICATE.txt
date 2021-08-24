@@ -118,7 +118,10 @@ ON THE APP Registration
 			=> Select the same App of the App Registration
 				=> Check User Impersonation.
  
- => Make Redirect URI as http://localhost        
+ => Authentication 
+     => Add Platform
+          Select the three checkboxes
+          Make Redirect URI as http://localhost        
 
 
   var _clientApp = PublicClientApplicationBuilder.Create("9bfa828e-XXXXXX") //App Registration ClientID
