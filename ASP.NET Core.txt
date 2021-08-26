@@ -728,3 +728,81 @@ CONFIGURATION Appsettings.json
 Inject IConfiguration configuration
 var redisConnectionString = _configuration.GetValue<string>("RedisConnectionString");
 if its a child in the appsettings.json => _configuration.GetValue<string>("Values:RedisConnectionString");
+
+
+------------------------------------------------------------
+
+SESSION HELPER
+
+Startup.cs
+
+ConfigureServices()
+
+    services.AddDistributedMemoryCache();
+            services.AddSession(o =>
+            {
+                o.IdleTimeout = TimeSpan.FromMinutes(60);
+                o.Cookie.HttpOnly = true;
+                o.Cookie.IsEssential = true;
+            });
+
+    services.AddSingleton<Helpers.SessionHelper.ISessionHelper, Helpers.SessionHelper>();
+
+
+Configure()
+app.UseSession();
+
+
+public class SessionHelper: Helpers.SessionHelper.ISessionHelper
+    {
+         public interface ISessionHelper
+        {
+            Dictionary<string, string> GetSignalNameAndDescriptions();
+        }
+
+        private readonly IMemoryCache _cache;
+        private readonly IServiceScopeFactory _scopeFactory;
+        public SessionHelper(IMemoryCache memoryCache, IServiceScopeFactory scopeFactor)
+        {
+            _cache = memoryCache;
+            _scopeFactory = scopeFactor;
+        }
+
+        public Dictionary<string, string> GetSignalNameAndDescriptions()
+        {
+            Dictionary<string, string> dic;
+            
+            if (_cache.TryGetValue<Dictionary<string,string>>("SignalNameAndDescriptions_Dictionary", out dic) == false  )
+            {
+                //Read from the DB
+                using (var scope = _scopeFactory.CreateScope())
+                {
+                    var dbContext = scope.ServiceProvider.GetRequiredService<DataDbContext>();
+
+                    dic = dbContext.TP1_DataGroupSchemas.Where(x => x.ConfigurationId == 40002).Select(x=> new { x.DataElementName, x.Description }).Distinct().ToDictionary(x => x.DataElementName, x => x.Description);
+                    if (dic != null && dic.Count > 0)
+                    {
+                        foreach (KeyValuePair<string, string> kv in dic)
+                        {
+                            if (kv.Value == null)
+                                dic[kv.Key] = kv.Key;
+                        }
+
+                    }
+
+                    _cache.Set<Dictionary<string, string>>("SignalNameAndDescriptions_Dictionary", dic);
+                }
+            }
+                        
+            return dic;
+        }
+    }
+
+
+In any controller, just inject
+
+Helpers.SessionHelper.ISessionHelper sessionHelper
+-----------------------------------------------------------
+
+
+      
