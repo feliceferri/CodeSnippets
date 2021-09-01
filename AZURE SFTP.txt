@@ -1,4 +1,5 @@
-CREATE VM
+CREATE VM ON AZURE
+Open port 22 & 3389
 Managed Disk
 Public IP => Change to Static Ip
 Network Security Group => new 3 inbound rules.
@@ -7,6 +8,11 @@ Network Security Group => new 3 inbound rules.
 			default-allow-ftp-passive	   1030        Any        Custom TCP	  60000-65000 allow	
 
 No additional options needed
+
+Add Roles & Features:
+Role-based or feature-based installation
+
+REMOTE DESKTOP TO THE VM
 
 Windows Server
  => Server Manager
@@ -21,7 +27,8 @@ Windows Server
 	=> Delete the DefaultAppPool
 	=> Sites Folder => Right Click => Add FTP Site
 		=> Physical Path => inetpub\ftproot
-		   if doing SSL => At the Server Level node => Certificates => Import (top right) .pfx
+                   if doing SSL => At the Server Level node => Certificates => Import (top right) .pfx
+                   (I selected the TenantCertificate that appeared as default in the combobox)
 		   Basic, All users, Read, Write
 	=> Server Level Node => FTP Firewall Support
 		=> Port Range 60000 - 65000
@@ -29,6 +36,27 @@ Windows Server
   => Cmd Administrator => netsh advfirewall set global StatefulFtp enable
 		       => net stop ftpsvc
 		       => net start ftpsvc
+
+
+Windows => Apps
+    Add Feature => Optional Features
+         OpenSSH Server
+ 
+Windows => Services
+    Look for OpenSSH Auhtnetication Agent => Set to Automatic Startup => Start
+    Look for OpenSSH SSH Server => Set to Automatica Startup => Start
+
+Open Notepad as an administrator
+   Open this folder => C:\ProgramData\SSH
+   Change filter to All Files
+   Select ssh_config
+   	Where it says => #ChrootDirectory none
+        change it for => ChrootDirectory "D:\SFTP"
+	* Remember to remove the hash
+
+Windows => Services
+   Look for OpenSSH SSH Server => Restart
+
 
 https://www.youtube.com/watch?v=bHA790VbSZ0
 

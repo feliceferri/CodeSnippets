@@ -732,7 +732,7 @@ if its a child in the appsettings.json => _configuration.GetValue<string>("Value
 
 ------------------------------------------------------------
 
-SESSION HELPER
+SESSION HELPER (DEPENDENCY INJECTION)
 
 Startup.cs
 
