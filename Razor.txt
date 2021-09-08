@@ -67,3 +67,17 @@ TEXT AREA
 
 -----------------------------
                     
+CSS STYLES FROM Environent Tables
+
+@inject IConfiguration Configuration
+
+<img class="header-icon" src=@Configuration["CSS:Icon"]>
+
+
+AppSettings.json
+
+ "CSS": {
+	"Icon": "https:xxx.png"
+	}
+
+--------------------------
