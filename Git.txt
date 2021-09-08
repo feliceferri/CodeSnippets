@@ -1,3 +1,24 @@
+LIST CURRENT USER
+
+git config --list
+
 CHANGE ASSOCIATED ACCOUNT (VS CODE)
 
 git config --global user.email "fXXX@XXXX.com" 
+
+
+VS CODE INSTALL
+
+GitHub Pull Requests and Issues   => Use User Button (Bottom Left Navigation Bar) to sign in in github
+
+
+
+ASOCIATE GIT ACCOUNT WITH VS CODE FOR SSH
+
+Created an SSH KEY in Git UI => Help => Show SSH key
+Went into the Github page => Settings => SSH and GPG Keys and copied it there with all including hte ssh-rsa prefix
+In VS Code did => git clone git@github.com:daxeos/mono.git --recurse-submodules
+
+
+
+
