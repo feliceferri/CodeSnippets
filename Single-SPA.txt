@@ -1,0 +1,3 @@
+https://single-spa.js.org/docs/configuration/
+
+Created index.html in the wwwroot. The code for the index.html can be taken from => https://github.com/polyglot-microfrontends/root-config/blob/master/src/index.ejs

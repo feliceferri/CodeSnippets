@@ -1,0 +1,3 @@
+CHANGE ASSOCIATED ACCOUNT (VS CODE)
+
+git config --global user.email "fXXX@XXXX.com" 
