@@ -47,3 +47,30 @@ UDEMY STEPS
 4) Startup Project is FabricApp (top) not the Stateless Server
 
 4) VS => View => Other Windows => Diagnostic Events
+
+------------------
+
+MULTIPLE LISTENERS
+
+1) ServiceManifest.xml
+
+<Resources>
+    <Endpoints>
+      <!-- This endpoint is used by the communication listener to obtain the port on which to 
+           listen. Please note that if your service is partitioned, this port is shared with 
+           replicas of different partitions that are placed in your code. -->
+      <Endpoint Name="ServiceEndpoint" Port="11000" Protocol="udp"/>
+      <Endpoint Name="ServiceEndpointTCP" Port="13000" Protocol="tcp"/>
+    </Endpoints>
+  </Resources>
+
+2)  protected override IEnumerable<ServiceInstanceListener> CreateServiceInstanceListeners()
+        {
+            //return new ServiceInstanceListener[0]; //This is the default code it read only the first ServiceEndPoint
+
+            List<ServiceInstanceListener> listeners = new List<ServiceInstanceListener>();
+            listeners.AddRange(new ServiceInstanceListener[0]);
+            listeners.AddRange(new ServiceInstanceListener[1]);
+
+            return listeners;
+         }
