@@ -45,3 +45,25 @@ USE A STYLE IN A SPECIFIC COMPONENT
 
 
 Upload Image https://www.youtube.com/watch?v=v67NunIp5w8
+
+----------------------
+
+ANGULAR
+
+ng build
+
+ng run
+
+
+NPM
+
+npm install grid-list
+
+npm install  @angular/material 
+
+npm install  (same folder as package.json) Will install everything. 
+*if we delete the package.lock and the node_modules folder, and run it, it will install everything again.
+
+ng serve
+
+npm audit fix
