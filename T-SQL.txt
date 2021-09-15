@@ -252,3 +252,19 @@ SELECT name AS [databasename], recovery_model_desc AS [Recovery Model] FROM sys.
 
 ---------------------------
 
+LIST TABLE DEPENDENCIES
+
+select *
+from sys.sql_dependencies d
+join sys.objects o on o.object_id=d.object_id
+join sys.objects r on r.object_id=d.referenced_major_id
+where d.class=1
+AND r.name = 'TP1_Data'
+
+-------
+
+LIST COMPUTED COLUMNS
+
+SELECT name  AS [Computed Column?],definition
+FROM sys.computed_columns
+
