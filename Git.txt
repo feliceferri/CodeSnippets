@@ -19,6 +19,14 @@ Created an SSH KEY in Git UI => Help => Show SSH key
 Went into the Github page => Settings => SSH and GPG Keys and copied it there with all including hte ssh-rsa prefix
 In VS Code did => git clone git@github.com:daxeos/mono.git --recurse-submodules
 
+-----------------------
+
+
+git switch -c feliceDev  (Creates a new brach if it doesnt exist)
+
+I can pull from other branches into my branch just by using git pull origin chao-dev
+
+
 
 
 

@@ -124,32 +124,46 @@ ON THE APP Registration
           Make Redirect URI as http://localhost        
 
 
-  var _clientApp = PublicClientApplicationBuilder.Create("9bfa828e-XXXXXX") //App Registration ClientID
-           .WithAuthority(AzureCloudInstance.AzurePublic, "1e96b7bb-XXXXXX") //Tenant ID
-           .WithRedirectUri("http://localhost") //FF: Had to add LocalHost as RedirectURI in Azure App Registration
-           //.WithDefaultRedirectUri()
+C# CODE
+        const string _Azure_AppRegistration_ClientID = "9bfa828e-xxxxxx";
+        const string _Azure_AppRegistraiton_RedirectUri = "http://localhost";
+        const string _Azure_AppRegistraiton_UserImpersonation = _Azure_AppRegistration_ClientID + "/user_impersonation";
+        const string _Azure_AD_TenantId = "1e96b7bb-xxxxxx";
+        
+
+        static Microsoft.Identity.Client.IPublicClientApplication _clientApp = null;
+        static async Task Main(string[] args)
+        {
+            await GetTokenWithMsLogin();
+
+        }
+
+        private static async Task GetTokenWithMsLogin()
+        {
+            ///This should go outside as a global variable
+            ///
+            _clientApp = PublicClientApplicationBuilder.Create(_Azure_AppRegistration_ClientID) //App Registration ClientID
+           .WithAuthority(AzureCloudInstance.AzurePublic, _Azure_AD_TenantId) //Tenant ID
+           .WithRedirectUri(_Azure_AppRegistraiton_RedirectUri) //FF: Had to add LocalHost as RedirectURI in Azure App Registration
            .Build();
 
-            //string[] scopes = new string[] { "user.read" };
-            string[] scopes = new string[] { "9bfa828e-XXXXXXX/user_impersonation" };  //{App Registration ID}/user_impersonation
+            Helpers.TokenCacheHelper.EnableSerialization(_clientApp.UserTokenCache);
 
-
+            string[] scopes = new string[] { _Azure_AppRegistraiton_UserImpersonation,  };  //{App Registration ID}/user_impersonation
+            
 
             AuthenticationResult authResult = null;
             var app = _clientApp;
-            //ResultText.Text = string.Empty;
-            //TokenInfoText.Text = string.Empty;
-
+            
             var accounts = await app.GetAccountsAsync();
-            var firstAccount = accounts.FirstOrDefault();
+            Microsoft.Identity.Client.IAccount firstAccount = accounts.FirstOrDefault();
+
+            
 
             try
             {
-                //authResult = await app.AcquireTokenSilent(scopes, firstAccount).ExecuteAsync();
-                authResult = await app.AcquireTokenInteractive(scopes)
-                       .WithAccount(accounts.FirstOrDefault())
-                       .WithPrompt(Prompt.SelectAccount)
-                       .ExecuteAsync();
+                authResult = await app.AcquireTokenSilent(scopes, firstAccount).ExecuteAsync();
+                
             }
             catch (MsalUiRequiredException ex)
             {
@@ -163,6 +177,8 @@ ON THE APP Registration
                         .WithAccount(accounts.FirstOrDefault())
                         .WithPrompt(Prompt.SelectAccount)
                         .ExecuteAsync();
+                                        
+
                 }
                 catch (MsalException msalex)
                 {
@@ -174,21 +190,93 @@ ON THE APP Registration
                 //ResultText.Text = $"Error Acquiring Token Silently:{System.Environment.NewLine}{ex}";
                 return;
             }
+		
 
             if (authResult != null)
             {
-                //ResultText.Text = await GetHttpContentWithToken(graphAPIEndpoint, authResult.AccessToken);
-                //DisplayBasicTokenInfo(authResult);
-                //this.SignOutButton.Visibility = Visibility.Visible;
-
+                
                 Console.WriteLine(authResult.AccessToken);
 
+
+                ///TESTING THE CODE CALLING AN AZURE FUNCTION
                 var _client = new HttpClient();
                 _client.DefaultRequestHeaders.Add("Authorization", "Bearer " + authResult.AccessToken);
-                HttpResponseMessage httpCallResult = await _client.GetAsync("https://XXXXXXX.azurewebsites.net/api/Function1");
+                HttpResponseMessage httpCallResult = await _client.GetAsync("https://lhpdastestoauth.azurewebsites.net/api/Function1");
+
+                Console.WriteLine("");
+
+                if (httpCallResult.IsSuccessStatusCode == true)
+                    Console.WriteLine(await httpCallResult.Content.ReadAsStringAsync());
+                else
+                    Console.WriteLine("Bad Request");
+                ///////////////////////////
+
+
+                Console.WriteLine("");
+                Console.WriteLine("Token Expiration Date: " + authResult.ExpiresOn);
 
                 Console.ReadLine();
+
+              }
+
+
+        }
+
+
+HELPER CLASS  (TokenCacheHelper)
+ 
+using System.IO;
+using System.Security.Cryptography;
+using Microsoft.Identity.Client;
+
+namespace ConsoleMSAL.Helpers
+{
+    static class TokenCacheHelper
+    {
+
+        /// <summary>
+        /// Path to the token cache
+        /// </summary>
+        private static readonly string CacheFilePath = System.Reflection.Assembly.GetExecutingAssembly().Location + ".msalcache.bin";
+
+        private static readonly object FileLock = new object();
+
+        private static void BeforeAccessNotification(TokenCacheNotificationArgs args)
+        {
+            lock (FileLock)
+            {
+                args.TokenCache.DeserializeMsalV3(File.Exists(CacheFilePath)
+                    ? ProtectedData.Unprotect(File.ReadAllBytes(CacheFilePath),
+                                              null,
+                                              DataProtectionScope.CurrentUser)
+                    : null);
             }
+        }
+
+        private static void AfterAccessNotification(TokenCacheNotificationArgs args)
+        {
+            // if the access operation resulted in a cache update
+            if (args.HasStateChanged)
+            {
+                lock (FileLock)
+                {
+                    // reflect changes in the persistent store
+                    File.WriteAllBytes(CacheFilePath,
+                                       ProtectedData.Protect(args.TokenCache.SerializeMsalV3(),
+                                                             null,
+                                                             DataProtectionScope.CurrentUser)
+                                      );
+                }
+            }
+        }
+        internal static void EnableSerialization(ITokenCache tokenCache)
+        {
+            tokenCache.SetBeforeAccess(BeforeAccessNotification);
+            tokenCache.SetAfterAccess(AfterAccessNotification);
+        }
+    }
+}
+
 
 -------------------------------------------------------------------------------------
 
