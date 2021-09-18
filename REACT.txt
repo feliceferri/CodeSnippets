@@ -1,0 +1,48 @@
+
+npx create-react-app .
+
+BUTTON CLICK
+
+ onClick={() => {AddTextField()}}
+
+function AddTextField()  
+{
+  console.log('Here');
+}
+
+---------------------------------------
+
+uiSchema={logBookTemplatesAndData[0].template.ui}
+dataSchema={logBookTemplatesAndData[0].template.data}
+
+export function UpdateTemplate()
+{
+  console.log("yes2");
+  alert("yes2");
+}
+
+
+--------------------
+HOOKS
+
+Only in function components, not in class components
+Hooks can't be put inside conditions, as they have to run always in the same exact order.
+
+const [count, setCount] = useState(10)
+
+setCount(count + 1)  'Count is the value when the component was rendered
+setCount(count + 1)  'Value will still be 11
+
+setCount(prevCount => prevCount +1) //Overload of the function that allows to read the actual value in the current moment.
+setCount(prevCount => prevCount +1) //Value will be 12
+
+
+-----------------------------
+
+FORCE UPDATE IN FUNCTIONS
+
+const [, updateState] = useState();
+const forceUpdate = useCallback(() => updateState({}), []);
+
+
+//FF: Tried with useRef and still didn't update, that's why I coded the Force Update below
