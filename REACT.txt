@@ -1,5 +1,7 @@
 
-npx create-react-app .
+npx create-react-app {nameoftheapp}
+npm install (to install the node modules)
+npm start
 
 BUTTON CLICK
 
@@ -28,7 +30,8 @@ HOOKS
 Only in function components, not in class components
 Hooks can't be put inside conditions, as they have to run always in the same exact order.
 
-const [count, setCount] = useState(10)
+const [count, setCount] = useState(10) //Because is a function component, not a class componenet, this useState will run everytime the component is rendered
+const [count, setCount] = useState(() => 10) //Runs only the 1st time
 
 setCount(count + 1)  'Count is the value when the component was rendered
 setCount(count + 1)  'Value will still be 11
@@ -37,6 +40,16 @@ setCount(prevCount => prevCount +1) //Overload of the function that allows to re
 setCount(prevCount => prevCount +1) //Value will be 12
 
 
+useEffect
+* Gets executed everytime a Render happens
+useEffect( () => {console.log('x')})
+
+* 2nd parameter allow to filter when tu run the useEffect
+useEffect( () => {console.log('x')},[variableName])  //This its executed only when that specific variable changes
+                                                     //if the value of the variable is the same, even if the button is clicked, it wont get executed until the value changes.
+
+* If the variable is empty [], it works as an OnMount, only is executed the first time the component is rendered
+useEffect( () => {console.log('x')},[]) //Is like OnMount
 -----------------------------
 
 FORCE UPDATE IN FUNCTIONS
