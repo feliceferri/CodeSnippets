@@ -59,3 +59,23 @@ const forceUpdate = useCallback(() => updateState({}), []);
 
 
 //FF: Tried with useRef and still didn't update, that's why I coded the Force Update below
+
+---------------------------------
+
+FETCH
+
+useEffect( () => {
+            fetch('https://xxx')
+	    .then(response => response.json())
+            .then(json => To Do )
+         }
+
+---------------
+
+MAP
+
+{items.map(item => {
+   return <pre>{JSON.stringigy(item){</pre>
+  })}
+
+      
