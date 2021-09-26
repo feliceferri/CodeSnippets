@@ -50,6 +50,9 @@ useEffect( () => {console.log('x')},[variableName])  //This its executed only wh
 
 * If the variable is empty [], it works as an OnMount, only is executed the first time the component is rendered
 useEffect( () => {console.log('x')},[]) //Is like OnMount
+
+* A return inside the useEffect is called when the effect is UnMounted, especially for when we are hooking up to Event Listener (See WINDOWS EVENT LISTENER below)
+** The return is always executed first, before the "OnMounting" code itself, is a cleanup code.
 -----------------------------
 
 FORCE UPDATE IN FUNCTIONS
@@ -77,5 +80,118 @@ MAP
 {items.map(item => {
    return <pre>{JSON.stringigy(item){</pre>
   })}
+
+--------------------
+
+IS VARIABLE A FUNCTION?
+
+if(value instanceof Function)
+   value();
+
+
+---------------
+
+WINDOWS EVENT LISTENER
+
+** If in App component, do it in OnMount, and then Unmount it
+In function components, use the useEffect to only be executed on initialization []
+
+ADD Event Listener.
+
+useEffect( () => {window.addEventListener('resize', function to call)},[])
+
+REMOVE Event Listener.
+* In the same useEffect add the return statement
+useEffect( () => {window.addEventListener('resize', function to call)}
+		 return () => {window.removeEventListener('resize', function to call } ,[])
+
+
+window.innerWidth    //window with in px
+
+-------------------------
+
+CLASS COMPONENT
+
+import {Component} from 'react';
+
+export class MyClassComponenet extends Component {
+
+constructor(){  //To initialize the state
+   super(); //To initialize the base class
+   this.state = {counter: 0};
+}
+
+render(){
+	return(<span>{this.props.text}</span>
+               <span>{this.state.counter}</span>
+               <button onClick={()=> this.setState((currentState) => { return {counter = currentState.counter +1 });}></button>
+               )
+   ;
+}
+
+componentDirMount() //runs before the render method.
+{}
+
+componentWillUnmount() //runs before destruction, while the component is still visible
+{}
+
+
+------------------
+
+CUSTOM HOOK - useUpdatelogger
+
+import {useEffect} from 'react'
+
+export default function useUpdateLogger(value) {
+	useEffect(() => {console.log(value)},[value])
+}
+
+to use it: useUpdateLogger(variableName);
+
+--------------
+
+USERREF  - Two ussages
+
+a)
+const timesRenderHasBeenExecutedForThisComponent = useRef(0)
+
+useEffect(() => {renderCount.current = renderCount.current +1});
+
+global accross renderers like App Class this.state
+when changing the value, doens't activate the Rendering Cycle because is outside of it
+
+b)
+It also work to reference HTML objects
+
+const inputRef = useRef();
+
+<input ref={inoutRef}></inout>
+(this is what is used for focus)
+
+---------------------
+FORWARD REF
+
+const Form = forwardRef((props,ref) =>
+{
+
+  useImperativeHandle(ref, () => ({
+
+    ForceUpdate()
+    {
+      forceUpdate();
+    }
+
+  }));
+
+  return(<HTML CODE {props.Prop1}>)
+}
+
+export default Form;
+
+
+
+
+
+
 
       

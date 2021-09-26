@@ -26,6 +26,18 @@ git switch -c feliceDev  (Creates a new brach if it doesnt exist)
 
 I can pull from other branches into my branch just by using git pull origin chao-dev
 
+----------------
+
+
+"git status" to see the changes you made
+​
+"git add ." to add everything if you want to, or do "git add <filename>"
+​
+"git commit -m <message>" to commit the changes 
+​
+"git push origin <branch-name>"
+
+
 
 
 
