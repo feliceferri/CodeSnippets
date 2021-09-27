@@ -1,0 +1,3 @@
+Startup.cs
+
+MongoDB.Bson.Serialization.BsonSerializer.RegisterSerializer(new GuidSerializer(BsonType.String));
