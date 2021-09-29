@@ -1,3 +1,11 @@
 Startup.cs
 
-MongoDB.Bson.Serialization.BsonSerializer.RegisterSerializer(new GuidSerializer(BsonType.String));
+nuget MongoDBDriver
+
+ConfigureServices()
+
+services.AddSingleton<IMongoClient, MongoClient>(_ =>
+                new(Environment.GetEnvironmentVariable("MONGODB_CONNECTION_STRING")));
+
+BsonDefaults.GuidRepresentationMode = GuidRepresentationMode.V3;
+MongoDB.Bson.Serialization.BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));
