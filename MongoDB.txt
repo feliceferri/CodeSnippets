@@ -9,3 +9,7 @@ services.AddSingleton<IMongoClient, MongoClient>(_ =>
 
 BsonDefaults.GuidRepresentationMode = GuidRepresentationMode.V3;
 MongoDB.Bson.Serialization.BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));
+
+--------------------
+
+https://digitteck.com/mongo-csharp/deserializing-expandoobject-with-bsonserializer-in-mongo/

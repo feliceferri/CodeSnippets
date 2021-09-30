@@ -268,3 +268,21 @@ LIST COMPUTED COLUMNS
 SELECT name  AS [Computed Column?],definition
 FROM sys.computed_columns
 
+----------------------
+
+COMPARE TWO TABLES
+
+SELECT name, system_type_id, user_type_id,max_length, precision,scale, is_nullable, is_identity INTO #DBSchema FROM sys.columns
+WHERE object_id = OBJECT_ID(N'dbo.DTC_Data')
+GO
+
+GO
+SELECT name, system_type_id, user_type_id,max_length, precision,scale, is_nullable, is_identity INTO #DB2Schema FROM sys.columns
+WHERE object_id = OBJECT_ID(N'dbo.Telematics_Data ');
+
+GO 
+SELECT * FROM #DBSchema
+EXCEPT 
+SELECT * FROM #DB2Schema
+
+---------------------------
