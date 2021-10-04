@@ -12,4 +12,48 @@ MongoDB.Bson.Serialization.BsonSerializer.RegisterSerializer(new GuidSerializer(
 
 --------------------
 
+DynamicSerializerToBsonDocument
+
+ internal class DynamicSerializerToBsonDocument : SerializerBase<dynamic>
+    {
+        public override object Deserialize(BsonDeserializationContext context, BsonDeserializationArgs args)
+        {
+            var serializer = BsonSerializer.LookupSerializer(typeof(BsonDocument));
+            var document = serializer.Deserialize(context, args);
+
+            var bsonDocument = document.ToBsonDocument();
+
+            var result = BsonExtensionMethods.ToJson(bsonDocument);
+            return System.Text.Json.JsonSerializer.Deserialize<IDictionary<string, object>>(result);
+        }
+
+        public override void Serialize(BsonSerializationContext context, BsonSerializationArgs args, object value)
+        {
+            var jsonDocument = System.Text.Json.JsonSerializer.Serialize(value);
+            var bsonDocument = BsonSerializer.Deserialize<BsonDocument>(jsonDocument);
+
+            var serializer = BsonSerializer.LookupSerializer(typeof(BsonDocument));
+            serializer.Serialize(context, bsonDocument.AsBsonValue);
+        }
+
+    }
+
+
+DynamicSerializerToString
+
+ class DynamicSerializerToString: SerializerBase<dynamic>
+    {
+        public override void Serialize(MongoDB.Bson.Serialization.BsonSerializationContext context, MongoDB.Bson.Serialization.BsonSerializationArgs args, dynamic value)
+        {
+            context.Writer.WriteString(System.Text.Json.JsonSerializer.Serialize(value));
+        }
+
+        public override dynamic Deserialize(MongoDB.Bson.Serialization.BsonDeserializationContext context, MongoDB.Bson.Serialization.BsonDeserializationArgs args)
+        {
+            return System.Text.Json.JsonSerializer.Deserialize<dynamic>(context.Reader.ReadString());
+        }
+    }
+
+----------
+
 https://digitteck.com/mongo-csharp/deserializing-expandoobject-with-bsonserializer-in-mongo/
