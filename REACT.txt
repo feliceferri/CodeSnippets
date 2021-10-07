@@ -188,8 +188,19 @@ const Form = forwardRef((props,ref) =>
 
 export default Form;
 
+------------------------
+
+IMPORT A MODULE IN CODE
+
+const module = await  System.import("dd");
+module.function();
+
+----------------------
+
+JSX Condition
 
 
+{condition && <html>}
 
 
 
