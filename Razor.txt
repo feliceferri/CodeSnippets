@@ -81,3 +81,7 @@ AppSettings.json
 	}
 
 --------------------------
+
+SELECT (MULTIPLE OPTIONS) - MUILTISELECT
+
+<select id="serialNumber" asp-for="serialNumber" asp-items=sessionHelper.GetListOfSerialNumbersAsync(true) class="form-control form-select" multiple="multiple"></select>
