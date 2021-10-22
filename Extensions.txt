@@ -1,0 +1,118 @@
+ public static class DynamicExtension
+    {
+
+        public static Dictionary<String, Object> ToDictionary(dynamic dynObj) //Extensions method doesnt apply to dynamic
+        {
+            var dictionary = new Dictionary<string, object>();
+            foreach (PropertyDescriptor propertyDescriptor in TypeDescriptor.GetProperties(dynObj))
+            {
+                object obj = propertyDescriptor.GetValue(dynObj);
+                dictionary.Add(propertyDescriptor.Name, obj);
+            }
+            return dictionary;
+        }
+    }
+
+---------------------------------
+
+public static class DataTableExtension
+    {
+        public static byte[] ToCSV(this DataTable dtDataTable)
+        {
+            using (MemoryStream mem = new MemoryStream())
+            using (StreamWriter sw = new StreamWriter(mem))
+            {
+                //headers    
+                for (int i = 0; i < dtDataTable.Columns.Count; i++)
+                {
+                    sw.Write(dtDataTable.Columns[i]);
+                    if (i < dtDataTable.Columns.Count - 1)
+                    {
+                        sw.Write(",");
+                    }
+                }
+                sw.Write(sw.NewLine);
+                foreach (DataRow dr in dtDataTable.Rows)
+                {
+                    for (int i = 0; i < dtDataTable.Columns.Count; i++)
+                    {
+                        if (!Convert.IsDBNull(dr[i]))
+                        {
+                            string value = dr[i].ToString();
+                            if (value.Contains(','))
+                            {
+                                value = String.Format("\"{0}\"", value);
+                                sw.Write(value);
+                            }
+                            else
+                            {
+                                sw.Write(dr[i].ToString());
+                            }
+                        }
+                        if (i < dtDataTable.Columns.Count - 1)
+                        {
+                            sw.Write(",");
+                        }
+                    }
+                    sw.Write(sw.NewLine);
+                }
+
+                mem.Position = 0;
+                return mem.ToArray();
+            }
+        }
+
+
+        
+    }
+
+
+
+---------------------------
+
+ public static class ListExtension
+    {
+        public static DataTable ToDataTable<T>(this IList<T> data)
+        {
+            PropertyDescriptorCollection props =
+                TypeDescriptor.GetProperties(typeof(T));
+            DataTable table = new DataTable();
+            for (int i = 0; i < props.Count; i++)
+            {
+                PropertyDescriptor prop = props[i];
+                table.Columns.Add(prop.Name, prop.PropertyType);
+            }
+            object[] values = new object[props.Count];
+            foreach (T item in data)
+            {
+                for (int i = 0; i < values.Length; i++)
+                {
+                    values[i] = props[i].GetValue(item);
+                }
+                table.Rows.Add(values);
+            }
+            return table;
+        }
+
+        public static DataTable ToDataTable(this List<Dictionary<string, object>> list)
+        {
+            DataTable result = new DataTable();
+            if (list.Count == 0)
+                return result;
+
+            var columnNames = list.SelectMany(dict => dict.Keys).Distinct();
+            result.Columns.AddRange(columnNames.Select(c => new DataColumn(c)).ToArray());
+            foreach (Dictionary<string, object> item in list)
+            {
+                var row = result.NewRow();
+                foreach (var key in item.Keys)
+                {
+                    row[key] = item[key];
+                }
+
+                result.Rows.Add(row);
+            }
+
+            return result;
+        }
+    }
