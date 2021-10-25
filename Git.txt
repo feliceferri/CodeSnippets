@@ -37,6 +37,8 @@ I can pull from other branches into my branch just by using git pull origin chao
 ​
 "git push origin <branch-name>"
 
+git checkout -b feliceDev  (Create a new branch)
+
 
 
 

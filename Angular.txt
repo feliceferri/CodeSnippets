@@ -67,3 +67,26 @@ npm install  (same folder as the package.json) Will install everything.
 ng serve
 
 npm audit fix
+----------------------
+
+DEPLOYMENT ERROR
+
+
+https://stackoverflow.com/questions/49643536/the-command-npm-run-build-prod-exited-with-code-1-error
+
+FIX
+
+In csproj change
+
+FROM
+
+<Exec WorkingDirectory="$(SpaRoot)" Command="npm run build -- --prod" />
+<Exec WorkingDirectory="$(SpaRoot)" Command="npm run build:ssr -- --prod" Condition=" '$(BuildServerSideRenderer)' == 'true' " />
+
+TO 
+<Exec WorkingDirectory="$(SpaRoot)" Command="npm run build --prod" />
+<Exec WorkingDirectory="$(SpaRoot)" Command="npm run build:ssr --prod" Condition=" '$(BuildServerSideRenderer)' == 'true' " />
+
+-------------------------------------
+
+
