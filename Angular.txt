@@ -69,24 +69,45 @@ ng serve
 npm audit fix
 ----------------------
 
-DEPLOYMENT ERROR
+RUN ANGULAR PROJECT INSIDE AN MVC PROJECT
 
 
-https://stackoverflow.com/questions/49643536/the-command-npm-run-build-prod-exited-with-code-1-error
+csproj
 
-FIX
+<Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
 
-In csproj change
+    <!--COPY Angular \Dist files to wwwroot-->
+    <Message Text="Custom Dist Copy Process" Importance="high"/>
+    <ItemGroup>
+      <None Include="$(SpaRoot)ClientApp\dist\**" CopyToOutputDirectory="PreserveNewest"/>
+    </ItemGroup>
+    
+    
+    <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build --prod" />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build:ssr --prod" Condition=" '$(BuildServerSideRenderer)' == 'true' " />
 
-FROM
-
-<Exec WorkingDirectory="$(SpaRoot)" Command="npm run build -- --prod" />
-<Exec WorkingDirectory="$(SpaRoot)" Command="npm run build:ssr -- --prod" Condition=" '$(BuildServerSideRenderer)' == 'true' " />
-
-TO 
-<Exec WorkingDirectory="$(SpaRoot)" Command="npm run build --prod" />
-<Exec WorkingDirectory="$(SpaRoot)" Command="npm run build:ssr --prod" Condition=" '$(BuildServerSideRenderer)' == 'true' " />
+    <!-- Include the newly-built files in the publish output -->
+    <ItemGroup>
+      <DistFiles Include="$(SpaRoot)dist\**; $(SpaRoot)dist-server\**" />
+      <DistFiles Include="$(SpaRoot)node_modules\**" Condition="'$(BuildServerSideRenderer)' == 'true'" />
+      <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
+        <RelativePath>%(DistFiles.Identity)</RelativePath>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      </ResolvedFileToPublish>
+    </ItemGroup>
+        
+  </Target>
 
 -------------------------------------
 
+node-saas 4.0.0 error
 
+check it says 4.0.0 on the package.json
+delete node_modules folder and package-lock.
+
+Go to VS Code run npm install from the 
+
+npm install --legacy-peer-deps 
