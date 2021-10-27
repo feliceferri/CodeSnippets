@@ -120,6 +120,14 @@ csproj
   </Target>
 
 
+** Explored this base-href path, was able to change the path, checked by F12 Network traffic, but got a different error
+csproj
+<Exec WorkingDirectory="$(SpaRoot)" Command="npm run build --base-href=/ClientApp/dist/" />
+<Exec WorkingDirectory="$(SpaRoot)" Command="npm run build:ssr --base-href=/ClientApp/dist/" Condition=" '$(BuildServerSideRenderer)' == 'true' " />
+ClientApp/angular.json
+  projects=>xx=>architect=>build=>options  add  //"baseHref": "../ClientApp/dist/",
+
+
 startup.cs
 
 ConfigureServices()
