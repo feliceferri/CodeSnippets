@@ -74,13 +74,31 @@ RUN ANGULAR PROJECT INSIDE AN MVC PROJECT
 
 csproj
 
-<Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
+<Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
+    <!-- Ensure Node.js is installed -->
+    <Exec Command="node --version" ContinueOnError="true">
+      <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
+    </Exec>
+    <Error Condition="'$(ErrorCode)' != '0'" Text="Node.js is required to build and run this project. To continue, please install Node.js from https://nodejs.org/, and then restart your command prompt or IDE." />
+    <Message Importance="high" Text="Restoring dependencies using 'npm'. This may take several minutes..." />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
+  </Target>
 
-    <!--COPY Angular \Dist files to wwwroot-->
-    <Message Text="Custom Dist Copy Process" Importance="high"/>
+
+  <Target Name="CopyDistFolder" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Release'">
+    <Message Text="Custom Dist Copy Process" Importance="high" />
     <ItemGroup>
-      <None Include="$(SpaRoot)ClientApp\dist\**" CopyToOutputDirectory="PreserveNewest"/>
+      <DeploySpecificFolders Include="$(SpaRoot)dist\**">
+        <FolderToCopyTo>wwwroot</FolderToCopyTo>
+      </DeploySpecificFolders>
     </ItemGroup>
+    <Copy SourceFiles="@(DeploySpecificFolders)" DestinationFolder="$(PublishDir)\wwwroot" />
+    <Delete Files="$(PublishDir)\wwwroot\index.html" />
+  </Target>
+
+  
+  <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
+
     
     
     <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
@@ -100,6 +118,39 @@ csproj
     </ItemGroup>
         
   </Target>
+
+
+startup.cs
+
+ConfigureServices()
+
+// In production, the Angular files will be served from this directory
+services.AddSpaStaticFiles(configuration =>
+{
+	configuration.RootPath = "ClientApp/dist";
+});
+
+Configure()
+
+   app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
+            });
+
+            app.UseSpa(spa =>
+            {
+
+                spa.Options.SourcePath = "ClientApp";
+
+                if (env.IsDevelopment())
+                {
+                    spa.UseAngularCliServer(npmScript: "start");
+                }
+            });
+
 
 -------------------------------------
 
