@@ -129,4 +129,16 @@ using (var scope = _scopeFactory.CreateScope())
 	var dbContext = scope.ServiceProvider.GetRequiredService<DataDbContext>();
 }
 
-                
+-------------------------------
+
+SCALFOLDING
+
+-DataAnnotations => Creates Data Annotation Attributes, otherwise all goes to Fluent API
+
+(Specific Tables)
+Scaffold-DbContext "Data Source=xxxx" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models2 -Tables DatosPersonales, Ficha1 -f -DataAnnotations
+
+(All Tables)
+Scaffold-DbContext "Data Source=xxx" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models2
+
+_____________________                
