@@ -1,0 +1,31 @@
+have to add the following attributes to the controllers
+
+[Route("api/[controller]")]
+[ApiController]
+
+Each method needs to have its attribute tag like
+
+[HttpGet("{id:guid}/{version:int}")]
+[ProducesResponseType(StatusCodes.Status201Created, Type = typeof(ObjectHere))]
+[ProducesResponseType(StatusCodes.Status404NotFound)]
+[ProducesResponseType(StatusCodes.Status500InternalServerError)]
+[SwaggerOperation(Summary = "Perform a (xxx", 
+                            Description = @"More details xxxx")]
+
+Startup.cs
+
+
+ConfigureServices()
+
+services.AddSwaggerGen(c =>
+            {
+                c.EnableAnnotations();
+                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "WebApi", Version = "v1" });
+            });
+
+*** EnableAnnotations is a separate nuget =>  Swashbuckle.AspNetCore.Annotations
+
+Configure()
+
+app.UseSwagger();
+app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApi v1"));
