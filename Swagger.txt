@@ -5,12 +5,14 @@ have to add the following attributes to the controllers
 
 Each method needs to have its attribute tag like
 
-[HttpGet("{id:guid}/{version:int}")]
+[HttpPost] //[HttpGet("{id:guid}/{version:int}")]
 [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(ObjectHere))]
 [ProducesResponseType(StatusCodes.Status404NotFound)]
 [ProducesResponseType(StatusCodes.Status500InternalServerError)]
 [SwaggerOperation(Summary = "Perform a (xxx", 
                             Description = @"More details xxxx")]
+
+ public async Task<ActionResult<Models.FunctionalSafety.DB.Template>> Test(Type dto)
 
 Startup.cs
 
@@ -21,6 +23,7 @@ services.AddSwaggerGen(c =>
             {
                 c.EnableAnnotations();
                 c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "WebApi", Version = "v1" });
+		c.CustomSchemaIds(x => x.FullName); //Full Namespace, avoids Swagger dupplication error 
             });
 
 *** EnableAnnotations is a separate nuget =>  Swashbuckle.AspNetCore.Annotations
@@ -29,3 +32,10 @@ Configure()
 
 app.UseSwagger();
 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApi v1"));
+
+----------------------------
+
+DETAILS OF AN SWAGGER ERROR
+
+https://localhost:44353/swagger/v1/swagger.json
+

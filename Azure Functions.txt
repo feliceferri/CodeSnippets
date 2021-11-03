@@ -269,3 +269,52 @@ result.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentD
 SWAGGER
 
 https://www.codit.eu/blog/adding-swagger-ui-azure-functions/
+
+---------------------
+
+Deploy through FTP
+
+For Both:
+1) Downloaded the Publish Profile
+2) Extracted FTP Endpoint, User Name & Psw
+3) Connected through Filezilla/Windows File Explorer
+         3.a When using FileZilla use the full user name  XX\$YY
+        3.b When using Windows File Explorer just use the second part $YY  
+
+For Windows Azure Function (C#)
+4) Navigate to \data\SitePackages\      (You will need to go back in the folder structure)
+5) Download the packagename.txt file.
+6) In Vistual Studio => Publish to folder
+7) Create Zip of all the content in the \publish folder  (not including the publish folder itself, just the content)
+** Backup the packagename.txt before next step **
+8) Open the packagename.txt and write the name of the zip file with its extension (avoid blank spaces, tested only with lowercase)
+9) Using FileZilla copy the zip file to the \data\SitePackages\ folder
+10) Using FileZilla Copy/Overwrite the \data\SitePackages\packagename.txt with the local copy that has the new zip file name on it.
+
+For Linux Azure Function (Python)
+4) Navigate to \site\wwwroot\          (You will need to go back in the folder structure)
+** Backup FTP folder content before next step **
+5) Copy the new Function Folder + .funcignore,host.json,requirements
+6) Navigate to \site\config            (You will need to go back in the folder structure)
+7) Download the restartTrigger.txt
+8) Modify the content restarTrigger.txt  (you can add anything)
+9) Upload the local restarTrigger.txt to its original location in the FTP folder and overwrite
+10) Wait 2 mins, real 2 minutes, it just take time to trigger the update.
+
+----------------------------
+
+Deploy through Azure CLI
+
+1) Publish => Folder 
+2) Create .zip of all the content inside the publish folder
+
+Download and Install Azure CLI for windows (Blue button)
+
+https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-windows?tabs=azure-cli
+
+open CMD
+
+az login
+
+
+az webapp deployment source config-zip -g $resourceGroupName -n $functionName --src $sourceZipPath
