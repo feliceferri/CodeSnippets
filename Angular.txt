@@ -1,8 +1,55 @@
 ANGULAR
 
-Error => The NPM script 'start' exited without indicating that the Angular CLI was listening for requests
-      => Create the project without the HTTPS
+INSTALLATION
 
+1) Download nodejs.  Includes npm
+
+2) Check Windows Environment Variables
+   User Variables (UP) Path has to contain the npm folder
+   System Variables (DOWN) Path has to contain nodejs folder
+**If System Variables button are disabled => Windows Search: Edit the System Environment Variables => Environment Variables (bottom)
+
+3) Install Angular CLI from VS Code Terminal
+   a. Check if is already installed globally
+	 npm list -g
+   b. If not install it
+	 install -g @angular/cli@latest
+
+
+Troubleshoot
+
+Had problems with ng new, it failed on the dependecy tree with the @angular/compiler component
+Uninstalled nodejs (from Windows Applications)
+Reinstalled the LTS
+(Dont't know if the previous steps has anything to do or not)
+
+This finally solved it
+npm remove -g @angular/cli
+npm install -g @angular/cli
+
+---------------------------------------------------------
+
+COMMANDS
+
+ng new {projectName}
+
+ng build
+
+ng run
+
+
+NPM
+
+npm install grid-list
+
+npm install  @angular/material 
+
+npm install  (same folder as the package.json) Will install everything. 
+*if we delete the package-lock.json and the node_modules folder, and run it, it will install everything again.
+
+ng serve
+
+npm audit fix
 
 ----------------------
 ADD BOOTSTRAP
@@ -10,8 +57,7 @@ ADD BOOTSTRAP
 1. Terminal pointing to the ClientApp folder
 2. npm install save bootstrap    
 
-
-------------------------
+-------------------------------
 
 ADD FONTAWESOME
 
@@ -20,6 +66,11 @@ Manually go to angular.json => projects => architect => options => styles = add 
 "node_modules/@fortawesome/fontawesome-free/css/all.css",
 
 ---------------------
+
+Error => The NPM script 'start' exited without indicating that the Angular CLI was listening for requests
+      => Create the project without the HTTPS
+
+------------------------
 
 npm install save leaflet@1.6.0
 the Heat library was added manually as .js file
@@ -46,27 +97,6 @@ USE A STYLE IN A SPECIFIC COMPONENT
 
 Upload Image https://www.youtube.com/watch?v=v67NunIp5w8
 
-----------------------
-
-ANGULAR
-
-ng build
-
-ng run
-
-
-NPM
-
-npm install grid-list
-
-npm install  @angular/material 
-
-npm install  (same folder as the package.json) Will install everything. 
-*if we delete the package-lock.json and the node_modules folder, and run it, it will install everything again.
-
-ng serve
-
-npm audit fix
 ----------------------
 
 RUN ANGULAR PROJECT INSIDE AN MVC PROJECT
