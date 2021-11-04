@@ -33,6 +33,12 @@ COMMANDS
 
 ng new {projectName}
 
+ng serve (compile the project)
+
+ng generate component UploadTemplate   //Creates a Component
+
+ng g service getApi                    //Creates a Service
+
 ng build
 
 ng run
@@ -165,3 +171,55 @@ delete node_modules folder and package-lock.
 Go to VS Code run npm install from the 
 
 npm install --legacy-peer-deps 
+
+-------------------------
+
+CALL A WEB API 
+
+app.modules.ts
+import { HttpClientModule} from '@angular/common/http'
+Then add HttpClientModule to the imports list (below same file)
+
+ng g service TemplateAPI
+import { HttpClient} from '@angular/common/http'  ***is HttpClient not HttClientModule
+
+
+export class TemplateAPIService {
+
+  constructor(
+    private http:HttpClient) { 
+ }
+
+  ApiCall()
+  {
+    return this.http.get('https://localhost:44353/api/Template/List')
+  }
+}
+
+
+posts: any;
+
+getPosts(){
+  this.posts = this.http.get('url')  
+}
+
+//Same but with strong typing
+posts: Observable<Post[]>;
+getPosts(){
+  this.posts = this.http.get<Post[]>('url')  
+}
+
+///Add parameters through the HttpParams class
+let params = new HttpParams().set('userId','1');
+this.http.get('url',{params});
+
+///Add Headers
+let headers = new HttpHeaders().set('Authorization','Bearer xxx');
+this.http.get('url',{headers});
+
+<button (click)="getPosts()"> Get Posts</button>
+<div *ngFor="let post of posts | async">    This statement loops through and Observable, that's why it has the | async.   It can be used to read directly from an HttpClient.Get
+  {{post | json }}
+</div>
+
+---------------------------------
