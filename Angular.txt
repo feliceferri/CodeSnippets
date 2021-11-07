@@ -190,11 +190,29 @@ export class TemplateAPIService {
     private http:HttpClient) { 
  }
 
-  ApiCall()
+  GetList()
   {
     return this.http.get('https://localhost:44353/api/Template/List')
   }
+
+  SaveAsObservable(formData: FormData)
+  {
+    return this.http.post('https://localhost:44353/api/Template/Save', formData);
+  }
+
+  async SaveAsync(formData: FormData)
+  {
+
+    let response = await this.http.post('https://localhost:44353/api/Template/Savex', formData)
+            .toPromise()
+            .catch(err => console.log("Error: " + err.message));
+
+    return response;
+  }
 }
+
+To use it:  this.templateApiService.GetList().subscribe((data) => {console.log("Api data:",data);})
+Lesson: "Observables need to be observed to make a request".
 
 
 posts: any;
@@ -222,4 +240,19 @@ this.http.get('url',{headers});
   {{post | json }}
 </div>
 
+
+import 'rxjs/add/operator/map';     //rxjs operators to filter the result
+this.http.post('xxx',data)
+	.map(post => post.title);
 ---------------------------------
+Working with Forms
+
+app.modules.ts
+import {FormsModule} from '@angular/forms'
+add it to the imports array.
+
+//Template reference variable (#userForm)
+<form #userForm="ngForm" (ngSubmit)="OnSubmit(userForm.value)">
+
+//Needs the name attribute and the ngModel flag, to be added to the Forms Values
+<input type="text" name="name" placeholder="name" ngModel/>

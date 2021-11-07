@@ -328,3 +328,22 @@ FIX =>
                 new System.Windows.Application();
             }
 ---------------------------------------------
+
+FONTAWESOME
+
+Download FontAwesome for Desktop
+Add files to internal folder, Build Action: Resource, Copy if newer
+In App.xaml <Application.Resources> or other <ResourceDictionary>:
+<FontFamily x:Key="FontAwesome">/PROJECT_NAME;component/Fonts/FontAwesome.otf#Font Awesome 5 Free Solid</FontFamily>
+<XML>
+<Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/WPF;component/ResourceDictionary.xaml">
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+</Window.Resources>
+
+<TextBlock x:Name="tbFontAwesome" Text="&#xf234;" FontFamily="{StaticResource FontAwesome}" Foreground="Red" FontSize="32" Margin="10" VerticalAlignment="Center"></TextBlock>
+------------------------------------------------
