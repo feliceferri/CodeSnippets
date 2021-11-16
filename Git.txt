@@ -28,17 +28,23 @@ I can pull from other branches into my branch just by using git pull origin chao
 
 ----------------
 
+git clone https://xxx
 
-"git status" to see the changes you made
+git init  (to make a folder trackeable (no need to have a remote repo yet))
+
+git remote add origin https://xxxxx  (To attach a repo to the folder where I did the git init)
+
+git status  
 ​
-"git add ." to add everything if you want to, or do "git add <filename>"
+git add .   (to add everything if you want to, or do "git add <filename>")
 ​
-"git commit -m <message>" to commit the changes 
+git commit -m <message>   (to commit the changes )
 ​
-"git push origin <branch-name>"
+git push origin <branch-name>
 
 git checkout -b feliceDev  (Create a new branch)
 
+git remote show origin  (shows the url and the branches)
 
 
 
