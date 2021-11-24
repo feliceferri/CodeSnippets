@@ -286,3 +286,18 @@ EXCEPT
 SELECT * FROM #DB2Schema
 
 ---------------------------
+
+GET RECORD COUNT AT A TIME INTERVAL
+
+declare @interval int
+set @interval = 1
+select  datepart(day, ServerTimeUTC) as Day, datepart(hh, ServerTimeUTC) as Hour
+--, datepart(mi, ServerTimeUTC)/@interval*@interval
+, count(*) as Records
+from TableXXXX
+WHERE SerialNumber = 'xxxxx' AND ServerTimeUTC > '2021-10-24'
+group by datepart(day, ServerTimeUTC),datepart(hh, ServerTimeUTC)
+--, datepart(mi, ServerTimeUTC)/@interval*@interval
+ORDER BY  datepart(day, ServerTimeUTC), datepart(hh, ServerTimeUTC)
+
+---------------------------------
