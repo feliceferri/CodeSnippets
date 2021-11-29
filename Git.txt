@@ -46,6 +46,13 @@ git checkout -b feliceDev  (Create a new branch)
 
 git remote show origin  (shows the url and the branches)
 
+git fetch //retrieves all the remote branches
+
+
+/////////////
+List branches sorted by commit date
+
+git for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'
 
 
 
