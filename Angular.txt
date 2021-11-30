@@ -245,7 +245,7 @@ import 'rxjs/add/operator/map';     //rxjs operators to filter the result
 this.http.post('xxx',data)
 	.map(post => post.title);
 ---------------------------------
-Working with Forms
+WORKING WITH FORMS
 
 app.modules.ts
 import {FormsModule} from '@angular/forms'
@@ -256,3 +256,36 @@ add it to the imports array.
 
 //Needs the name attribute and the ngModel flag, to be added to the Forms Values
 <input type="text" name="name" placeholder="name" ngModel/>
+
+---------------------------------------
+
+NAVIGATE WITH OPTIONA PARAMETERS
+
+app-routing.module.ts
+      {path: 'path/:resultId', component: ComponentName},
+      {path: 'path', component: ComponentName},
+
+//The caller component
+import { Router } from '@angular/router';
+constructor(private _router: Router) { }
+this._router.navigate(['first'])
+
+//The component being called
+import { ActivatedRoute } from '@angular/router';
+constructor(private route: ActivatedRoute) {
+
+ngOnInit(): void {
+    this.refreshTestCriteriaListAsync();
+    this.resultsReviewForm = this.formBuilder.group({
+      testCriteria: [""],
+      logbooks: new FormControl({ value: "", disabled: true })
+    });
+
+    this.route.params.subscribe(params => {
+    	if(params.resultId)
+	{}
+    }
+  );
+
+
+
