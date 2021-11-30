@@ -287,5 +287,19 @@ ngOnInit(): void {
     }
   );
 
+---------------------------------------------
 
+PASS VALUES TO CHILD COMPONENT FROM PARENT
+
+PARENT
+<child-component [variableName]="Variable"></child-component>
+
+CHILD
+import { Input} from '@angular/core';
+export class Component implements OnInit {
+  @Input() VariableName: Type;
+
+------------------------------------
+
+CALL CHILD COMPONENT FUNCTION FROM PARENT
 
