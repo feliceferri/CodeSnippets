@@ -303,3 +303,9 @@ export class Component implements OnInit {
 
 CALL CHILD COMPONENT FUNCTION FROM PARENT
 
+<ChildComponent #variableName></ChildComponent>
+@ViewChild('variableName', {static: true}) variableName: ControlType
+
+ngAfterViewInit() {
+	this.variableName.method()
+}
