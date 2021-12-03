@@ -1,0 +1,40 @@
+public class Redis
+    {
+        private readonly IConfiguration _configuration;
+        
+        private static Lazy<ConnectionMultiplexer> lazyConnection = null;
+        public Redis(IConfiguration configuration)
+        {
+            _configuration = configuration;
+
+        }
+
+        internal ConnectionMultiplexer Connection
+        {
+            get
+            {
+                if(lazyConnection == null)
+                {
+                    lazyConnection = new Lazy<ConnectionMultiplexer>(() =>
+                    {
+                        var redisConnectionString = _configuration.GetConnectionString("RedisConnectionString");
+                        return ConnectionMultiplexer.Connect(redisConnectionString);
+                    }, LazyThreadSafetyMode.PublicationOnly);
+                }
+
+                return lazyConnection.Value;
+            }
+        }
+
+        internal async Task<bool> StringSetAsync(RedisKey key,string value, TimeSpan? expiration)
+        {
+            StackExchange.Redis.IDatabase db =  Connection.GetDatabase();
+            return await db.StringSetAsync(key, value, expiration, StackExchange.Redis.When.Always);
+        }
+
+        internal async Task<string> StringGetAsync(RedisKey key)
+        {
+            StackExchange.Redis.IDatabase db = Connection.GetDatabase();
+            return await db.StringGetAsync(key);
+        }
+    }
