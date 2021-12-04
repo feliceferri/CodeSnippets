@@ -347,3 +347,49 @@ In App.xaml <Application.Resources> or other <ResourceDictionary>:
 
 <TextBlock x:Name="tbFontAwesome" Text="&#xf234;" FontFamily="{StaticResource FontAwesome}" Foreground="Red" FontSize="32" Margin="10" VerticalAlignment="Center"></TextBlock>
 ------------------------------------------------
+
+MOVE FOCUS ON TAB AND ENTER
+
+(This is for when using modified TextBoxes with syles for placeholders etc)
+
+** Set the TabIndex for all the texboxes
+
+private void Window_KeyUp(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                TextBox focusToControl = null;
+
+                if (e.Key == Key.Tab) //KeyTab when it comes its already in the next control.
+                {
+                    if (e.Source is TextBox textbox)
+                        focusToControl = textbox;
+                }
+                else if (e.Key == Key.Enter)
+                {
+                    TraversalRequest tRequest = new TraversalRequest(FocusNavigationDirection.Next);
+                    UIElement currentControlWithFocus = Keyboard.FocusedElement as UIElement;
+
+                    if (currentControlWithFocus != null)
+                        currentControlWithFocus.MoveFocus(tRequest);
+                    
+                    currentControlWithFocus = Keyboard.FocusedElement as UIElement;  
+                    if (currentControlWithFocus is TextBox textbox)
+                        focusToControl = textbox;
+                }
+
+                if (focusToControl != null)
+                {
+                    TextBox textSource = WPF.Utilities.VisualTreeExplorer.FindVisualChildByName<TextBox>(focusToControl, "textSource");
+                    Keyboard.Focus(textSource);
+                }
+            }
+            catch(Exception ex)
+            {
+#if DEBUG
+                throw ex;
+#endif
+            }
+
+        }
+--------------------------------------------------
