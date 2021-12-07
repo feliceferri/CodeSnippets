@@ -393,3 +393,28 @@ private void Window_KeyUp(object sender, KeyEventArgs e)
 
         }
 --------------------------------------------------
+
+ARRAY OF CONTROLS FROM BINDING
+
+<ItemsControl Grid.Row="1" ItemsSource="{Binding carouselData}" HorizontalAlignment="Center">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button DataContext="{Binding}" BorderThickness="0" Background="Transparent" HorizontalAlignment="Center" Cursor="Hand"
+                                    Style="{StaticResource OpaqueHoverEffect}"
+                                    Height="{Binding  RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}},  Path=DataContext.OnePercentHeightInPixels, Converter={converters2:NumberAdjustedToScreenSizeConverter}, ConverterParameter=5}"
+                                    Margin="{Binding  RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.OnePercentHeightInPixels, Converter={converters2:MarginConverter}, ConverterParameter= 1 0 1 0 }"
+                                    FontFamily="{StaticResource FontAwesome}" Foreground="DeepSkyBlue"
+                                    Content="&#xf111;" 
+                                    Command="{Binding  RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.CarouselCircleClick}" CommandParameter="{Binding index}"/>
+                        <!--<Button Content="{Binding Content}" Command="{Binding Command}"/>-->
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+
+            </ItemsControl>
+
+------------------------------------------------------------------
