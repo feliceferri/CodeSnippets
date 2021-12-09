@@ -8,6 +8,23 @@ C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\DesignTools\System
 
 -------------------------------------------------
 
+XAML BINDINGS
+
+
+Bind to another property on the object:
+
+{Binding Path=PathToProperty, RelativeSource={RelativeSource Self}}
+
+Property on an ancestor:
+
+{Binding Path=PathToProperty, RelativeSource={RelativeSource AncestorType={x:Type typeOfAncestor}}}
+
+Property on the templated parent (so you can do 2 way bindings in a ControlTemplate)
+
+{Binding Path=PathToProperty, RelativeSource={RelativeSource TemplatedParent}}
+
+--------------------------
+
 DATAGRID FONT SIZE
 
 <Page.Resources>
