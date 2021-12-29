@@ -314,7 +314,7 @@ ngAfterViewInit() {
 
 ngFor over a Map
 
-<div *ngFor="let field of map | keyvalue" class="p-field-checkbox">
+<div *ngFor="let field of map | keyvalue">
           <p-radioButton [inputId]="dateField.key" name="dateField" [value]="dateField" [(ngModel)]="selectedField" [disabled]="category.key === 'R'"></p-radioButton>
           <label [for]="dateField.key">{{dateField[0]}}</label>
 </div>

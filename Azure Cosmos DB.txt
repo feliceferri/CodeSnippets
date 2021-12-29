@@ -51,3 +51,29 @@ ItemResponse<ResolutionForms.Models.Resolution> response2 = await container.Repl
 QUERIES
 
 https://docs.microsoft.com/en-us/azure/cosmos-db/sql-query-getting-started
+
+------------------------
+
+CUSTOM INDEX POLICY
+
+https://cosmosdb.github.io/labs/dotnet/labs/04-indexing_in_cosmosdb.html
+
+{
+        "indexingMode": "consistent",
+        "includedPaths": [
+            {
+                "path": "/manufacturerName/*"
+            },
+            {
+                "path": "/foodGroup/*"
+            },
+            {
+                "path": "/nutrients/[]/*"
+            }
+        ],
+        "excludedPaths": [
+            {
+                "path": "/*"
+            }
+        ]
+    }
