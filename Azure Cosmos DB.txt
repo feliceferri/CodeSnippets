@@ -97,3 +97,9 @@ ContainerProperties containerProp = new ContainerProperties("ContainerName", "/P
             //MaxRequestsPerTcpConnection default is 30, do not set over 50-100
             Database database = await cosmosClient.CreateDatabaseIfNotExistsAsync("CosmosDB");
             return await database.CreateContainerIfNotExistsAsync(containerProp);
+
+------------------------------
+
+QUERY Parent Property searching by child array inner property
+
+SELECT c.name FROM c IN t.subsystems WHERE c.subContractorId = 'xxx'
