@@ -103,3 +103,22 @@ ContainerProperties containerProp = new ContainerProperties("ContainerName", "/P
 QUERY Parent Property searching by child array inner property
 
 SELECT c.name FROM c IN t.subsystems WHERE c.subContractorId = 'xxx'
+
+--------------------------------------
+
+QUERIES EXAMPLES
+
+SELECT VALUE(c) FROM c JOIN t IN c.subsystems WHERE t.name = "xxx"
+
+SELECT VALUE(c) FROM c JOIN t IN c.subsystems JOIN k IN t.isoParts WHERE k.name = "xxxx"
+
+SELECT VALUE(c) FROM c JOIN t IN c.subsystems JOIN k IN t.isoParts JOIN l IN k.workItems WHERE l.name = "xxxx"
+
+SELECT ContainerName, ARRAY(SELECT p.name FROM p in ContainerName.subsystems WHERE p.name ='xxx')
+FROM ContainerName
+
+SELECT * From c  WHERE ARRAY_CONTAINS(c.subsystems, {name: "xx"},true)
+
+SELECT c.id as projectId, t.id as subSystem, k.id as isoPart, l as workItem  
+FROM c JOIN t IN c.subsystems JOIN k IN t.isoParts JOIN l IN k.workItems 
+WHERE l.statusCode = "xxx" and ARRAY_CONTAINS(l.approversEmails,"xxxx")
