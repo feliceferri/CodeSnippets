@@ -1,0 +1,41 @@
+java -version
+
+--------------------
+
+WEB  API ANNOTATION
+@RestController  (At class level)
+
+
+------------------
+
+AZURE IOT Plugin
+** On Azure I selected the Java SE option, 
+** if Tomcat is selected it seems the pom.xml file on Java needs to be modified to add <packaging>war</packaging> as is expected by Tomcat
+   Also in the same file a dependency to org.springframework.boot will be needed otherwise a 404 error will be triggered
+   source: https://www.youtube.com/watch?v=KsckOg_8kiE
+    
+File=> Settings
+
+
+-------------------
+
+TROUBLESHOOTING PROBLEM WITH JAVA VERSIONS
+
+https://www.youtube.com/watch?v=KsckOg_8kiE  min: 6
+
+-------------------------
+
+COSMOS DB
+
+https://docs.microsoft.com/en-us/azure/developer/java/spring-framework/configure-spring-boot-starter-java-app-with-cosmos-db
+
+pom.xml
+<dependency>
+    <groupId>com.azure.spring</groupId>
+    <artifactId>azure-spring-boot-starter-cosmos</artifactId>
+    <version>3.10.0</version> 
+</dependency>
+
+Add COSMOS keys to application.properties
+
+
