@@ -102,3 +102,14 @@ LIST COMPRENHENSION
 
 data = [int(i) for i in text.split(",")] //creates a list of integers, instead of a list of strings
 data = [i + 1 for i in data] //sums 1 to each value in the data array
+
+------------------
+
+CSV WRITER
+
+def load(data, path)
+  import csv
+  with open(path, "w") as f:
+     csv_writer = csv.writer(f)
+     csv_writer.writerow(data)
+  return
