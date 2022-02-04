@@ -88,3 +88,10 @@ pip install azure-keyvault-secrets
         KeyVaultClient = SecretClient(vault_url=KVUri, credential=azureIdentityCredential)
 
 -----------------------
+
+ETL
+
+with open(path,"r") as f:
+  text = f.readline().strip()  //Strips removes things like new line etc
+data = text.split(",")
+return data
