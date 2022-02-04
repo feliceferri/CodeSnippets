@@ -92,24 +92,52 @@ pip install azure-keyvault-secrets
 ETL
 
 with open(path,"r") as f:
-  text = f.readline().strip()  //Strips removes things like new line etc
-data = [int(i) for i in text.split(",")] //creates a list of integers, instead of a list of strings
+  text = f.readline().strip()  #Strips removes things like new line etc
+data = [int(i) for i in text.split(",")] #creates a list of integers, instead of a list of strings
 return data
 
 ---------------------
 
 LIST COMPRENHENSION
 
-data = [int(i) for i in text.split(",")] //creates a list of integers, instead of a list of strings
+data = [int(i) for i in text.split(",")] #creates a list of integers, instead of a list of strings
 data = [i + 1 for i in data] //sums 1 to each value in the data array
 
 ------------------
 
 CSV WRITER
 
-def load(data, path)
+def load(data, path):
   import csv
   with open(path, "w") as f:
      csv_writer = csv.writer(f)
      csv_writer.writerow(data)
   return
+
+---------------
+
+PREFECT 
+
+from prefect import task, Flow
+
+@task
+def load(data, path):
+   return
+
+with Flow("nameOfTheFlow") as flow:
+    
+
+flow.visualize()
+flow.run()
+
+---------------
+
+PREFECT PARAMETERS
+
+from prefect import task, Flow, Parameters
+
+inside the flow builder
+path = Parameter(name="path",required=True)
+
+
+flow.run(parameters={"path":"xx.csv"})
