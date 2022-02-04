@@ -93,5 +93,12 @@ ETL
 
 with open(path,"r") as f:
   text = f.readline().strip()  //Strips removes things like new line etc
-data = text.split(",")
+data = [int(i) for i in text.split(",")] //creates a list of integers, instead of a list of strings
 return data
+
+---------------------
+
+LIST COMPRENHENSION
+
+data = [int(i) for i in text.split(",")] //creates a list of integers, instead of a list of strings
+data = [i + 1 for i in data] //sums 1 to each value in the data array
