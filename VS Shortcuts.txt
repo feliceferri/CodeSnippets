@@ -1,0 +1,21 @@
+Shortcuts
+Formating Ctrl + K + F (Ctrl + K + D)
+F2 => Rename
+
+
+Traerse un Contexto manualmente
+
+Injectar IServiceProvider
+
+using (var serviceScope = serviceProvider.GetRequiredService<ServiceScopeFactory>().CreateScope())
+{
+  var context = serviceScope.ServiceProvider.GetService<DbContext>();
+
+//En el DbContext hay que crear un Constructor que reciba parametro y dejar otro sin parametros
+public DbContext(DbContextOptions<DbContext> options): base(options){}
+
+
+
+
+
+HttpClientFactory

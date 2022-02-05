@@ -1,10 +1,13 @@
 LIST CURRENT USER
 
-git config --list
+git config --list  
+
+----------------------------
 
 CHANGE ASSOCIATED ACCOUNT (VS CODE)
 
 git config --global user.email "fXXX@XXXX.com" 
+git config --global user.name "Felice Ferri"
 
 
 VS CODE INSTALL
@@ -42,11 +45,21 @@ git commit -m <message>   (to commit the changes )
 ​
 git push origin <branch-name>
 
+git checkout 900cfcf (allows to check a file from an older commit)
+git checkout 900cfcf index.html (un solo archivo)
+git checkout -- index.html (elimina los cambios, y devuelve el archivo como estaba en el ultimo commit antes del checkout anterior)
 git checkout -b feliceDev  (Create a new branch)
 
 git remote show origin  (shows the url and the branches)
+git remote add origin https://Ferrisoft@bitbucket.org/Ferrisoft/git-test.git  (asocio el repositorio online)
 
 git fetch //retrieves all the remote branches
+
+git log --oneline (list of all the commits)
+
+git reset HEAD index.html  (lo quita del staging area, queda marcado como modificado)
+                           en un segunda explicacion, habla de como si tengo cambios que no le hecho commit
+ 			   y hago un reset, la carpeta queda como estaba en el ultimo commit
 
 
 /////////////

@@ -14,6 +14,20 @@ function AddTextField()
 
 ---------------------------------------
 
+node -v
+npm -v
+npm init
+npm install lite-server --save-dev (el save dev significa que el paquete sera utilizado para propositos de development)
+Modifico el Package.json => debajo de "scripts":{ => agrego => "start":"npm run lite",
+Mismo bloque, agrego comma (,) al final de "test", y abajo agrego un nuevo entry
+=> "lite":"lite-server"
+bash en la carpeta => npm start  Ahi me va a decir el puerto etc y abre el browser
+
+crear .gitignore file => primera linea agregar => node_modules
+
+----------------------------
+
+
 uiSchema={logBookTemplatesAndData[0].template.ui}
 dataSchema={logBookTemplatesAndData[0].template.data}
 

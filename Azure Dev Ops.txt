@@ -1,0 +1,14 @@
+
+1) Add this at the end of the YAML
+
+- task: PublishBuildArtifacts@1
+
+2) Create Release
+   Azure App Service Deployment
+   Add the artifact
+   Click on the Lighting icon, Toggle the Continous Deployment (Top)
+   Click on 
+ 
+
+Card Tracking 
+Patrick, Glenn
