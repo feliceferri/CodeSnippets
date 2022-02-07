@@ -80,6 +80,14 @@ services.AddAuthentication(opt =>
 
 
 Configure()
+
+///This is for Angular.
+app.UseCors(builder => builder
+                    .AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod());
+
+
 app.UseAuthentication();
 
 
