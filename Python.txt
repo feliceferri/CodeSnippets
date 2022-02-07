@@ -10,12 +10,22 @@ import os
 os.getenv('AzureStorageConnectionString')
 -------------------------
 
+import sys
+print(sys.version_info)
+
+-------------------------
 
 INSTALLED PACKAGES WITH VERSIONS
 
 pip list
 
 -------------------------------------------
+
+GET PATH
+
+python -c "import sys; print('\n'.join(sys.path))"
+
+-----------------------------
 
 MORE VERBOSITY
 

@@ -1,0 +1,86 @@
+WITH CUSTOM USERS
+
+API\
+
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+using System;
+using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+
+
+namespace probari_backend.API
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class OAuth : ControllerBase
+    {
+        public class LoginModel
+        {
+            public string UserName { get; set; }
+            public string Password { get; set; }
+        }
+
+        [HttpPost("Login")]
+        [AllowAnonymous]
+        public IActionResult Login([FromBody] LoginModel user)
+        {
+            if (user == null)
+            {
+                return BadRequest("Invalid client request");
+            }
+            if (user.UserName == "johndoe" && user.Password == "def@123")
+            {
+                var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("SecretKey"));
+                var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
+                var tokeOptions = new JwtSecurityToken(
+                    issuer: "http://localhost:5000",
+                    audience: "http://localhost:5000",
+                    claims: new List<Claim>(),
+                    expires: DateTime.Now.AddMinutes(20),
+                    signingCredentials: signinCredentials
+                );
+                var tokenString = new JwtSecurityTokenHandler().WriteToken(tokeOptions);
+                return Ok(new { Token = tokenString });
+            }
+            else
+            {
+                return Unauthorized();
+            }
+        }
+    }
+}
+
+
+Startup.cs
+
+ConfigureServices()
+
+services.AddAuthentication(opt =>
+            {
+                opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = "http://localhost:5000",
+                    ValidAudience = "http://localhost:5000",
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("SecretKey"))
+                };
+            });
+
+
+Configure()
+app.UseAuthentication();
+
+
+
