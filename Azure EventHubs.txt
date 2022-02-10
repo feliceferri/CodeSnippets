@@ -3,6 +3,7 @@ AZURE EVENT HUBS
 Create the Namespace
 Create the Hub Event
 
+!! What goes in the EventHubProducerClient is the EventHubName not the ConsumerGroups name
 
 ------------------------------------
 SENDER
