@@ -4,11 +4,36 @@ AddProperty(a, "Language", "English");
 
 
 static void AddProperty(ExpandoObject expando, string propertyName, object propertyValue)
-{
-    // ExpandoObject supports IDictionary so we can extend it like this
-    var expandoDict = expando as IDictionary<string, object>;
-    if (expandoDict.ContainsKey(propertyName))
-        expandoDict[propertyName] = propertyValue;
-    else
-        expandoDict.Add(propertyName, propertyValue);
-}
+        {
+            var expandoDict = expando as IDictionary<string, object>;
+            if (expandoDict.ContainsKey(propertyName))
+                expandoDict[propertyName] = propertyValue;
+            else
+                expandoDict.Add(propertyName, propertyValue);
+        }
+
+        static void RemoveProperty(ExpandoObject expando, string propertyName)
+        {
+            var expandoDict = expando as IDictionary<string, object>;
+            if (expandoDict.ContainsKey(propertyName))
+                expandoDict.Remove(propertyName);
+            
+        }
+
+        static void RenameProperty(ExpandoObject expando, string propertyName)
+        {
+            var expandoDict = expando as IDictionary<string, object>;
+            if (expandoDict.ContainsKey(propertyName))
+            {
+                object tempValue = expandoDict[propertyName];
+                RemoveProperty(expando, propertyName);
+                AddProperty(expando, propertyName,tempValue);
+            }
+
+        }
+
+-------------------
+
+We can add Methods, Events to an ExpandoObject
+
+https://www.oreilly.com/content/building-c-objects-dynamically/
