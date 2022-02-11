@@ -3,6 +3,8 @@ https://dev.to/ebarrioscode/azure-functions-serverless-entity-framework-core-y-s
 
 ----------------------
 
+CHANGE Azure Function from COMPSUPTION PLAN TO PREMIUM => https://demiliani.com/2020/12/02/moving-azure-functions-from-consumption-to-premium-plans/
+
 $resourceGroup = 'ResourceGroup'
 $functionAppName = 'AzureFunctionPremium'
 $consumptionPlanName = 'AzureFunctionPremiumPlan'
