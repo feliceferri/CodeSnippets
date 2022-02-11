@@ -1,5 +1,21 @@
 https://dev.to/ebarrioscode/azure-functions-serverless-entity-framework-core-y-sql-azure-1ngd
 
+
+----------------------
+
+$resourceGroup = 'ResourceGroup'
+$functionAppName = 'AzureFunctionPremium'
+$consumptionPlanName = 'AzureFunctionPremiumPlan'
+$premiumPlanName = 'sd_premium_plan'
+
+az functionapp plan create --name $premiumPlanName --sku EP1 --resource-group $resourceGroup --location 'North Central US'
+
+-----------------
+
+$premiumPlanName = 'sd_premium_plan'
+
+az functionapp update --name 'FunctionName' --resource-group $resourceGroup --plan $premiumPlanName
+
 -------------------
 Expose QueryString arguments as binding
 
