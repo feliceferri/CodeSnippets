@@ -1,0 +1,28 @@
+JSON + CALL API
+
+obj.width = 30;
+obj.height = 20;
+obj.data = {1;2;3;4};
+json = jsonencode(obj);
+disp(json);
+
+valuesForSum.dataContractId = '4672e94c-3ea4-431f-8f37-3c8b8a4f3a0b';
+valuesForSum.value1 = 20;
+valuesForSum.value2 = 20;
+jsonValues =jsonencode(valuesForSum);
+
+disp('Calling API that sums');
+request = RequestMessage( 'POST', ...
+    [ContentTypeField( 'application/vnd.api+json' ), AcceptField('application/vnd.api+json')], ...
+    jsonValues );
+response = request.send( 'https://xxxxx.azurewebsites.net/api/Dashboard/AddOneJsonPayload' );
+disp(response);
+disp(response.Body.Data);
+
+disp('Calling Backbone');
+request = RequestMessage( 'POST', ...
+    [ContentTypeField( 'application/vnd.api+json' ), AcceptField('application/vnd.api+json')], ...
+    jsonValues );
+response = request.send( 'https://xxxxxxx.azurefd.net/api/HttpsRelayToEventHub' );
+disp(response);
+disp(response.Body.Data);

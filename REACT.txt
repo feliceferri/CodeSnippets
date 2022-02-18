@@ -216,6 +216,31 @@ JSX Condition
 
 {condition && <html>}
 
+----------------
+
+NAVIGATION
+
+!!react-router-dom v6.0
+
+import { useNavigate } from "react-router-dom";
+let navigate = useNavigate(); 
+navigate('Strokes');
+
+!!react-router-dom v5
+
+import { useHistory } from "react-router-dom";
+const history = useHistory(); 
+history.push('Strokes');
+
+PASS Parameter
+history.push({pathname:'Strokes',state :{testId:testId}});
+
+RECEIVE Parameter
+import { useLocation } from "react-router-dom";
+const location = useLocation();
+console.log(location.state.testId);
+--------------------
+
 
 
 
