@@ -1,5 +1,8 @@
 JSON + CALL API
 
+import matlab.net.http.*
+import matlab.net.http.field.*
+
 obj.width = 30;
 obj.height = 20;
 obj.data = {1;2;3;4};
