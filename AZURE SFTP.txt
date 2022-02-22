@@ -62,6 +62,9 @@ https://www.youtube.com/watch?v=bHA790VbSZ0
 
 --------------------------------------
 
+FileZilla => Advance Connection, SFTP, Port 22
+
+------------------
 (THIS ONE WORKED IN AZURE)
 https://www.youtube.com/watch?v=BR9qc_1unu8
 https://medium.com/techinpieces/practical-azure-how-to-enable-ssh-on-azure-vm-84d8fba8103e
