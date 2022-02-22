@@ -820,3 +820,23 @@ Create a web.config file (copy always)
 </configuration>
 
 ------------------------------      
+
+LARGE FILES
+
+1) create => web.config
+
+<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+	<system.webServer>
+		<security>
+			<requestFiltering>
+				<requestLimits maxAllowedContentLength="2147483648" />
+			</requestFiltering>
+		</security>
+	</system.webServer>
+</configuration>
+
+2) Add Attribute to the Controller Function
+ [HttpPost("CreateTest")]
+ [DisableRequestSizeLimit]
+-----------------------------
