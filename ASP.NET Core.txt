@@ -836,7 +836,18 @@ LARGE FILES
 	</system.webServer>
 </configuration>
 
-2) Add Attribute to the Controller Function
+2)Startup.cs
+builder.Services.Configure<Microsoft.AspNetCore.Http.Features.FormOptions>(x =>
+{
+    x.ValueLengthLimit = int.MaxValue;
+    x.MultipartBodyLengthLimit = int.MaxValue; // In case of multipart
+});
+
+3) Add Attribute to the Controller Function
  [HttpPost("CreateTest")]
  [DisableRequestSizeLimit]
+
+
+
 -----------------------------
+
