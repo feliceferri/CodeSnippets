@@ -1,0 +1,5 @@
+Copy  properties from Parent to Child (Inheritance)
+
+  //Copy properties from Parent (Watchlist) to Child (WatchlistDetails)
+  foreach (var prop in wl.GetType().GetProperties())
+  	this.GetType().GetProperty(prop.Name).SetValue(this, prop.GetValue(wl, null), null);
