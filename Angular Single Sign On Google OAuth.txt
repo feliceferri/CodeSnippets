@@ -1,0 +1,49 @@
+https://console.cloud.google.com/
+New Project
+	ProbariTestOAuth
+	*Didn't select parent organization
+Go to APIs Overview
+Credentials (Left Menu)
+Create Credentials (Top)
+	Application Type: Web Application
+	Name: Probari-login2
+	Authorized Javascript Origins URI: http://localhost:4200
+                      			     https://probariv2.azurewebsites.net/#/
+    	Create (bottom)
+	Copy ClientID and Secret
+
+
+
+
+On Angular
+
+Index.html
+Inside <head>
+   add <meta name="google-sigin-client_id" content="1092862795118-bu4l1qmkai0nh21llhbuuplsu8tp7lck.apps.googleusercontent.com">
+   add <scripts src="https://apis.google.com/js/platform.js"></scripts>
+
+Add this to the home form where you want the google signin button to appear
+	<div class="g-signin2" data-onsuccess="onSignIn" data-longtitle="true"></div>
+
+On the Component
+import { Component, OnInit, NgZone } from '@angular/core';
+constructor(private ngZone:NgZone)
+{
+ window['onSignIn'] = user => ngZone.run(
+      ()=> {
+          this.afterSignUp(user);
+      }
+    );
+}
+
+ afterSignUp(user)
+  {
+    console.log(user);
+
+   var profile = user.getBasicProfile();
+  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+  console.log('Name: ' + profile.getName());
+  console.log('Image URL: ' + profile.getImageUrl());
+  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+  }
+
