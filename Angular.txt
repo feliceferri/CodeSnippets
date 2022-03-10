@@ -318,3 +318,18 @@ ngFor over a Map
           <p-radioButton [inputId]="dateField.key" name="dateField" [value]="dateField" [(ngModel)]="selectedField" [disabled]="category.key === 'R'"></p-radioButton>
           <label [for]="dateField.key">{{dateField[0]}}</label>
 </div>
+
+-----------------------------------------------
+
+ng g guard auth
+
+app.routing-module.ts
+import { AuthGuard } from './auth.guard';
+in each path add ,canActivate:[AuthGuard] => {path: 'testform', component: TestFormComponent,canActivate:[AuthGuard]},
+
+auth.guard.ts
+Add Router to import '@angular/router'
+constructor(private router:Router){}
+
+this.router.navigate(['/login']); 
+return false;
