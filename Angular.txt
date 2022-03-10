@@ -333,3 +333,25 @@ constructor(private router:Router){}
 
 this.router.navigate(['/login']); 
 return false;
+
+-----------------------------------------------
+
+SYNCHRONOUS HTTP CALL
+
+isTokenValid():boolean {
+
+        var request = new XMLHttpRequest();
+        request.open('GET', this.baseUrl + "/IsTokenValid", false);  
+        
+        request.send();
+    
+        console.log("isTokenValid status: ",request.status);
+
+        if (request.status === 200) 
+            return true;
+        else 
+            return false;
+        
+    }
+
+------------------------------------------

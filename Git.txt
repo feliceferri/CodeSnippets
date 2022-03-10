@@ -62,11 +62,18 @@ git reset HEAD index.html  (lo quita del staging area, queda marcado como modifi
  			   y hago un reset, la carpeta queda como estaba en el ultimo commit
 
 
-/////////////
-List branches sorted by commit date
+-----------------------------------------
+
+LIST ALL BRANCHES SORTED BY COMMIT DATE
 
 git for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'
 
+--------------------------------------------
 
+CHERRY PICK
+
+Azure Dev Ops => Find the Commit => 3 dots at the right => Copy Full SHA
+
+git cherry-pick be32179c5969d7ba4c982d27fe57xxxxxxx
 
 
