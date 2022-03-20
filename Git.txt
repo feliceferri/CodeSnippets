@@ -76,4 +76,19 @@ Azure Dev Ops => Find the Commit => 3 dots at the right => Copy Full SHA
 
 git cherry-pick be32179c5969d7ba4c982d27fe57xxxxxxx
 
+-----------------------------------------------
+
+CHANGE REMOTE REPOSITORY
+
+git remote show origin (to first confirm)
+git remote set-url origin https://github.gatech.edu/xxxx/xxxx.git
+
+---------------------------------------------------
+
+GIT DELETE COMMITS
+
+git reset --soft HEAD-2  (the 2 is the number of Commits to be deleted top-bottom)
+git push origin --force (the force will push it even though is after date)
+
+
 
