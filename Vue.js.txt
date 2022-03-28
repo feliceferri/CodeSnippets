@@ -1,0 +1,11 @@
+Installed Vetur Extension
+Installed vue for syntax highlighting
+
+npm install
+
+npm install -g yarn
+
+
+yarn run dev (didn't worked for me)
+
+npm run dev (did work)

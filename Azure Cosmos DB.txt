@@ -124,3 +124,5 @@ FROM c JOIN t IN c.subsystems JOIN k IN t.isoParts JOIN l IN k.workItems
 WHERE l.statusCode = "xxx" and ARRAY_CONTAINS(l.approversEmails,"xxxx")
 
 SELECT c.id, c.name, ARRAY(SELECT DISTINCT t.name, t.email FROM t IN c.users) as users FROM c
+
+SELECT * FROM c WHERE c.xx IN ('{string.Join("','", yyy)}')"
