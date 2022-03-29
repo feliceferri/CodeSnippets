@@ -27,6 +27,18 @@ builder.Services.AddAuthentication(options =>
 app.UseAuthentication();  (Before app.UserAuthorization)
 
 
+5) In the Controller
+   var identity = HttpContext.User.Identity as System.Security.Claims.ClaimsIdentity;
+   if (identity != null)
+   {
+   	IEnumerable<System.Security.Claims.Claim> claims = identity.Claims;
+      // or
+      //identity.FindFirst("ClaimName").Value;
+   }
+
+
+
+
 VUE.js
 import { AuthenticationProperties as auth0   } from 'vue-auth0-plugin'
 
