@@ -39,3 +39,40 @@ DETAILS OF AN SWAGGER ERROR
 
 https://localhost:44353/swagger/v1/swagger.json
 
+-----------------------------
+
+
+AUTH LOCK ON SWAGGER
+
+using Microsoft.OpenApi.Models;
+
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "probari_backend", Version = "v1" });
+    c.CustomSchemaIds(x => x.FullName);
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        In = ParameterLocation.Header,
+        Description = "Please enter token",
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        BearerFormat = "JWT",
+        Scheme = "bearer"
+    });
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type=ReferenceType.SecurityScheme,
+                                Id="Bearer"
+                            }
+                        },
+                        new string[]{}
+                    }
+                });
+});
+
+--------------------------------------
