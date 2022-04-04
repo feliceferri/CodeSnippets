@@ -32,6 +32,7 @@ I can pull from other branches into my branch just by using git pull origin chao
 ----------------
 
 git clone https://xxx
+git clone https://username:password@github.com/NAME/repo.git   (using a different account)
 
 git init  (to make a folder trackeable (no need to have a remote repo yet))
 
@@ -90,5 +91,6 @@ GIT DELETE COMMITS
 git reset --soft HEAD-2  (the 2 is the number of Commits to be deleted top-bottom)
 git push origin --force (the force will push it even though is after date)
 
+-------------------------------
 
 

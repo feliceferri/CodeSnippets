@@ -1,3 +1,11 @@
 DEFINITION FILES
 
 https://www.typescriptlang.org/dt/search?search=statistics.js
+
+--------------------------
+
+CALL ASYNC FUNCTION AS SYNC
+
+ (async () => {
+            await this.refreshListAsync();
+ })();        

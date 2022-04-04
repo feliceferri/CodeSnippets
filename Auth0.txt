@@ -47,3 +47,9 @@ const tokenJWT = async () => {
         }
         
 tokenJWT();
+
+----------------------
+
+STEPS FOLLOWED FOR MAKING IT WORK IN ANGULAR
+
+https://auth0.com/blog/complete-guide-to-angular-user-authentication/
