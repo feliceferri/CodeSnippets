@@ -9,3 +9,28 @@ npm install -g yarn
 yarn run dev (didn't worked for me)
 
 npm run dev (did work)
+
+-----------------------
+
+MODALS
+
+https://headlessui.dev/vue/dialog
+
+------------------------
+
+CUSTOM EVENTS (CHILD to PARENT)
+
+//Child component
+setup(props,context)
+
+function closeDialog()
+{
+    context.emit('closeDialog',true);
+}
+
+//Parent component
+<component @closeDialog="setShowModal(false)" ></component>
+
+** Outside the setup method => this.$emit() should be use (haven't tried it)
+
+-----------------------------
