@@ -94,3 +94,11 @@ git push origin --force (the force will push it even though is after date)
 -------------------------------
 
 
+// MERGE INTO MAIN
+
+(Merge from DataContainer into Main)
+
+git branch -a
+git checkout main
+git merge datacontainers
+git log --oneline  **See if the first line is a Merge commit

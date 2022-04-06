@@ -34,3 +34,5 @@ function closeDialog()
 ** Outside the setup method => this.$emit() should be use (haven't tried it)
 
 -----------------------------
+
+Provide / inject to pass variables from Component to Descendants, including from App to all the components (https://vuejs.org/guide/components/provide-inject.html#inject)
