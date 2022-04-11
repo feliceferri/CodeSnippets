@@ -55,3 +55,11 @@ return {
       moment
     };
 --------------------
+
+CONDITIONAL CLASS
+
+<div class="border-l border-gray-300 py-2 px-3" v-bind:class='{"bg-green-200": state.bestResultsChecked == true && index == 2}'>
+            {{ test.control_margin2 }}
+</div>
+
+------------------------
