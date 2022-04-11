@@ -10,3 +10,21 @@ CALL ASYNC FUNCTION FROM NON ASYNC
 
 var task = Task.Run(async () => await GetCloudDataAsync(true));
 CloudData_Optional = task.Result;
+
+--------------------------------
+
+SLIM SEMAPHORE
+
+private readonly static SemaphoreSlim _semaphoreSlim = new SemaphoreSlim(1, 1);
+
+await _semaphoreSlim.WaitAsync();
+try
+{
+  //Locked code goes here
+}
+finally
+{
+	_semaphoreSlim.Release();
+}
+
+----------------------------------
