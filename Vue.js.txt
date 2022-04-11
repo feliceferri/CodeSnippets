@@ -36,3 +36,22 @@ function closeDialog()
 -----------------------------
 
 Provide / inject to pass variables from Component to Descendants, including from App to all the components (https://vuejs.org/guide/components/provide-inject.html#inject)
+
+----------------------------
+
+BINDING  v-model  OPTION API VS COMPOSITION API
+
+https://www.thisdot.co/blog/vue-3-composition-api-watch-and-watcheffect
+
+------------------------------
+
+DATE FORMATTING
+
+{{ moment(test.dateTimeUTC).format("MM/DD/YYYY")}}
+
+import moment from 'moment'
+
+return {
+      moment
+    };
+--------------------
