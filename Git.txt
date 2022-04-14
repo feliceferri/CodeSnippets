@@ -102,3 +102,9 @@ git branch -a
 git checkout main
 git merge datacontainers
 git log --oneline  **See if the first line is a Merge commit
+
+-------------------------------
+
+PUSH LOCAL BRANCH TO REMOTE
+
+git push -u origin branchname

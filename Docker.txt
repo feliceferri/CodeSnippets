@@ -1,0 +1,29 @@
+docker images  (list installed images)
+
+docker run -it -d -p 8080:80 --name web nginx
+
+it (interactive mode)
+name custom name => web
+nginx (image)
+
+docker ps => containers running
+tag = version
+
+sudo netstat -tlnp  (list the ports that already are assigned in the computer)
+
+docker stop web
+docker rm web
+
+nl dockerfile  (Shows the content)
+FROM nginx:latest
+COPY ./index.html /usr/share/nginx/html/index.html
+
+docker build -t nameof .   (point is local directory, where the dockerfile resides)
+
+----------------
+
+docker login
+
+docker push path
+
+docker exec (connects to a running container, to inspect it, but when the container stars again, everything get losts)
