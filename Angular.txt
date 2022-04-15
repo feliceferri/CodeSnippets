@@ -259,33 +259,37 @@ add it to the imports array.
 
 ---------------------------------------
 
-NAVIGATE WITH OPTIONA PARAMETERS
-
-app-routing.module.ts
-      {path: 'path/:resultId', component: ComponentName},
-      {path: 'path', component: ComponentName},
+NAVIGATE
 
 //The caller component
 import { Router } from '@angular/router';
 constructor(private _router: Router) { }
 this._router.navigate(['first'])
 
+
+
+NAVIGATE WITH OPTIONAL PARAMETERS
+
+app-routing.module.ts
+      {path: 'create/:resultId', component: ComponentName},
+      {path: 'path', component: ComponentName},
+
 //The component being called
 import { ActivatedRoute } from '@angular/router';
 constructor(private route: ActivatedRoute) {
 
 ngOnInit(): void {
-    this.refreshTestCriteriaListAsync();
-    this.resultsReviewForm = this.formBuilder.group({
-      testCriteria: [""],
-      logbooks: new FormControl({ value: "", disabled: true })
-    });
-
+    
     this.route.params.subscribe(params => {
     	if(params.resultId)
 	{}
     }
   );
+
+
+To Call it from another class
+
+this._router.navigate(["create/",ResultIdGoesHere]);
 
 ---------------------------------------------
 
