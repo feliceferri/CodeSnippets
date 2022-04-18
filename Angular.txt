@@ -271,7 +271,7 @@ this._router.navigate(['first'])
 NAVIGATE WITH OPTIONAL PARAMETERS
 
 app-routing.module.ts
-      {path: 'create/:resultId', component: ComponentName},
+      {path: 'create/:projectId/:isEditMode', component: ComponentName},
       {path: 'path', component: ComponentName},
 
 //The component being called
@@ -289,8 +289,7 @@ ngOnInit(): void {
 
 To Call it from another class
 
-this._router.navigate(["create/",ResultIdGoesHere]);
-
+this._router.navigate(["create/",this.projectId,true]);
 ---------------------------------------------
 
 PASS VALUES TO CHILD COMPONENT FROM PARENT

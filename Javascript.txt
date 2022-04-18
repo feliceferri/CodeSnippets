@@ -1,0 +1,3 @@
+ARRAY OF CHILD PROPERTY
+
+let commaSeparatedTitles = workItem.links.map(x=> x.title).join(', ')
