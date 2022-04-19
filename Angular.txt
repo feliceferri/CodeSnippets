@@ -401,3 +401,16 @@ exportProjectToExcel()
     FileSaver.saveAs(data, fileName + '_export_' + new  Date().getTime() + EXCEL_EXTENSION);
  }
 
+--------------------------------
+
+DOWNLOAD FILE FROM API
+
+GetProjectFiles(projectId:string, projectName:string) {
+    this.http.get(this.baseUrl + `/GetProjectFiles/${projectId}`, {
+      responseType: "arraybuffer",
+   }).subscribe(result=> {console.log(result);
+      let blob = new Blob([result], { type: 'application/zip' });
+      FileSaver.saveAs(blob, `${projectName}.zip` );});
+  }
+
+------------------------------

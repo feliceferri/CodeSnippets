@@ -106,5 +106,6 @@ var memory = new MemoryStream();
             memory.Position = 0;
             return File(memory, "application/zip", zipFile.FullName);
 
+** There is an angular example on how to consume it in the Angular.txt file (DOWNLOAD FILE FROM API)
 -----------------------
 
