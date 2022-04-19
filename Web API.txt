@@ -85,3 +85,26 @@ namespace Helpers
         }
     }
 }
+
+----------------------
+
+ZIP A FILE
+
+System.IO.Compression.ZipFile.CreateFromDirectory(dir.FullName, zipFile.FullName); 
+
+-----------------------
+
+RETURN A FILE
+
+response: ActionResult
+
+var memory = new MemoryStream();
+            await using (var stream = new FileStream(zipFile.FullName, FileMode.Open))
+            {
+                await stream.CopyToAsync(memory);
+            }
+            memory.Position = 0;
+            return File(memory, "application/zip", zipFile.FullName);
+
+-----------------------
+
