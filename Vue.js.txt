@@ -63,3 +63,23 @@ CONDITIONAL CLASS
 </div>
 
 ------------------------
+
+CREATE A SERVICE
+
+export default class RestResource {
+
+  sendRequest() {
+    // Use vue-resource or any other http library to send your request
+  }
+
+}
+
+** 
+
+import RestResource from './services/RestResource';
+
+const restResourceService = new RestResource();
+
+restResourceService.sendRequest();
+
+---------------------------
