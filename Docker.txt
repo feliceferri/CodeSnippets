@@ -18,12 +18,65 @@ nl dockerfile  (Shows the content)
 FROM nginx:latest
 COPY ./index.html /usr/share/nginx/html/index.html
 
-docker build -t nameof .   (point is local directory, where the dockerfile resides)
+docker build . 
+docker build -t nameofTheContainer .   (point is local directory, where the dockerfile resides)  -t If we want to name the Container, but this is optional
 
-----------------
 
-docker login
+-----------------------------------
 
-docker push path
+1) 
+CREATE REPOSITORY IN Docker HUB
+
+- Blue menu in the top, (center) => Repositories
+- Right button Create Repository
+- Write a name
+- Public/Private
+----------------------------------
+
+2) Terminal
+
+(1st LOGIN)
+
+docker login  *No parameters, it will use SSO
+
+Can be used with parameters: docker login --username username
+
+--------------------------------------------
+
+LIST IMAGES
+
+docker image ls
+
+--------------------------
+
+3)  RUN TAG COMMAND TO MATCH AN IMAGE WITH A REMOTE REPO
+
+docker tag dockertest lukerec/lukedocker
+
+--------------------
+
+4) DOCKER PUSH 
+
+docker push lukerec/lukedocker
+
+------------------------------------
+
+5) DOCKER PULL
+
+From another computer
+docker pull lukerec/lukedocker
+
+---------------------------
+
+6) LIST IMAGES TO CORROBORATE IT WAS DOWNLOADED
+docker image ls
+
+--------------------------
+
+7) RUN THE CONTAINER
+
+docker run lukerec/lukedocker
+
+
 
 docker exec (connects to a running container, to inspect it, but when the container stars again, everything get losts)
