@@ -80,3 +80,49 @@ docker run lukerec/lukedocker
 
 
 docker exec (connects to a running container, to inspect it, but when the container stars again, everything get losts)
+
+
+-----------------
+
+DOCKER + ANGULAR EXAMPLE #1
+
+** run npm build so it creates the ./dist folder with all the static content
+
+FROM nginx:latest
+
+COPY ./dist/sample-aungular-app  /usr/share/nginx/html
+
+EXPOSE 80
+
+--------
+
+docker build -t sample .
+docker run -d -p 8080:80 sample      (-p the first is the local system, the right is the port exposed in the docker file, -d run in the background so it doesnt dump the data in the terminal)
+we can add -name {name}  this is in case we want to run multiple intances of the same container in different ports
+
+-----------------------
+
+DOCKER + ANGULAR EXAMPLE #2
+
+FROM node:latest as build
+
+WORKDIR /usr/local/app
+
+COPY ./  /usr/local/app
+
+RUN npm install
+
+RUN npm run build
+
+
+FROM nginx:latest
+
+COPY --from=build /usr/local/app/dist/sample-angular-app  /usr/share/nginx/html
+
+----------------------------
+
+DOCKER COMPOSE EXAMPLE
+
+https://github.com/DanWahlin/Angular-Core-Concepts/blob/master/docker-compose.prod.yml
+
+docker-compose up
