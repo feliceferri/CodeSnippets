@@ -20,9 +20,50 @@ app.UseEndpoints(endpoints =>
 
 TO ADD IDENTITY
 
-1) Do Scallfolding
+1) Add Nugets
+Microsoft.AspNetCore.Identity.EntityFrameworkCore
+Microsoft.EntityFrameworkCore
+Microsoft.EntityFrameworkCore.Design
+Microsoft.EntityFrameworkCore.SqlServer
+Microsoft.EntityFrameworkCore.Tools
 
-2) Twillio Send grid - Single Sender needs to match with From Account, and that needs to be verified otherwise 403 Forbidden error.
+2) ADD ApplicationDbContext
+
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+
+public class ApplicationDbContext : IdentityDbContext<IdentityUser>
+{
+    public ApplicationDbContext(DbContextOptions options) : base(options)
+    {
+    }
+}
+
+3) STATURP.CS
+
+using CommandCenter.Data;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("SqlConnection")));
+
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<ApplicationDbContext>();
+
+
+4) APP.SETTINGS
+ "ConnectionStrings": {
+    "SqlConnection": "Server=.;Initial Catalog=MyAppDb; Integrated Security=true;"
+  },
+
+
+5) add-migration EntityFrameworkInitialMigration
+   update-database
+
+6) DO SCAFFOLDING
+
+7) Twillio Send grid - Single Sender needs to match with From Account, and that needs to be verified otherwise 403 Forbidden error.
 
 Helper Class
 

@@ -3,3 +3,5 @@ GET USER ID
 user.BloqueadoPorUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
 ---------------------------------
+
+WEB API.txt has the information on how to add Identity FX to a Web Api project
