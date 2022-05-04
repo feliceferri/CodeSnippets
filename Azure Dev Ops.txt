@@ -43,4 +43,8 @@ steps:
     PathtoPublish: dist
     ArtifactName: app
     
+
+
+RELEASE PIPELINE
+Edit => Deploy Azure App Service (bottom item) => Edit Button => Package Folder => navigate and change it to something like $(System.DefaultWorkingDirectory)/_Frontend/app/xxxxx
 -------------------------------------
