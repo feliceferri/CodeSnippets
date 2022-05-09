@@ -14,11 +14,6 @@
 
 ANGULAR YAML
 
-# Node.js with Angular
-# Build a Node.js project that uses Angular.
-# Add steps that analyze code, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
-
 trigger:
 - main
 
@@ -28,7 +23,7 @@ pool:
 steps:
 - task: NodeTool@0
   inputs:
-    versionSpec: '14.x'
+    versionSpec: '16.x'
   displayName: 'Install Node.js'
 
 - script: |
@@ -44,7 +39,18 @@ steps:
     ArtifactName: app
     
 
-
+************
 RELEASE PIPELINE
-Edit => Deploy Azure App Service (bottom item) => Edit Button => Package Folder => navigate and change it to something like $(System.DefaultWorkingDirectory)/_Frontend/app/xxxxx
+
+Toubleshoot Error : o package found with specified pattern: D:\a\r1\a\**\*.zip<br/>Check if the package mentioned in the task is published as an artifact in the build or a previous stage and downloaded in the current job.
+
+Edit => Deploy Azure App Service (bottom item) => Edit Button => Package Folder => navigate and change it to something like $(System.DefaultWorkingDirectory)/_Frontend/app/diamond-ng
+
+**************
+IF Deploying on LINUX
+Troubleshoot Error: Your web app is running and waiting for your content.
+
+Go to your app service > Configuration => select the tab -> General Settings
+
+On the Startup Command field => pm2 serve /home/site/wwwroot --no-daemon --spa
 -------------------------------------
