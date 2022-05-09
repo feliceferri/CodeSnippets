@@ -28,6 +28,7 @@ Windows Server
 	=> Sites Folder => Right Click => Add FTP Site
 		=> Physical Path => inetpub\ftproot
                    if doing SSL => At the Server Level node => Certificates => Import (top right) .pfx
+                   ** Selected Required SSL, Port 21
                    (I selected the TenantCertificate that appeared as default in the combobox)
 		   Basic, All users, Read, Write
 	=> Server Level Node => FTP Firewall Support
@@ -43,13 +44,18 @@ Windows => Apps
          OpenSSH Server
  
 Windows => Services
-    Look for OpenSSH Auhtnetication Agent => Set to Automatic Startup => Start
-    Look for OpenSSH SSH Server => Set to Automatica Startup => Start
+    Look for OpenSSH Authentication Agent => Set to Automatic Startup => Start
+    Look for OpenSSH SSH Server => Set to Automatica Startup => Start  
+            Troubleshoot:
+		**OpenSSH didn't appear on services, we did a restart it didn't work, solved it by => https://docs.microsoft.com/en-us/windows-server/administration/openssh/openssh_install_firstuse  
+            ***If this fails check the policy: https://thesysadminchannel.com/solved-add-windowscapability-failed-error-code-0x800f0954-rsat-fix/
+               => The lower checkbox of Windows Service Update needs to be checked as in the article otherwise it wont work.
+
 
 Open Notepad as an administrator
-   Open this folder => C:\ProgramData\SSH
+   Open this folder => C:\ProgramData\SSH  **Is a hidden folder but is there
    Change filter to All Files
-   Select ssh_config
+   Select ssh_config ** it appeared as ssdh_config
    	Where it says => #ChrootDirectory none
         change it for => ChrootDirectory "D:\SFTP"
 	* Remember to remove the hash
