@@ -218,3 +218,9 @@ export class AuthService {
   }
   
 }
+
+---------------------------------
+
+GET RAW TOKEN FROM CALL
+
+var accessToken = HttpContext.Current.Request.Headers["Authorization"];
