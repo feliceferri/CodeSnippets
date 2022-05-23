@@ -414,3 +414,22 @@ GetProjectFiles(projectId:string, projectName:string) {
   }
 
 ------------------------------
+
+BEHAVIOR SUBJECTS
+
+AppComponent.ts
+this.userName2 = new BehaviorSubject("");
+this.userName2.next(userFromToken.email);
+
+OtherView.ts
+
+NgOnInit()
+this.app.userName2.subscribe(async x => {
+	await refreshList()
+}
+);
+
+if I wanted to use later:
+	this.app.userName2.value
+
+---------------------------------
