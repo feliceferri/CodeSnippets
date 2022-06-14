@@ -138,3 +138,9 @@ IS_DEFINED(c.payload.field)
 COUNT ALL GRAND CHILDREN
 
 SELECT COUNT(1) FROM c JOIN subsystem in c.subsystems JOIN isoPart in subsystem.isoParts JOIN workItem in isoPart.workItems JOIN link in workItem.links
+
+----------------------
+
+DATE FUNCTIONS
+
+https://h-savran.blogspot.com/2020/10/new-datetime-funcs.html

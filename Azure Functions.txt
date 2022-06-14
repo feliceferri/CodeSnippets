@@ -217,6 +217,11 @@ using (var client = new HttpClient())
                 }
 
 
+
+FIX!!!!: GO TO THE CORS SECTION IN THE AZURE FUNCTION (AZURE) AND ADD THE URLS INCLUDING LOCALHOST
+         OR  add a simple asterisk
+
+
 ------------------------
 
 ADD OUTPUT SCHEMA IN AP MANAGEMENT SERVICES FOR POWER APP CONNECTIVITY
