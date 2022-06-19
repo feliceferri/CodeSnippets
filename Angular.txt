@@ -433,3 +433,13 @@ if I wanted to use later:
 	this.app.userName2.value
 
 ---------------------------------
+
+GET VALUE FROM CONTROL IN HTML
+
+#InputConstantValue
+
+<button type="text" class="mt-1 mr-3" pButton pRipple label="Add Constant"
+                                (click)="insertChar(InputConstantValue.value)"></button>
+<p-inputNumber #InputConstantValue placeholder="Numeric Value" mode="decimal"></p-inputNumber>
+
+--------------
