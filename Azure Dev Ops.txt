@@ -42,6 +42,8 @@ steps:
 ************
 RELEASE PIPELINE
 
+Selected App Service from Node.js Artificat
+
 Toubleshoot Error : o package found with specified pattern: D:\a\r1\a\**\*.zip<br/>Check if the package mentioned in the task is published as an artifact in the build or a previous stage and downloaded in the current job.
 
 Edit => Deploy Azure App Service (bottom item) => Edit Button => Package Folder => navigate and change it to something like $(System.DefaultWorkingDirectory)/_Frontend/app/diamond-ng
