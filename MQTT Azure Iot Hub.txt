@@ -1,0 +1,30 @@
+Iot Device
+	Simulator
+
+Get Authentication Token
+	Shared Access Policies
+		iothubowner
+			Copy the Primary Key Connection String
+			
+
+	Open the Device Explorer Utility (Device Explorer Twin) 
+	https://docs.microsoft.com/en-us/azure/iot-fundamentals/howto-use-iot-explorer
+	https://github.com/Azure/azure-iot-explorer/releases
+
+		Add Conection
+			Paste Primary Key Connection String
+
+		Select the Device from the List
+			Click on Connection String with SAS Token
+			Select Primary Key in the dropdown (Symmetric Key)
+			Expiration Token (after expires it just makes a new call to refresh the token)
+			Click on Generate
+			Copy only the SharedAccessSignature after the equal sign but including the SharedAccessSignature sr prhase.
+
+HostName=lhp-command-center.azure-devices.net;SharedAccessKeyName=iothubowner;SharedAccessKey=OJPdwZwtNe+ySfhYjGVRozuzE0Thj/WZYwI/a0znVes=
+	
+
+
+HostName=lhp-command-center.azure-devices.net;DeviceId=Simulator;SharedAccessSignature=SharedAccessSignature sr=lhp-command-center.azure-devices.net%2Fdevices%2FSimulator&sig=9kVRQgFr7SnwVkBJPaU2xw%2F%2F0icBq19tbbYWEdPVkjs%3D&se=1655909133
+
+SharedAccessSignature sr=lhp-command-center.azure-devices.net%2Fdevices%2FSimulator&sig=9kVRQgFr7SnwVkBJPaU2xw%2F%2F0icBq19tbbYWEdPVkjs%3D&se=1655909133

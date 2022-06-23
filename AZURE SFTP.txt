@@ -76,3 +76,16 @@ https://www.youtube.com/watch?v=BR9qc_1unu8
 https://medium.com/techinpieces/practical-azure-how-to-enable-ssh-on-azure-vm-84d8fba8103e
 ** I did the same Azure configuration, but didn't do anything related to the Windows Server Configuration, just followed the 2 links
 ** I had to open Port 22 on azure and set the priority as 330 (second link)
+
+
+-------------
+
+CREATE MULTIPLE ACCOUNTS => https://www.windowscentral.com/how-set-and-manage-ftp-server-windows-10
+
+Add, Edit, Remove User (Accounts)
+Add Someone Else
+I Dont have the person information
+Person doesn't have a Microsoft Account
+
+
+

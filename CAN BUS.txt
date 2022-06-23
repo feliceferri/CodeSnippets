@@ -1,0 +1,26 @@
+Kvaser Database Editor
+	To analize .dbc files  (dbc file contains the messages that they want to observe
+	Inside each message there can be different signals
+
+
+HED Canect Composer
+	Module is the model of the Canect Telematics box
+	Communication. To Set Baud Rate. Needs to match the python code.
+	CAN Files: Allows to import a .dbc file. Luke did an import click at the bottom.
+	Application. What you check/enable will be sent
+		Log Files
+		WIFI Access point.  To connect to the telematics device
+		Reflector. Allows https access from outside.
+		WIFI Client. So the Device connects to the world.
+		Ethernet password is a constant. On the manual. 
+			The IP appears there in the Canet Composer and can be changed. CANectIoT082884
+
+	Parameter
+		Add Loging Group
+
+	Package
+		Full Package is to install Overlays
+		Configuration is just to change like wifi, ip etc.
+	
+PCAN View
+	

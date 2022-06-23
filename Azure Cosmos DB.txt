@@ -144,3 +144,69 @@ SELECT COUNT(1) FROM c JOIN subsystem in c.subsystems JOIN isoPart in subsystem.
 DATE FUNCTIONS
 
 https://h-savran.blogspot.com/2020/10/new-datetime-funcs.html
+
+--------------------
+
+// SAMPLE STORED PROCEDURE
+
+Just execute it, no need to care about the prefix param
+
+function sample(prefix) {
+
+    var collection = getContext().getCollection();
+
+
+
+    // Query documents and take 1st item.
+
+    var isAccepted = collection.queryDocuments(
+
+        collection.getSelfLink(),
+
+        'SELECT * FROM root r',
+
+    function (err, feed, options) {
+
+        if (err) throw err;
+
+
+
+        // Check the feed and if empty, set the body to 'no docs found', 
+
+        // else take 1st element from feed
+
+        if (!feed || !feed.length) {
+
+            var response = getContext().getResponse();
+
+            response.setBody('no docs found');
+
+        }
+
+        else {
+
+            feed.forEach(element => {
+
+                element.dueDate = element.auditDate;
+
+                collection.replaceDocument(element._self, element,function (err){
+
+                    if (err) throw err;
+
+                })
+
+            })
+
+            var response = getContext().getResponse();
+
+            response.setBody("replace success");
+
+        }
+
+    });
+
+
+
+    if (!isAccepted) throw new Error('The query was not accepted by the server.');
+
+}
