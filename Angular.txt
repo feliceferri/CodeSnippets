@@ -443,3 +443,35 @@ GET VALUE FROM CONTROL IN HTML
 <p-inputNumber #InputConstantValue placeholder="Numeric Value" mode="decimal"></p-inputNumber>
 
 --------------
+
+MESSAGEBOX - CONFIRMATION SERVICE
+Can be Confirm, Warn etc
+
+<p-confirmDialog [style]="{width: '450px'}" acceptButtonStyleClass="p-button-danger"></p-confirmDialog>
+
+import { ConfirmationService, MessageService } from 'primeng/api';
+
+@Component({
+  selector: 'app-categories',
+  templateUrl: './categories.component.html',
+  styleUrls: ['./categories.component.scss'],
+  providers: [MessageService,ConfirmationService]
+})
+
+this.confirmationService.confirm({
+        message: 'Are you sure you want to delete this record?',
+        header: 'Confirm',
+        icon: 'pi pi-exclamation-triangle',
+        accept: async () => {
+            try {
+                await this.categoryService.deleteChartAsync(id, this.app.username);
+                this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Deleted', life: 3000 });
+            }
+            catch (error) {
+                this.messageService.add({ severity: 'error', summary: 'Error', detail: 'DeleteFailed', life: 3000 });
+            }
+
+            await this.refreshListAsync();
+        }
+
+---------------------------
