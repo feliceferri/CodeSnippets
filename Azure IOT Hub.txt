@@ -36,3 +36,26 @@ https://www.youtube.com/watch?v=SF8TJZnSIHE&t=1259s  (min 25)
 
 Azure Device Provisioning Service
 Nuget
+
+--------------------
+
+MQTT EXPLORER
+
+Validate Certifcate: True
+Encryption TLS: True
+Protocol:mqtt://
+Host: xxxx.azure-devices.net/Simulator/?api-version=2021-04-12
+Port: 8883
+Username: xxxxxx.azure-devices.net/Simulator
+Password: SharedAccessSignature sr=xxxxx.azure-devices.net%2Fdevices%2FSimulator&sig=xxxxxxxNSNWe2OzsEnolEwLLXPuw8ZWyNrOQ%3D&se=1656272533
+Go to Advance: 
+	MQTT Client Id: Simulator
+I didn't touch the certificates
+!!!! The Shared Access Key has to be new and can't have expired
+
+Topic: 
+devices/Simulator/messages/events/TestTopic
+
+--------------------------
+
+Bottom/Comments of this articles might be some pearls about securty/certificates: https://case.schollaart.net/2018/09/22/mqtt-and-azure-functions.html
