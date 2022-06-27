@@ -1,0 +1,13 @@
+CONFIGURATION FILE - APPSETTINGS.JSON
+
+ <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="6.0.0" />
+
+
+IConfiguration config = new ConfigurationBuilder()
+                                    .AddJsonFile("appsettings.json")
+                                    .AddEnvironmentVariables()
+                                    .Build();
+
+-------------------------------

@@ -1,0 +1,13 @@
+Downloaded MQTTNet
+
+Copied the two Samples\Server files to a new console app
+
+Network Interfase
+	Source: Any
+	Source port Ranges: *
+	Destination: Any
+	Service: Custom
+	Destination Port ranges: 1883
+	Protocol: TCP
+
+Inbound Firewall rule on the VM

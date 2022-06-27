@@ -32,7 +32,7 @@ Then do the same in Setting => Environment Variables in the Azure function
 
 AUTOMATIC PROVISIONING
 
-https://www.youtube.com/watch?v=SF8TJZnSIHE&t=1259s  (min 25)
+https://www.youtube.com/watch?v=SF8TJZnSIHE&t=1259s  (min 25)https://www.google.com/webhp?hl=en&sa=X&ved=0ahUKEwi6upqousz4AhWwmmoFHZi9BWMQPAgI
 
 Azure Device Provisioning Service
 Nuget
@@ -56,6 +56,26 @@ I didn't touch the certificates
 Topic: 
 devices/Simulator/messages/events/TestTopic
 
+Example MS: https://github.com/MicrosoftDocs/azure-docs/blob/main/articles/iot-hub/iot-hub-mqtt-support.md
+
 --------------------------
 
 Bottom/Comments of this articles might be some pearls about securty/certificates: https://case.schollaart.net/2018/09/22/mqtt-and-azure-functions.html
+
+
+----------
+
+https://docs.chariot.io/display/CLD80/Using+IoT+Hub+Message+Based+Routing
+
+$body.topic
+$body.topic.groupId
+
+https://github.com/dotnet/MQTTnet
+
+https://stackoverflow.com/questions/53467014/subscribe-to-azure-iot-hub-device-events    (EVENT GRID)  
+https://www.youtube.com/watch?v=n-764nj0CP4
+
+---------------
+SAMPLE ON HOW TO SEND DATA TO MQTT WITHOUT THE Azure IoT SDK, like for the ESP32
+
+https://docs.microsoft.com/en-us/samples/azure-samples/iotmqttsample/iotmqttsample/
