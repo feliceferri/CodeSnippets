@@ -1,0 +1,28 @@
+MDI FORM WITH GENERIC TYPE AND PARAMETERS INTANTIATION
+
+on the MDI form:
+
+internal void DisplayForm<T>(string formName, object?[]? args = null) where T : Form, new()
+        {
+            T form;
+
+            form = (T)this.MdiChildren.Where(x => x.Name == formName).FirstOrDefault();
+
+            if (form == null)
+            {
+                form = (T)Activator.CreateInstance(typeof(T),args); //new T();
+                form.MdiParent = this;
+                form.FormBorderStyle = FormBorderStyle.None;
+                form.Dock = DockStyle.Fill;
+                form.Show();
+            }
+            else
+            {
+                form.BringToFront();
+            }
+        }
+
+Calling from another MDI child:
+	int itemID = 2;
+	(this.MdiParent as MenuForm).DisplayForm<ItemDetailsForm>(nameof(ItemDetailsForm), new object[] { itemID });
+      this.Close();
