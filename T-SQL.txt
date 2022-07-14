@@ -301,3 +301,7 @@ group by datepart(day, ServerTimeUTC),datepart(hh, ServerTimeUTC)
 ORDER BY  datepart(day, ServerTimeUTC), datepart(hh, ServerTimeUTC)
 
 ---------------------------------
+
+SQL CONNECTION STRING ALLOW RESILIENCY
+
+ConnectRetryCount=6;ConnectRetryInterval=5

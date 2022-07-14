@@ -487,3 +487,7 @@ EVENT WHEN BINDED MODEL CHANGES
                             class="mt-2"></p-multiSelect>
 
 ----------------------------------------------
+
+NUMBER INPUT WITH DECIMALS
+
+<p-inputNumber #InputConstantValue placeholder="{{'Numeric Value' | locale | async}}" mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="5"></p-inputNumber>
