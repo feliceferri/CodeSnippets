@@ -491,3 +491,9 @@ EVENT WHEN BINDED MODEL CHANGES
 NUMBER INPUT WITH DECIMALS
 
 <p-inputNumber #InputConstantValue placeholder="{{'Numeric Value' | locale | async}}" mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="5"></p-inputNumber>
+
+---------------------------
+
+CENTER VERTICALLY
+
+<label class="ml-2" style="display:flex;align-items:center">Cool off period in hours</label>
