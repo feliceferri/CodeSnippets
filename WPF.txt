@@ -157,6 +157,7 @@ DEPENDENCY PROPERTY WITH NOTIFICATIONS FOR VALUE CHANGES (CALLBACK)
         }
 
         // Using a DependencyProperty as the backing store for OnePercentHeightInPixels.  This enables animation, styling, binding, etc...
+//The name of the Property To Register, has to be the name of the Property in the ViewModel
         public static readonly DependencyProperty OnePercentHeightInPixelsProperty =
             DependencyProperty.Register("OnePercentHeightInPixels", typeof(double), typeof(CustomButton), new PropertyMetadata(1.0, new PropertyChangedCallback(OnercentHeightInPixelsChanged)));
 
