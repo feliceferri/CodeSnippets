@@ -305,3 +305,23 @@ ORDER BY  datepart(day, ServerTimeUTC), datepart(hh, ServerTimeUTC)
 SQL CONNECTION STRING ALLOW RESILIENCY
 
 ConnectRetryCount=6;ConnectRetryInterval=5
+
+--------------------------------
+
+SQL ERROR
+
+BEGIN TRY
+    ... code ...
+END TRY
+BEGIN CATCH
+	 declare @_err_msg nvarchar(4000)
+	 set @_err_msg = concat('ERROR in procedure: ', object_name(@@PROCID), 
+                               ' in line ', error_line(),
+                               ' severity ', error_severity(),
+                               ' state ', error_state(),
+                               '. Message: ', coalesce(@_err_msg,'')
+                               +  '-'  + error_message())
+	PRINT(@_err_msg);
+END CATCH
+
+---------------------------------------

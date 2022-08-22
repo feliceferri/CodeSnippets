@@ -57,6 +57,14 @@ ng serve
 
 npm audit fix
 
+--------------
+
+CREATE A DIST FOLDER WITH ALL THE FILES
+
+ng build --watch
+ng build -base-href "/subfolder/"  --watch   (This is to create a subfolder in the path like /API)
+
+
 ----------------------
 ADD BOOTSTRAP
 

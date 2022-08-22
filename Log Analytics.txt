@@ -1,0 +1,3 @@
+
+FunctionAppLogs 
+| where TimeGenerated > ago(1h) and Level == 'Error'

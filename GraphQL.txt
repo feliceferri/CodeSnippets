@@ -1,0 +1,24 @@
+PYTHON
+
+from python_graphql_client import GraphqlClient
+
+headers = { "Authorization": "Automation {Token}" }
+client = GraphqlClient(endpoint="https://hed-rcm-rc.canect.io/api/graphql", headers=headers)
+query =""
+data = client.execute(query=query)
+
+------------------------------------------------
+
+QUERY SCHEMA
+
+{
+                __schema {
+                    queryType {
+                        fields {
+                            name
+                            description
+                        }
+                    }
+                }
+            }
+----------------------------------------------------

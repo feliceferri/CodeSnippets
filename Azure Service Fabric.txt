@@ -4,6 +4,15 @@
 What worked was creating the Service Fabric App in Visual Studio and from there Publish => Create a new Service Fabric
 Last tab of this wizzard allows to Open Ports
 Ports are open by default as TCP, but then we can go into the Load Balancer and convert them to UDP
+   => Create New Cluster, 3 nodes
+   => Certificate password
+   => VM username & Password
+
+
+allowAllUDPToPort11000  Any * Any Custom 11000  UDP Allow  2000
+AllowAllTCPTOPort13000  Any * Any Custom 13000  TCP Allow  2001
+VM Firewall => Inbound Rule => New Rule Port => UDP 11000 => UDPPort11000
+VM Firewall => Inbound Rule => New Rule Port => TCP 13000 => TCPPort13000
 
 
 Get the IP 

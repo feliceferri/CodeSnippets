@@ -1,0 +1,31 @@
+AMAZON Iot Core
+
+https://hexquote.com/aws-iot-with-net-core-mqtt/
+
+
+CREATED A ALL OPEN POLICY AND ATTACHED TO THE THING
+Police Effect : Allow | Policy Action : * | Policy Resource : *  
+
+To Attach the policy: Go to the Thing => Certificates => Click on the Certificate ID => Policies =>  Attach
+
+CHECK IF WE CAN USE THE CERTIFICATES TO CONNECT TO IoT Core
+
+c:\openssl\openssl s_client -CAfile AmazonRootCA1.pem -cert 5f02a900d4ef8510ca7013d1d968f10a1e3946c19928518016b1bed105159504-certificate.pem.crt -key 5f02a900d4ef8510ca7013d1d968f10a1e3946c19928518016b1bed105159504-private.pem.key -connect a12fk1l96l12es-ats.iot.us-east-2.amazonaws.com:8883
+
+To get the URI
+
+AWS => IoT Core => Connect One Device => Scroll Down
+
+CONVERT THE CERTIFICATE FROM .PEM TO .PFX
+
+c:\openssl\openssl pkcs12 -export -in 5f02a900d4ef8510ca7013d1d968f10a1e3946c19928518016b1bed105159504-certificate.pem.crt -inkey 5f02a900d4ef8510ca7013d1d968f10a1e3946c19928518016b1bed105159504-private.pem.key -password pass:somepassword -out certificate.cert.pfx -certfile AmazonRootCA1.pem 
+
+
+TESTING FROM AWS MQTT Test Client
+    Publish to a Topic
+    iot/topic
+   "{'dataContractId': '1665a5b9-862d-410a-a0c8-65b702e6fe90','field':'Amazon Test from AWS MQTT Test Cloud'}"   (This works)
+
+
+
+

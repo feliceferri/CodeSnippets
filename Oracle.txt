@@ -1,0 +1,21 @@
+ORACLE
+
+Install Oracle Express
+
+Search in windos for SQL Plus
+   => Enter User Name: write => / as sysdba 
+   
+   => select name from v$pdbs;  (Lists all the available databases)
+
+    => connect sys/passwordHere@localhost:1521/XEPDB1 as sysdba
+
+     => create user demouser identified by demouser default tablespace users quota unlimited on users;
+
+	=> grant create session, create table to demouser;
+
+	=> connect demouser/demouser@localhost:1521/XEPDB1;
+
+create table testtable(testcol number);
+insert into testtable values (1111);
+commit;
+ select * from testtable;

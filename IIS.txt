@@ -1,0 +1,8 @@
+IIS
+
+500.19 ERROR
+
+(Install .net core Hosting Bundle)
+
+If using Swagger, remember swagger is by default ON only for Development settings (Ran from VS)
+---------

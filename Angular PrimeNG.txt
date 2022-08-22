@@ -1,3 +1,33 @@
 DECIMALS
 
 <p-inputNumber #InputConstantValue placeholder="Numeric Value" mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="5"></p-inputNumber>
+
+---------------------------------------
+
+MESSAGEBOX
+
+<p-toast></p-toast>
+
+import { ConfirmationService, MessageService } from 'primeng/api';
+
+@Component({
+  providers: [MessageService, ConfirmationService]
+})
+
+private confirmationService: ConfirmationService, 
+
+this.confirmationService.confirm({
+        message: 'Are you sure you want to override this record? Overriding will replace all existing data within this record.',
+        header: 'Confirm Override',
+        icon: 'pi pi-exclamation-triangle',
+        accept: async () => {
+          try {
+            this.openNew(event.rowData);         
+          }
+          catch (error) {
+            
+          }
+        }
+      });
+
+-------------------------------------------------------------------
