@@ -1,24 +1,49 @@
 AMAZON Iot Core
 
+Connect Device => Copy URL
+Exit
+
+Manage => All Devices => Things => Create Thing
+	Single thing, unnamed shadow, auto-generate new certificate
+	Create policy => Allow, action: *, resource: *
+
+	CREATED A ALL OPEN POLICY AND ATTACHED TO THE THING
+	Police Effect : Allow | Policy Action : * | Policy Resource : *  
+		To Attach the policy: Go to the Thing => Certificates => Click on the Certificate ID => Policies =>  Attach
+
+Message Routing => Rules
+	SELECT * FROM 'iot/topic'
+	
+Rule to DynamoDB
+	Used Timestamp as Partition Key 
+	Partition Key Value: ${timestamp()}
+	IAM role => Create New Role => Put any name. (wait some seconds to take place)
+
+
+
+
+DONWLOAD OPEN SSL
+	https://sourceforge.net/projects/openssl-for-windows/
+
+	CHECK IF WE CAN USE THE CERTIFICATES TO CONNECT TO IoT Core
+
+	c:\openssl\openssl s_client -CAfile AmazonRootCA1.pem -cert xxxxxx7cae2e5f7807e68d-certificate.pem.crt -key xxxx030bfbe7cae2e5f7807e68d-private.pem.key -connect a3e30kbpu3d4gs-ats.iot.us-east-2.amazonaws.com:8883
+
+	CONVERT THE CERTIFICATE FROM .PEM TO .PFX
+
+	c:\openssl\openssl pkcs12 -export -in xxxxxxae2e5f7807e68d-certificate.pem.crt -inkey 1xxxxxxx8112030bfbe7cae2e5f7807e68d-private.pem.key -password pass:somepassword -out certificate.cert.pfx -certfile AmazonRootCA1.pem 
+
+
+CODE:
 https://hexquote.com/aws-iot-with-net-core-mqtt/
 
 
-CREATED A ALL OPEN POLICY AND ATTACHED TO THE THING
-Police Effect : Allow | Policy Action : * | Policy Resource : *  
 
-To Attach the policy: Go to the Thing => Certificates => Click on the Certificate ID => Policies =>  Attach
-
-CHECK IF WE CAN USE THE CERTIFICATES TO CONNECT TO IoT Core
-
-c:\openssl\openssl s_client -CAfile AmazonRootCA1.pem -cert 5f02a900d4ef8510ca7013d1d968f10a1e3946c19928518016b1bed105159504-certificate.pem.crt -key 5f02a900d4ef8510ca7013d1d968f10a1e3946c19928518016b1bed105159504-private.pem.key -connect a12fk1l96l12es-ats.iot.us-east-2.amazonaws.com:8883
 
 To get the URI
 
 AWS => IoT Core => Connect One Device => Scroll Down
 
-CONVERT THE CERTIFICATE FROM .PEM TO .PFX
-
-c:\openssl\openssl pkcs12 -export -in 5f02a900d4ef8510ca7013d1d968f10a1e3946c19928518016b1bed105159504-certificate.pem.crt -inkey 5f02a900d4ef8510ca7013d1d968f10a1e3946c19928518016b1bed105159504-private.pem.key -password pass:somepassword -out certificate.cert.pfx -certfile AmazonRootCA1.pem 
 
 
 TESTING FROM AWS MQTT Test Client
@@ -27,5 +52,65 @@ TESTING FROM AWS MQTT Test Client
    "{'dataContractId': '1665a5b9-862d-410a-a0c8-65b702e6fe90','field':'Amazon Test from AWS MQTT Test Cloud'}"   (This works)
 
 
+----------------
+
+VISUAL STUDIO AWS EXTENSION
+
+To get the Access keys => https://docs.aws.amazon.com/toolkit-for-vscode/latest/userguide/obtain-credentials.html
+
+--------------------
+DYNAMODB
+
+Create Table
+
+   
+   PartitionKey timestamp_id NUMBER  => For a rule we can then use ${timestamp()}
+   No Sort Key
+
+  Splitted
+   	Partition SN string (This didn't work, it has to be unique)
+      Partition id STRING
+	  No Sort
+   
+-------------------------
+
+LAMBDA
+	
+AWS Lambda Project
+		Empty Function
+
+	public async Task<string> FunctionHandler(dynamic input, ILambdaContext context)
+    {
+        //return input.ToUpper();
+
+        var content = new StringContent(System.Text.Json.JsonSerializer.Serialize(input), Encoding.UTF8, "application/json");
+        HttpResponseMessage httpPesponse = await _httpClient.PostAsync("xxxxxx", content);
+        if (httpPesponse.IsSuccessStatusCode)
+        {
+            string response = await httpPesponse.Content.ReadAsStringAsync();
+            return $"SendNotificationEmail Processed from Object. Response: {response}";
+        }
+        else
+        {
+            return $"SendNotificationEmail Processed from Object. Unsuccessful Response. Status Code: {httpPesponse.StatusCode.ToString()} Content:" + (await httpPesponse.Content?.ReadAsStringAsync());
+        }
+    }
+
+PUBLISH
+	Right click project => Publish AWS
 
 
+
+ping a3e30kbpu3d4gs-ats.iot.us-east-2.amazonaws.com
+thing Name: HED_Simulator
+
+---------------------------
+SET UP A SQL Database (RDS)
+
+click on VPC Security Group
+	Inbund Rules
+		Edit Inbound Rules
+			MSSQL for the first dropdown
+				Source Anywhere Ip4
+				0.0.0.0/0
+---------------------------------
