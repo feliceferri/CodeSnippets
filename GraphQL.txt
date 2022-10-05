@@ -7,6 +7,16 @@ client = GraphqlClient(endpoint="https://hed-rcm-rc.canect.io/api/graphql", head
 query =""
 data = client.execute(query=query)
 
+-----------------------
+NAMED QUERIES
+
+query getTodos {
+  todos {
+    title
+  }
+}
+
+
 ------------------------------------------------
 
 QUERY SCHEMA
@@ -21,9 +31,21 @@ QUERY SCHEMA
                     }
                 }
             }
+
+There is a concept of Mutation that I don't understand what is for
+ 
+{
+  __schema {
+    mutationType {
+      fields {
+        name
+      }
+    }
+  }
+}
 ----------------------------------------------------
 
-TYPES 
+QUERY ROOT TYPES 
 
 {
   __schema {
@@ -34,3 +56,30 @@ TYPES
 }
 
 -----------------------------------------
+QUERY FIELDS OF A SPECIFIC TYPE
+{
+  __type(name: "Device"){
+		name
+			fields {
+      	name
+			}
+
+  }
+}
+
+----------------------
+
+SHOW TYPES AND THEIR FIELDS
+
+{
+  __schema {
+    types {
+      name
+			fields {
+      	name
+			}
+    }
+  }
+}
+
+---------------------

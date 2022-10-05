@@ -1,0 +1,54 @@
+LICENSE  
+TC1000   TC3 ADS  TwinCAT 3 OPC UA
+TC1100   TC3 IO
+TC1200   TC3 PLC
+TF6100   TC3 OPC-UA
+
+https://www.beckhoff.com/en-us/support/download-finder/software-and-tools/
+
+
+Download the TF6100 OPC Server
+https://www.beckhoff.com/en-us/products/automation/twincat/tfxxxx-twincat-3-functions/tf6xxx-tc3-connectivity/tf6100.html
+(Downloaded the four files)
+The one that read CONFIGURATOR is the one that has the connectivity
+ORDER TO INSTALL  https://infosys.beckhoff.com/english.php?content=../content/1033/tf6100_tc3_opcua/11343952139.html&id=
+	UA-Server  *I Selected enable none endpoint
+	UA-Client
+	UA-Configurator
+	UA-Gateway
+
+Download TC1000 | TwinCAT 3 ADS
+https://www.beckhoff.com/en-us/products/automation/twincat/tc1xxx-twincat-3-base/tc1000.html
+(Downloaded the three files)
+
+Created XML Project (Is not in the default project list)
+Created a PLC (1st option)
+Created the Variables
+	=> DELETE The top {attribute 'qualified_only'} so we can use variables in the program without the class
+
+Double-click on the PLC Project => Settings
+   =>  Check TMC File
+
+Write the program
+
+Left Pane => SYSTEM => license
+	Activate License (Need to change tabs so it refreshes)
+	Manage License Tab => TF6100 check cpu license
+* When activating the licenses if you want to activate them on the controller you need to change the Local
+Go to the root node => Add New Project
+
+OPC-UA Server Project
+	=> (Double click on the project) => UA Endpoints TAB = > Uncheck Security
+
+VS Ribbon Menu => Select OPC UA Configurator
+	=> Edit Server List => Add Server
+	  	 opc.tcp://localhost:4840
+
+------------
+
+UAExpert (OPC Client tool?)
+
+https://filfar.by/PDF/beckhoff/TF6100_TC3_OPC-UA_EN.pdf
+
+
+
