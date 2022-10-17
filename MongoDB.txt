@@ -57,3 +57,37 @@ DynamicSerializerToString
 ----------
 
 https://digitteck.com/mongo-csharp/deserializing-expandoobject-with-bsonserializer-in-mongo/
+
+
+------------------------------------
+
+DOCKER-COMPOSE
+
+App Settings:
+ //"ConnectionString": "mongodb://localhost:27017",
+    "ConnectionString": "mongodb://mongo:27017",
+
+
+Project => Right click => Add => Docker Support => Linux => Docker Compose
+
+docker-compose.yml
+version: '3.4'
+
+
+services:
+
+  mongo:
+    image: mongo
+    ports:
+      - 27017:27017
+
+
+  mongotest:
+    image: ${DOCKER_REGISTRY-}mongotest
+    ports:
+      - "8000:80"
+    depends_on:
+      - mongo
+    build:
+      context: .
+      dockerfile: MongoTest/Dockerfile
