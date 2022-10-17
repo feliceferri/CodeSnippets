@@ -114,3 +114,14 @@ click on VPC Security Group
 				Source Anywhere Ip4
 				0.0.0.0/0
 ---------------------------------
+
+IOT Gateway
+
+Canned ACL: private
+IAM Role: AmazonS3FullAccess
+
+S3 KEY
+
+${topic()}/${deviceId}/${parse_time("yyyy", timestamp())}/${parse_time("MM", timestamp())}/${parse_time("dd", timestamp())}/${parse_time("HH", timestamp())}//${timestamp()}
+
+----------------------------------------
