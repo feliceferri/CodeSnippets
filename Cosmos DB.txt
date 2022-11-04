@@ -202,3 +202,23 @@ function simpler(datasetId) {
     if (!isAccepted) throw new Error('The query was not accepted by the server.');
 }
 ---------------------------------------------------------------------
+
+CREATE STORE PROCEDURE FROM CODE (WEB API)
+
+private async Task CreateStoreProcedures(Container container)
+        {
+            string storedProcedureId = "spSoftDeleteDocuments";
+            var sp = container.Scripts.ReadStoredProcedureAsync("storedProcedureId");
+            StoredProcedureResponse storedProcedureResponse = await container.Scripts.CreateStoredProcedureAsync(new StoredProcedureProperties
+            {
+                Id = storedProcedureId,
+                Body = @"function spSoftDeleteDocuments(datasetId) {
+                   ...
+		    }"
+            }); 
+        }
+--------------------------------------------------------
+
+EXECUTE STORE PROCEDURE FROM CODE (WEB API)
+
+var resp = await _container.Scripts.ExecuteStoredProcedureAsync<string>("spSoftDeleteDocuments", new PartitionKey("87cc4242-f1d8-4d6a-beb4-cfbea4759e33"), new dynamic[] { "278a4d75-f7ae-468e-97c8-cf2d59db31af" });
