@@ -149,64 +149,56 @@ https://h-savran.blogspot.com/2020/10/new-datetime-funcs.html
 
 // SAMPLE STORED PROCEDURE
 
-Just execute it, no need to care about the prefix param
+function simpler(datasetId) {
+    var collection = getContext().getCollection();
 
-function sample(prefix) {
-
-    var collection = getContext().getCollection();
-
-
-
+    log = '';
+    
     // Query documents and take 1st item.
-
-    var isAccepted = collection.queryDocuments(
-
+    var isAccepted = collection.queryDocuments(
         collection.getSelfLink(),
+        'SELECT VALUE COUNT(1) FROM root r WHERE r.datasetId ="' + datasetId + '"',{pageSize:-1 },
+    function (err, feed_record_count, options) {
+        if (err) throw err;
 
-        'SELECT * FROM root r',
-
-    function (err, feed, options) {
-
-        if (err) throw err;
-
-
-
-        // Check the feed and if empty, set the body to 'no docs found', 
-
+        // Check the feed and if empty, set the body to 'no docs found', 
         // else take 1st element from feed
-
-        if (!feed || !feed.length) {
-
-            var response = getContext().getResponse();
-
+        if (!feed_record_count || !feed_record_count.length) {
+            var response = getContext().getResponse();
             response.setBody('no docs found');
-
         }
-
-        else {
-
-            feed.forEach(element => {
-
-                element.dueDate = element.auditDate;
-
-                collection.replaceDocument(element._self, element,function (err){
-
-                    if (err) throw err;
-
-                })
-
-            })
-
-            var response = getContext().getResponse();
-
-            response.setBody("replace success");
-
+        else {
+            var response = getContext().getResponse();
+            //response.setBody("count: " + feed.length);
+            record_count = parseInt(feed_record_count);
+            for(var i = 0; i < 5000; i= i + 1000)
+            {
+                    isAccepted = collection.queryDocuments(
+                            collection.getSelfLink(),
+                            'SELECT * FROM root r WHERE r.datasetId ="' + datasetId + '" OFFSET ' + i + ' LIMIT 1000',{pageSize:-1 },
+                            function (err, feed, options) {
+                                if (err) throw err;
+                                log = log + "|" + feed;
+                                //response.setBody("log: " + log);  
+                                
+                                //////////////
+                                feed.forEach(element => {
+                                    element.bool3 = true;
+                                    collection.replaceDocument(element._self, element,function (err){
+                                        if (err) {
+                                            throw err;
+                                        }
+                                    })
+                                    //counter++;
+                                });
+                                /////////
+                            });
+            }  
+            
+            response.setBody("log: " + log);  
         }
-
     });
 
-
-
-    if (!isAccepted) throw new Error('The query was not accepted by the server.');
-
+    if (!isAccepted) throw new Error('The query was not accepted by the server.');
 }
+---------------------------------------------------------------------
