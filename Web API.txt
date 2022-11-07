@@ -40,6 +40,16 @@ public class ApplicationDbContext : IdentityDbContext<IdentityUser>
     }
 }
 
+////This can be a non-identity dbcontext
+  public class ApplicationDbContext: DbContext
+    {
+        public CompanyContext(DbContextOptions options)
+            : base(options)
+        {        }
+
+        public DbSet<Employee> Employees { get; set; }
+    }
+
 3) STATURP.CS
 
 using CommandCenter.Data;
