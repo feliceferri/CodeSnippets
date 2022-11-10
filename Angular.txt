@@ -27,6 +27,14 @@ This finally solved it
 npm remove -g @angular/cli
 npm install -g @angular/cli
 
+---------------------
+
+UPDATE package.json to the latests version of the dependencies
+(Needed after upgrading Angular => ng update
+
+(Run the following two commands, one after the other)
+npm install -g npm-check-updates
+ncu -u
 ---------------------------------------------------------
 
 COMMANDS
