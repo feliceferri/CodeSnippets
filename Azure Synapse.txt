@@ -6,3 +6,35 @@ OPEN THE SYNAPSE Workspace URL (Synapse Overview)
 SELECT TOP 10 * FROM OPENROWSET('CosmosDB',
     'Account=cosmos-skate;Database=SkateProject;key=fmHKHZY23Xf6qmqFkpIf4vkQfQWsxxxxxxxxxxxxxxxxxxxx==;',
     HED) AS m
+    ORDER BY [TimeStamp] DESC
+
+----------------------
+
+Inside the Synapse Workspace create a Database
+	TestSQLDatabaseForSynapse
+
+Then create a view pointing to that database (Database selection on a dropdown top-right of the query editor)
+
+CREATE View Last100Recors
+AS
+SELECT TOP 100 * FROM OPENROWSET('CosmosDB',
+    'Account=cosmos-skate;Database=SkateProject;key=fmHKHZY23Xf6qmqFkpIf4vkQfQWsFotW9hLTSAq31nziyRMcz65K36HW1W4zgaD9QPQ6LaIxIJCQACDbFA5gbg==;',
+    HED) AS m
+    ORDER BY [TimeStamp] DESC
+
+** for only a subset of column we can do
+
+CREATE View Last100Recors
+AS
+SELECT TOP 100 * FROM OPENROWSET('CosmosDB',
+    'Account=cosmos-skate;Database=SkateProject;key=fmHKHZY23Xf6qmqFkpIf4vkQfQWsFotW9hLTSAq31nziyRMcz65K36HW1W4zgaD9QPQ6LaIxIJCQACDbFA5gbg==;',
+    HED) with (columnName1 VARCHAR(100), ColumnaName2 VARCHAR(100) ...) AS m
+    ORDER BY [TimeStamp] DESC
+
+--------------------
+
+FOR POWER BI
+   Synapse Connector
+	Server => (Azure Synapse Overview) => Serverless SQL Endpoint (Bottom Right)
+	Database => No need to select a DB, it will list all the available ones.
+	Authentication => The default is the Window Tab, change it to Database Tab
