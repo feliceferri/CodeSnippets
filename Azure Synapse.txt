@@ -18,7 +18,7 @@ Then create a view pointing to that database (Database selection on a dropdown t
 CREATE View Last100Recors
 AS
 SELECT TOP 100 * FROM OPENROWSET('CosmosDB',
-    'Account=cosmos-skate;Database=SkateProject;key=fmHKHZY23Xf6qmqFkpIf4vkQfQWsFotW9hLTSAq31nziyRMcz65K36HW1W4zgaD9QPQ6LaIxIJCQACDbFA5gbg==;',
+    'Account=cosmos-skate;Database=SkateProject;key=fmHKHZY23Xf6qmqFkpIf4vkQfQWsFotW9hLTSxxxxxxxxxxxx==;',
     HED) AS m
     ORDER BY [TimeStamp] DESC
 
@@ -27,7 +27,7 @@ SELECT TOP 100 * FROM OPENROWSET('CosmosDB',
 CREATE View Last100Recors
 AS
 SELECT TOP 100 * FROM OPENROWSET('CosmosDB',
-    'Account=cosmos-skate;Database=SkateProject;key=fmHKHZY23Xf6qmqFkpIf4vkQfQWsFotW9hLTSAq31nziyRMcz65K36HW1W4zgaD9QPQ6LaIxIJCQACDbFA5gbg==;',
+    'Account=cosmos-skate;Database=SkateProject;key=fmHKHZY23Xf6qmqFkpIf4vkQfQWsFotW9hLTSAq31nxxxxxxxxxx==;',
     HED) with (columnName1 VARCHAR(100), ColumnaName2 VARCHAR(100) ...) AS m
     ORDER BY [TimeStamp] DESC
 
