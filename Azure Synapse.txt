@@ -1,0 +1,8 @@
+ACTIVATE THE SYNAPSE FEATURE FROM COSMOSDB
+CREATE THE SYNAPSE WORKSPACE
+OPEN THE SYNAPSE Workspace URL (Synapse Overview)
+	=> New Script
+
+SELECT TOP 10 * FROM OPENROWSET('CosmosDB',
+    'Account=cosmos-skate;Database=SkateProject;key=fmHKHZY23Xf6qmqFkpIf4vkQfQWsxxxxxxxxxxxxxxxxxxxx==;',
+    HED) AS m
