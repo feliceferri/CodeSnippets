@@ -83,3 +83,10 @@ SHOW TYPES AND THEIR FIELDS
 }
 
 ---------------------
+
+PARSE DATA FROM CHROME DEVELOPMENT TOOLS
+
+IN LINUX => echo 'copy here the network response' | jq -r '.[0].query'
+            echo 'copy here the network response' | jq -r '.[0].variables'
+            
+   

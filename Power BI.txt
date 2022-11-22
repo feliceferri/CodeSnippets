@@ -1,0 +1,5 @@
+Iot HUB + Stream Analytics + Live Dashboard
+
+https://www.youtube.com/watch?v=NbGmyjgY0pU
+
+https://powerbi.microsoft.com/it-ch/blog/embed-dashboard/
