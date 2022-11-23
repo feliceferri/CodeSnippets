@@ -90,6 +90,22 @@ Controller controller = new Controller(context);
 
 ----------------------------------
 
+DBCONTEXT CIRCUNVENT DEPENDENCY INJECTION
+(This has to do with the previous code snippet)
+
+On the ApplicationDbContext
+public static ApplicationDbContext GetApplicationDbContext()
+        {
+            var optionsBuilder = new Microsoft.EntityFrameworkCore.DbContextOptionsBuilder<ApplicationDbContext>();
+            optionsBuilder.UseSqlServer("ConnectionStringGoesHere");
+            return new ApplicationDbContext(optionsBuilder.Options);
+        }
+
+To use it => using (Data.ApplicationDbContext applicationDbContext = Data.ApplicationDbContext.GetApplicationDbContext())
+
+
+---------------------------------------------------
+
 VALUE/PROPERTY CONVERTER
 
 Ex: To store a List<x> as a Json, instead of creating another table with a FK relation, it will store those values in a column.
