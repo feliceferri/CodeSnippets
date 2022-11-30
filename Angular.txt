@@ -513,3 +513,10 @@ NUMBER INPUT WITH DECIMALS
 CENTER VERTICALLY
 
 <label class="ml-2" style="display:flex;align-items:center">Cool off period in hours</label>
+
+-----------------------------------------------
+
+LINK LOCAL PACKAGE/LIBRARY
+
+1) go to the library folder=> npm link
+2) go to the project consuming the local library => npm link {name of the package}
