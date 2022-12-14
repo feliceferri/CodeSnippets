@@ -1,0 +1,5 @@
+Hands: https://www.mediafire.com/file/r8vmytboostszzj/Oculus_Hands_Physics.unitypackage/file
+
+Store => Oculus Integration
+
+Project Settings => XR Plugin Manager => Oculus in both Desktop and Android
