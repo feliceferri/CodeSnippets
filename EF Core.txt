@@ -157,4 +157,16 @@ Scaffold-DbContext "Data Source=xxxx" Microsoft.EntityFrameworkCore.SqlServer -O
 (All Tables)
 Scaffold-DbContext "Data Source=xxx" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models2
 
-_____________________                
+_____________________      
+
+CHANGES TRACKING
+
+MyContext.ChangeTracker.Entries().Where(Function(x) x.State = EntityState.Modified).ToList()      
+
+For Each entityEntry In Me.glbLocalContext.ChangeTracker.Entries(Of MultiUsuario).Where(Function(x) x.State = EntityState.Modified).ToList()
+	If entityEntry.Entity.ID = Module1.glbUserRow.ID Then
+      	
+      End If
+Next
+
+-----------------------
