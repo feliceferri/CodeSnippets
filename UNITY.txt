@@ -3,3 +3,39 @@ Hands: https://www.mediafire.com/file/r8vmytboostszzj/Oculus_Hands_Physics.unity
 Store => Oculus Integration
 
 Project Settings => XR Plugin Manager => Oculus in both Desktop and Android
+
+---------------
+
+Skybox:  Window=> Rendering => Environment Tab => Drag into Skybox Material
+
+File => Build Settings => Player Setting (Bottom left) => Other Settings => Active Input Handling => Input System Package (New) !! Not sure if this is neccessary
+
+RIG => XR => XR Origin (Action Based) => Properties => Tracking Origin Mode => Floor
+
+Fom XR Interaction ToolKit select the Default Left Controller => Properties (top) => Add to ActionBasedController (Top)
+ 	Edit => Project Settings => Preset Manager => Write Left & Right where the magnifier appears.
+		Scene => Delete the XR Origin and Added it Again  (This adds everything related Input Actions to the controllers when you inspect them in Properties)
+
+
+OCULUS QUEST
+
+File => Build Settings => Android => Switch Platform button (Bottom Right)
+	Player Settings button (Bottem Left) => XR Plugin Management (Bottom) => Install XR Plugin Management => Check only Oculus
+
+
+GIVE IT A Name to the .APK
+    File => Build Settings => Android => Player => Identification => Override Default Package Name
+
+QUALITY
+     File => Build Settings => Quality = > Add Quality Level button
+		 Name it => Oculus 2
+             Uncheck Soft Particles
+ 		 Anisotropic Textures => Change it to Per Texture
+             Antialiasing => Change it to 4X
+             Disable (uncheck) all the other quality levels for the Android Platform, so it only uses the one created
+
+     File => Build Settings => Android => Properties => Texture Compression => Change it to ASTC
+
+
+Download Oculus ADB Drivers
+Download SideQuest
