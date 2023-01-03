@@ -39,3 +39,6 @@ QUALITY
 
 Download Oculus ADB Drivers
 Download SideQuest
+Download Android Debug Bridge (adb) => Download SDK Platform-Tools for Windows
+  => adb devices 
+  => adb install C:\Users\felic\Desktop\VR_firstBuild.apk

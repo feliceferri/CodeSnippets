@@ -851,3 +851,8 @@ builder.Services.Configure<Microsoft.AspNetCore.Http.Features.FormOptions>(x =>
 
 -----------------------------
 
+RETURN JSON without the lower case policy
+
+return new Microsoft.AspNetCore.Mvc.ContentResult() { Content = JsonConvert.SerializeObject(row), ContentType = "application/json; charset=UTF-8", StatusCode = 201 };
+
+--------------------------
