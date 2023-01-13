@@ -61,6 +61,16 @@ https://digitteck.com/mongo-csharp/deserializing-expandoobject-with-bsonserializ
 
 ------------------------------------
 
+DOCKER
+
+docker pull mongo
+
+docker run -d -p 27017:27017 --name MongoTest mongo
+(-d: run container in detached mode. This Means the docker container runs in the background of the terminal. It does not accept input or show output.)
+
+To execute commands in that container => docker exec -it MongoTest /bin/bash
+--------------------------------------
+
 DOCKER-COMPOSE
 
 App Settings:

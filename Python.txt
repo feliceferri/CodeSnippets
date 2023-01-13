@@ -6,6 +6,12 @@ python --version
 
 ---------------------
 
+conda env list
+conda env create -f rait_env.yml
+conda activate rait_env
+
+-----------------
+
 import os
 os.getenv('AzureStorageConnectionString')
 -------------------------
