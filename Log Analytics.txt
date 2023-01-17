@@ -1,3 +1,7 @@
 
 FunctionAppLogs 
 | where TimeGenerated > ago(1h) and Level == 'Error'
+
+
+FunctionAppLogs 
+| where TimeGenerated > ago(4h) and Message contains "TP1_Relay_2213740" 
