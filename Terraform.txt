@@ -1,0 +1,9 @@
+sudo snap install aws-cli --classic
+
+IAM Dashboard => Right Panel (Quick Linkgs) => Access Keys
+	=> Create new Access Key
+
+
+cmd> aws configure
+
+Oracle Help
