@@ -1,7 +1,7 @@
 
 FunctionAppLogs 
-| where TimeGenerated > ago(1h) and Level == 'Error'
+| where TimeGenerated > ago(1h) and Level == 'Error' | order by TimeGenerated desc 
 
 
 FunctionAppLogs 
-| where TimeGenerated > ago(4h) and Message contains "TP1_Relay_2213740" 
+| where TimeGenerated > ago(4h) and Message contains "TP1_Relay_2213740" | order by TimeGenerated desc 
