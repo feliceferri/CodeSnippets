@@ -7,3 +7,11 @@ IAM Dashboard => Right Panel (Quick Linkgs) => Access Keys
 cmd> aws configure
 
 Oracle Help
+
+---------------------
+
+FORCE A DISPLAY OF A SENSITIVE VALUE
+
+output "rds_cluster_master_password" {
+  value     = nonsensitive({variablename})
+}
