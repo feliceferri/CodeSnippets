@@ -4,4 +4,4 @@ FunctionAppLogs
 
 
 FunctionAppLogs 
-| where TimeGenerated > ago(4h) and Message contains "TP1_Relay_2213740" | order by TimeGenerated desc 
+| where TimeGenerated > ago(4h) and Message contains "TP1_Relay_2213740" | order by TimeGenerated asc 

@@ -856,3 +856,16 @@ RETURN JSON without the lower case policy
 return new Microsoft.AspNetCore.Mvc.ContentResult() { Content = JsonConvert.SerializeObject(row), ContentType = "application/json; charset=UTF-8", StatusCode = 201 };
 
 --------------------------
+
+DEFAULT AUTHORIZATION
+
+if (Env.IsDevelopment() || Env.IsAutomatedTest())
+            {
+                services.AddAuthorization(o =>
+                {
+                    o.DefaultPolicy = new AuthorizationPolicyBuilder()
+                        .RequireAssertion(_ => true)
+                        .Build();
+                });
+            }
+-----------------------------------
