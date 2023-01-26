@@ -2,6 +2,36 @@ java -version
 
 --------------------
 
+INSTALL AZURE FUNCTIONS TOOLKIT
+
+File=> Settings=> Plugins (Left Vertical Menu)
+	=> azure toolkit
+          => Restart IDE
+
+-----------
+
+ERROR Cant find java.net.http
+
+Settings 
+  => Build, Execution, Deployment
+    => Compiler
+      => Java Compiler
+             On the list change target bytecode version to 11
+             Above in a combobox Project Bytecode Version also change it to 11
+                 Apply, Ok
+-----------------------------
+
+TO ADD .JAR LIBRARIES
+
+Copy them into C:\Users\felic\.m2\repository\
+
+Then File => Project Structure => Libraries
+        => + button on the Left Panel
+           => Java
+        Close IntelliJ Afterwards
+
+---------------------------
+
 WEB  API ANNOTATION
 @RestController  (At class level)
 
