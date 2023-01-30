@@ -158,5 +158,18 @@ var memory = new MemoryStream();
             return File(memory, "application/zip", zipFile.FullName);
 
 ** There is an angular example on how to consume it in the Angular.txt file (DOWNLOAD FILE FROM API)
+
 -----------------------
+
+CONTROLLER ATTRIBUTES
+
+[TypeFilter(typeof(ProjectManagerOrAdminOrRoleFilter))]
+[ApiVersion("1.0")]
+[Route("api/v{version:apiVersion}/[controller]")]
+[ApiController]
+
+Filter:
+public class ProjectManagerOrAdminOrRoleFilter : IAsyncActionFilter
+
+---------------------------------
 
