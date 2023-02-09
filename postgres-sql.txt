@@ -1,0 +1,22 @@
+install postgres client
+
+ubuntu 16.04 & 18.04 => sudo apt-get install postgresql-client  
+
+mac => brew install libpq  (brew link --force libpq)
+
+windows => https://www.compose.com/articles/postgresql-tips-installing-the-postgresql-client/
+
+
+connect (from bastion host)
+
+$psql -h <host> -p <port> -U <username> -W <password>
+
+
+Steps to use PG Admin through Bastion => https://gist.github.com/kshailen/0d4f78596b0ab12659be908163ed1fc2
+
+---------------
+
+
+TRUNCATE TABLE projects RESTART IDENTITY CASCADE;
+
+-----------------------
