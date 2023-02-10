@@ -125,3 +125,8 @@ S3 KEY
 ${topic()}/${deviceId}/${parse_time("yyyy", timestamp())}/${parse_time("MM", timestamp())}/${parse_time("dd", timestamp())}/${parse_time("HH", timestamp())}//${timestamp()}
 
 ----------------------------------------
+
+CONNECT TO POSTGRES OVER BASTION USING TUNNELING
+
+From the cmd=>
+ssh -i "C:\xxx\xxx.pem" -NL 8886:aurora-db-postgres-xxxxxxx.us-east-1.rds.amazonaws.com:5432 ubuntu@34.239.x.xx -v
