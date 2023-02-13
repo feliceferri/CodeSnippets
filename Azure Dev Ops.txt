@@ -56,3 +56,18 @@ Go to your app service > Configuration => select the tab -> General Settings
 
 On the Startup Command field => pm2 serve /home/site/wwwroot --no-daemon --spa
 -------------------------------------
+
+
+REACT YAML
+
+** Publish Error https://stackoverflow.com/questions/50719178/publishing-build-artifacts-failed-with-an-error-not-found-pathtopublish-d-a-1
+
+FIX:
+
+- task: PublishPipelineArtifact@0
+  displayName: 'Publish pipeline artifact'
+  inputs:
+    artifactName: 'drop'
+    targetPath: '$(Build.ArtifactStagingDirectory)'
+
+--------------------------------------------
