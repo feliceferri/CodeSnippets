@@ -130,3 +130,19 @@ CONNECT TO POSTGRES OVER BASTION USING TUNNELING
 
 From the cmd=>
 ssh -i "C:\xxx\xxx.pem" -NL 8886:aurora-db-postgres-xxxxxxx.us-east-1.rds.amazonaws.com:5432 ubuntu@34.239.x.xx -v
+
+--------------------------------------------
+
+CONNECT TO AN EC2 FROM BASTION
+
+ssh -i xx.pem ubuntu@{ip or dns}  (Bastion Instance)
+
+Copy File to the Bastion Host
+scp -i xx.pem {fileToCopy} ubuntu@{ip or dns):/home/ubuntu/
+
+Connect to the Instance from Bastion Host
+ssh -i xx.pem -vv ubuntu@{ip or dns}    (-vv very verbose)
+
+telenet IP 22
+
+------------------------------------------------
