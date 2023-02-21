@@ -1,0 +1,13 @@
+SELECT
+  substr(hguid, 7, 2) || substr(hguid, 5, 2) 
+  || substr(hguid, 3, 2) || substr(hguid, 1, 2) || '-'
+  || substr(hguid, 11, 2) || substr(hguid, 9, 2) || '-'
+  || substr(hguid, 15, 2) || substr(hguid, 13, 2) || '-'
+  || substr(hguid, 17, 4) || '-'
+  || substr(hguid, 21, 12)
+
+AS guid
+
+FROM (SELECT hex(FarmacoId) AS hguid FROM Posologias)
+
+--------------
