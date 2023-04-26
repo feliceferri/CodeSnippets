@@ -1,0 +1,76 @@
+
+
+sudo systemctl isolate graphical
+Set to Graphical as default after boot
+sudo systemctl set-default graphical.target
+
+INSTALL GRAPHICAL USER INTERFASE
+sudo apt update
+sudo apt install tasksel
+tasksel --list-tasks
+sudo tasksel install ubuntu-desktop
+reboot
+sudo systemctl set-default graphical.target
+
+--------------------
+sudo apt update && sudo apt upgrade
+sudo apt install slim
+sudo apt install ubuntu-desktop
+
+-------------
+YOU TUBE
+sudo apt install ubuntu-desktop -y
+
+
+---------------
+INSTALL RDP
+sudo apt-get -y install xrdp
+sudo apt-get update
+sudo systemctl enable xrdp
+
+----------------
+INSTALL DOCKER
+https://docs.docker.com/engine/install/ubuntu/
+
+sudo docker ps
+sudo docker network create --driver=bridge --subnet=192.168.0.1/24 br2
+
+
+---------------------------------
+
+CONNECT THROUGH BASH
+ssh -i key.pem User@IP
+
+----------------------------
+
+COPY FILE TO LINUX VM (UPLOAD)
+sudo scp -i ~/.ssh/id_rsa /path/ca.crt file user@ip:home/user/virtual_gateway.tar.gz
+
+sudo scp file user@ip:home/user/virtual_gateway.tar.gz
+
+COPY FILE FROM LINUX VM (DOWNLOAD
+scp user@IP:directory/file targetfile
+
+
+-------------------------
+
+DEPLOY FROM .NET
+
+1) Make it self-cotained
+2) chmod 777 ./appname
+3) ./appname  (to execute the app)
+
+----------------------------
+
+LOAD APP
+
+screen ./MyApp
+screen -r (to reattach when SSHing again)
+
+------------------------------
+
+LIST ALL RUNNING APPs
+
+ps aux
+
+

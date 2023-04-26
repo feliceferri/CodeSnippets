@@ -227,16 +227,24 @@ var resp = await _container.Scripts.ExecuteStoredProcedureAsync<string>("spSoftD
 
 COMPOSITE INDEX
 
- "compositeIndexes": [
+"compositeIndexes": [
     [
       {
-        "path": "/customerValue",
+        "path": "/__assetId",
         "order": "descending"
       },
       {
-        "path": "/customerType",
+        "path": "/__timestamp",
         "order": "descending"
+      },
+      {
+        "path": "/Battery",
+        "order": "ascending"
+      },
+      {
+        "path": "/AirtracStatus",
+        "order": "ascending"
       }
     ]
-],
+    ],
 -------------------------------------------------
