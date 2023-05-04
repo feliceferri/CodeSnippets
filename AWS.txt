@@ -146,3 +146,13 @@ ssh -i xx.pem -vv ubuntu@{ip or dns}    (-vv very verbose)
 telenet IP 22
 
 ------------------------------------------------
+
+EC2 + Load Balancer + Static IP
+
+Allocate Elastic IPS (I don't have to associate them with anything, just create them)
+Create Load Balancer (Network Load Balancer)
+    Mappings =>  IPv4 Addres => Use an Elastic IP Address
+		     Listeners => Port 3389 (RDP)
+                              Target Group
+
+-----------------------------------
