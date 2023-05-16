@@ -27,7 +27,7 @@ Windows Server
 	=> Delete the DefaultAppPool
 	=> Sites Folder => Right Click => Add FTP Site
 		=> Physical Path => inetpub\ftproot
-                   if doing SSL => At the Server Level node => Certificates => Import (top right) .pfx
+                   if doing SSL => At the Server Level node => Server Certificates => Import (top right) .pfx
                    ** Selected Required SSL, Port 21
                    (I selected the TenantCertificate that appeared as default in the combobox)
 		   Basic, All users, Read, Write
@@ -41,7 +41,8 @@ Windows Server
 
 Windows => Apps
     Add Feature => Optional Features
-         OpenSSH Server
+	  + Add Feature
+	         OpenSSH Server
  
 Windows => Services
     Look for OpenSSH Authentication Agent => Set to Automatic Startup => Start

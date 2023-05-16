@@ -2,6 +2,9 @@ docker images  (list installed images)
 
 docker run -it -d -p 8080:80 --name web nginx
 
+docker attach {containerName}  Shows the terminal from inside container
+	=> hostname -i  (once connected we can run this command to get the IP Address)
+
 it (interactive mode)
 name custom name => web
 nginx (image)
@@ -77,10 +80,9 @@ docker image ls
 
 docker run lukerec/lukedocker
 
-
+docker run -dit --name my-alpine-container alpine /bin/sh  (-d runs container in the background, -i keeps the standar input of the container open, -t allocates sudo tty which makes the 											container look like a terminal container session)
 
 docker exec (connects to a running container, to inspect it, but when the container stars again, everything get losts)
-
 
 -----------------
 
@@ -126,3 +128,25 @@ DOCKER COMPOSE EXAMPLE
 https://github.com/DanWahlin/Angular-Core-Concepts/blob/master/docker-compose.prod.yml
 
 docker-compose up
+
+--------------------------------------
+
+NETWORKS
+
+USER DEFINED NETWORKS provides DNS resolution so you can ping containers by name, the Default network does not.
+USER DEFINED NETWORKS you can connect and disconnect without restarting the container, with Default one you can't.                      
+
+LIST NETWORKS: sudo docker network ls  (bridge is the default one)
+
+INSPECT A NETWORK: sudo docker network inspect bridge  (it lists the containers connected to the network)
+
+CREATE A NEW NETWORF: sudo docker network create br2  (This will create a network of type bridge as it is the default type)
+
+DISCONNECT A CONTAINER FROM THE NETWORK: docker network disconnect {networkName} {containerName}
+
+CONNECT A CONTAINER TO THE NEWTORK: docker network connect networkName} {containerName}
+
+docker attach {containerName}  Shows the terminal from inside container
+	=> hostname -i  (once connected we can run this command to get the IP Address)
+
+------------------------------

@@ -123,6 +123,7 @@ IAM Role: AmazonS3FullAccess
 S3 KEY
 
 ${topic()}/${deviceId}/${parse_time("yyyy", timestamp())}/${parse_time("MM", timestamp())}/${parse_time("dd", timestamp())}/${parse_time("HH", timestamp())}//${timestamp()}
+${topic()}/${deviceId}/${parse_time("yyyy", timestamp())}/${parse_time("MM", timestamp())}/${parse_time("dd", timestamp())}/${parse_time("HH", timestamp())}/${parse_time("yyyy_MM_dd_HH:mm:ss.SSSZ", timestamp())}
 
 ----------------------------------------
 
@@ -147,12 +148,15 @@ telenet IP 22
 
 ------------------------------------------------
 
-EC2 + Load Balancer + Static IP
+EC2 + LOAD BALANCER + STATIC IP 
 
-Allocate Elastic IPS (I don't have to associate them with anything, just create them)
+Create the EC2 Instance (if windows, to connect use the connect button on the AWS dashboard, provide the .pem file to get back the password for RDP)
+Allocate Elastic IP (I don't have to associate them with anything, just create them)
 Create Load Balancer (Network Load Balancer)
     Mappings =>  IPv4 Addres => Use an Elastic IP Address
 		     Listeners => Port 3389 (RDP)
                               Target Group
 
 -----------------------------------
+
+FIREWALL WHITELIST IPs API GATEWAY
