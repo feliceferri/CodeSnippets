@@ -1,0 +1,24 @@
+https://www.youtube.com/watch?v=SccSCuHhOw0
+
+
+npm init -y
+
+EXPRESS
+
+npm install -g express-generator
+express
+
+npm i --save-dev nodemon  (restart the server anytime we do changes)
+------------------------------
+
+VIEW ENGINE
+
+npm i ejs
+
+app.set('view engine','ejs')
+rename index.html to index.ejs
+
+Install VSCode Extension EJS Language Support
+
+In the API:  
+     res.render("index")  Note: Index is located inside Views\Index.ejs
