@@ -22,3 +22,18 @@ Install VSCode Extension EJS Language Support
 
 In the API:  
      res.render("index")  Note: Index is located inside Views\Index.ejs
+
+-------------------------------
+JSON WEB TOKEN
+
+npm i jsonwebtoken
+Terminal => node => require('crypto').randomBytes(64).toString('hex')
+
+https://www.youtube.com/watch?v=mbsmsi7l3r4
+-----------------------------
+
+ENVIRONMENT VARIABLES
+
+npm i dotenv
+
+server.js => require('dotenv').config()
