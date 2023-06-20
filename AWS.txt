@@ -160,3 +160,13 @@ Create Load Balancer (Network Load Balancer)
 -----------------------------------
 
 FIREWALL WHITELIST IPs API GATEWAY
+
+
+-----------------------------------------------------
+
+CONNECT TO S3 from python in local PC
+
+Install AWS CLI
+c:\users\{user}\.aws\credentials  => Copy the Management Console credentials.
+
+S3 bucket can still be private, no need to create an Allow Policy either.
