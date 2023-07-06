@@ -37,3 +37,11 @@ ENVIRONMENT VARIABLES
 npm i dotenv
 
 server.js => require('dotenv').config()
+
+------------------------------
+
+MANAGE mssql connection
+
+https://cloud.google.com/sql/docs/sqlserver/manage-connections#count-nodejs
+
+------------------------------
