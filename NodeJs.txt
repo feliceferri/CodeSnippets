@@ -5,8 +5,9 @@ npm init -y
 
 EXPRESS
 
+
 npm install -g express-generator
-express
+npm install express
 
 npm i --save-dev nodemon  (restart the server anytime we do changes)
 ------------------------------
@@ -45,3 +46,24 @@ MANAGE mssql connection
 https://cloud.google.com/sql/docs/sqlserver/manage-connections#count-nodejs
 
 ------------------------------
+
+RUN APP AS A WINDOWS SERVICE
+
+npm install node-windows
+
+nodeService.js
+const Service = require('node-windows').Service
+
+const svc = new Service({
+    name: "ProbariHL7AgentCallerService",
+    description: "",
+    script: "C:\\Users\\....\\server.js"
+})
+
+svc.on('install',function(){
+    svc.start()
+})
+
+svc.install()
+
+to start it => node ./nodeService.js
