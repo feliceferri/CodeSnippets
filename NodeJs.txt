@@ -66,4 +66,4 @@ svc.on('install',function(){
 
 svc.install()
 
-to start it => node ./nodeService.js
+to start it => node ./nodeService.js (Restart is needed afterwards)

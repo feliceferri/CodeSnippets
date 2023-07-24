@@ -1,0 +1,16 @@
+use the default .net full framework template.
+1) right click on the main (blank) window => create installer
+2) right click on the main (blank) window => view code (F7)
+3) F12 on Intialize Component
+ 	Add => this.serviceProcessInstaller1.Account = System.ServiceProcess.ServiceAccount.LocalSystem;  (It will run with whatever account is there when installed)
+	Add => this.serviceProcessInstaller1.Description = "xxx"
+	Add => this.serviceProcessInstaller1.DisplayName = "xxx"
+
+
+!!NOTE! Forget about the Publish/Deployment files, just use the /bin files
+
+To Install run this command
+C:\Windows\Microsoft.NET\Framework\v4.0.30319\InstallUtil.exe c:\Service\WindowsService_TCP_Agent.exe
+
+To Uninstall:
+C:\Windows\Microsoft.NET\Framework\v4.0.30319\InstallUtil.exe -u c:\Service\WindowsService_TCP_Agent.exe
