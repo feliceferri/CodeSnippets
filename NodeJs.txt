@@ -67,3 +67,31 @@ svc.on('install',function(){
 svc.install()
 
 to start it => node ./nodeService.js (Restart is needed afterwards)
+
+----------------------------------------
+
+MYSQL
+
+var mysql = require('mysql');
+const fs = require('fs');
+
+// Create a connection object
+var con = mysql.createConnection({
+    host: "xxxx",
+    user: "xxx",
+    password: "xxx",
+    database: "xxx",
+    port: 3306,
+    ssl: {
+        ca: fs.readFileSync('DigiCertGlobalRootCA.crt.pem')
+        // cert: fs.readFileSync('client-cert.pem'),
+        // key: fs.readFileSync('client-key.pem')
+    }
+});
+
+con.connect(function (err) {
+    if (err) throw err;
+    console.log("Connected!");
+});
+
+------------------------------------------
