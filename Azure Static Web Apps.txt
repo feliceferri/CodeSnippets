@@ -1,0 +1,1 @@
+If is REACT, the Output folder should be => build
