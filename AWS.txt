@@ -176,3 +176,18 @@ S3 bucket can still be private, no need to create an Allow Policy either.
 S3 REPLICATION CROSS ACCOUNT 
 
 https://itnext.io/s3-cross-account-replication-42dd83f42492
+
+---------------------------------------
+
+S3 FROM VS CODE
+
+creat user (IAM)
+* I didn't give it Console Permissions
+Add to Permission Groups (I created a group named S3-Full-Access)
+Select the User From the List of Users
+	=> Security Credentials Tab
+		=> Access Keys
+
+s3 = boto3.resource('s3', aws_access_key_id=access_key, aws_secret_access_key=secret_key)
+
+------------------------------------------------

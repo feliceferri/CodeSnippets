@@ -25,7 +25,33 @@ bash en la carpeta => npm start  Ahi me va a decir el puerto etc y abre el brows
 
 crear .gitignore file => primera linea agregar => node_modules
 
+-------------------------------------------
+
+ATTACH VS CODE DEBUGGER
+
+Create a launch.json file (same level as src, node_modules)  * It will be created by VS code automatically when running the debugger the first time
+
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "Launch Chrome against localhost",
+            "url": "http://localhost:3000",
+            "webRoot": "${workspaceFolder}"
+        }
+    ]
+}
+
+NOTE!!! You have to click the run button and then from the termina do => npm run or npm start.
+
+
 ----------------------------
+
+ useEffect(() => {...}, []);  No 2nd argument will run first time and every time any tracked variable is changed, if the 2nd argument is [] it will run only the first time.
+
+-----------
 
 
 uiSchema={logBookTemplatesAndData[0].template.ui}
@@ -245,6 +271,13 @@ ICONS LIBRARY
 
 Tabler
 
+---------------------------
+
+STYLE
+
+style={{ display: 'flex', alignItems: 'center' }}
+
+------------------------------------
 
 
 
