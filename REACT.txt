@@ -279,6 +279,14 @@ style={{ display: 'flex', alignItems: 'center' }}
 
 ------------------------------------
 
+AZURE STATIC WEB APPS, Avoid 404 error when Refreshing (F5)
 
+1. Create staticwebapp.config.json in \public
+2. {
+    "navigationFallback": {
+      "rewrite": "index.html",
+      "exclude": ["*.svg", "*.png", "*.jpg", "*.gif", "*.css", "*.js"]
+    }
+  }
 
       
