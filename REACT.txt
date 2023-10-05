@@ -289,4 +289,17 @@ AZURE STATIC WEB APPS, Avoid 404 error when Refreshing (F5)
     }
   }
 
-      
+-----------------------------------------
+
+STATIC COMPILATION
+
+Index.ts
+	Change BrowserRouter to => import { HashRouter } from 'react-router-dom';
+				=> <HashRouter basename={BASE_PATH}>
+
+Package.json
+	"homepage": ".",
+
+npm run build
+
+--------------------------------------------

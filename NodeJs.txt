@@ -95,3 +95,21 @@ con.connect(function (err) {
 });
 
 ------------------------------------------
+
+FE & BE ON THE SAME PORT
+
+build your FE application (for create-react-app npm run build)
+
+copy all the contents of build folder to a new folder (say public) in your express application.
+
+now add below in your node js code (to serve static files):
+
+app.use('/', express.static('./public'));
+
+For nanonub need to add this on the react package.json 
+   => "homepage": ".",
+
+Error =>
+	You need to enable Javascript to run this app
+
+---------------------------------
