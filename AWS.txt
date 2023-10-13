@@ -191,3 +191,16 @@ Select the User From the List of Users
 s3 = boto3.resource('s3', aws_access_key_id=access_key, aws_secret_access_key=secret_key)
 
 ------------------------------------------------
+
+AWS AMPLIFY
+
+npx create-react-app .
+
+AWS Amplify = > Get Started => Amplify Hosting => Github
+
+	Modify npm ci => npm i
+
+Cognito + React App + AWS Amplify
+https://www.youtube.com/watch?v=g4qKydnd0vU
+
+----------------------------------------------------
