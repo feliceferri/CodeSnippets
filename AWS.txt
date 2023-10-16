@@ -204,3 +204,12 @@ Cognito + React App + AWS Amplify
 https://www.youtube.com/watch?v=g4qKydnd0vU
 
 ----------------------------------------------------
+
+AWS AMPLIFY
+
+npm install -g @aws-amplify/cli
+amplify init
+amplify add api
+amplify push
+
+------------------------------------------
