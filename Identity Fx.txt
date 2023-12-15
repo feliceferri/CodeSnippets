@@ -5,3 +5,22 @@ user.BloqueadoPorUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 ---------------------------------
 
 WEB API.txt has the information on how to add Identity FX to a Web Api project
+
+-----------------------
+
+  public async Task<User> GetCurrentUserAsync()
+  {
+      var email = IdentityService.GetEmail();
+      if (string.IsNullOrWhiteSpace(email))
+          return null;
+
+      if (HttpContextAccessor.HttpContext.Items.ContainsKey(email))
+          return (User)HttpContextAccessor.HttpContext.Items[email];
+
+      var user = await GetUserAsync(email);
+
+      if (user != null)
+          HttpContextAccessor.HttpContext.Items.Add(email, user);
+
+      return user;
+  }
