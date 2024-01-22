@@ -4,15 +4,31 @@ from dateutil.relativedelta import relativedelta
 import pandas as pd
 import os
 
+# Sales Projected
 # number_of_entries = 24
 # max = 15000
 # zero_start_tail_size = 8
 # zero_end_tail_size = 0
 # starting_date = date(2022,1,1)
 
+# Sales Actual
+# number_of_entries = 24
+# max = 12000
+# zero_start_tail_size = 10
+# zero_end_tail_size = 0
+# starting_date = date(2022,1,1)
+
+# Expenses Projected 
+# number_of_entries = 24
+# max = 5000
+# zero_start_tail_size = 0
+# zero_end_tail_size = 0
+# starting_date = date(2022,1,1)
+
+# Expenses Actual
 number_of_entries = 24
-max = 12000
-zero_start_tail_size = 10
+max = 4000
+zero_start_tail_size = 2
 zero_end_tail_size = 0
 starting_date = date(2022,1,1)
 

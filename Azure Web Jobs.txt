@@ -1,0 +1,27 @@
+* Only works in App Services that are based on Windows
+* If is a python script all the libraries need to be in the local .zip file, use pip install -t {name of the library} for that
+* Once the zip is uploaded to the WebJobs, by clicking the three dots at the far right you get the UserName and Password for the Authentication needed for the Manual Trigger, you also get the path.
+* Many languages, I tried successfully Python and .Net Core
+* Once uploaded the first time, the only way to update the files is through FTP, go to the App Service Overview and Download Publish Profile, and there are the credentials for FTP.
+
+INSOMNIA:
+    The path needs to be written like this:
+    https://{userName}:{psw}@{app service name}.scm.azurewebsites.net/api/triggeredwebjobs/{web job name}/run
+    https://$simulators:xxxx@simulators.scm.azurewebsites.net/api/triggeredwebjobs/Allied-Automation-Simulator3/run
+
+FROM ANGULAR NEEDS TO BE CALLED LIKE THIS:
+    const url = 'https://simulators.scm.azurewebsites.net/api/triggeredwebjobs/Belden-Cobot-Simulator/run';
+
+    const headers = new HttpHeaders({
+      'Authorization': 'Basic ' + btoa('$simulators:psw')
+    });
+
+    this.http.post(url, {}, { headers: headers }).subscribe(
+      response => {
+        console.log('POST request successful', response);
+       },
+      error => {
+        console.log('POST request error', error);
+      }
+    );
+
