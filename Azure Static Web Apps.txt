@@ -1,1 +1,15 @@
-If is REACT, the Output folder should be => build
+REACT:
+	the Output folder should be => build
+
+
+ANGULAR:
+	In package.json
+	     "engines": {
+	      		"node": ">=20.0.0"  https://edi.wang/post/2022/1/27/how-to-specify-nodejs-version-when-building-azure-static-web-app
+			  }
+
+
+	app_location: "/" # App source code path
+	api_location: "" # Api source code path - optional
+	output_location: "dist/lhp-iot-fe" # Built app content directory - optional
+

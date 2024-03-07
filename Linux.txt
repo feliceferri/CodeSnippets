@@ -80,3 +80,29 @@ GET IP ADDRESS OF RUNNING DOCKER CONTAINER
 sudo docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' ContainerName
 
 -----------------------------
+
+INSTALL GUI IN AN AZURE LINUX VM
+
+ssh -i "xxx\yyyyKey.pem" user@IP
+
+sudo apt update 
+sudo apt install tasksel
+tasksel --list-tasks //From this list select the desktop we want to install
+sudo tasksel
+   GNOME //Use the space to select and then TAB to move to Ok
+sudo apt install slim  //this is the login management package
+sudo apt install tigervnc-standalone-server
+
+vncserver -list //To see what is running on the server
+vncserver -localhost no //This is to not allow LocalHost to login, but will allow vnc to login
+	It will ask to create a password
+	it will ask if it should be a view mode password => NO
+
+vncserver -list //Runing it again, will show the XtigerVNC running
+
+google: tigervnc => sourceforge.net, download the viewer for the Windows Machine
+	ip:port //the port can be retreived from the command => vncserver -list
+        Add Inbound/Outbound rules in Azure => Protocol Any Port 5901
+		
+
+------------------------------------
