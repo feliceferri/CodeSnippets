@@ -28,3 +28,10 @@ HostName=lhp-command-center.azure-devices.net;SharedAccessKeyName=iothubowner;Sh
 HostName=lhp-command-center.azure-devices.net;DeviceId=Simulator;SharedAccessSignature=SharedAccessSignature sr=lhp-command-center.azure-devices.net%2Fdevices%2FSimulator&sig=9kVRQgFr7SnwVkBJPaU2xw%2F%2F0icBq19tbbYWEdPVkjs%3D&se=1655909133
 
 SharedAccessSignature sr=lhp-command-center.azure-devices.net%2Fdevices%2FSimulator&sig=9kVRQgFr7SnwVkBJPaU2xw%2F%2F0icBq19tbbYWEdPVkjs%3D&se=1655909133
+
+-----------------------------
+WHEN USING PAHO-MQTT MAKE AZURE IOT HUB avoid using Base64 and use UTF8.
+
+Add this after the /messages/events => $.ct=application%2Fjson%3Bcharset%3Dutf-8
+
+client.publish(f"devices/{device_id}/messages/events/$.ct=application%2Fjson%3Bcharset%3Dutf-8".format(device_id=device_id), payload="{'message':'World Hello?'}", qos=0, retain=False)

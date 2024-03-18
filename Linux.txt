@@ -4,7 +4,7 @@ sudo systemctl isolate graphical
 Set to Graphical as default after boot
 sudo systemctl set-default graphical.target
 
-INSTALL GRAPHICAL USER INTERFASE
+INSTALL GRAPHICAL USER INTERFACE
 sudo apt update
 sudo apt install tasksel
 tasksel --list-tasks
