@@ -520,3 +520,14 @@ LINK LOCAL PACKAGE/LIBRARY
 
 1) go to the library folder=> npm link
 2) go to the project consuming the local library => npm link {name of the package}
+
+-------------------------------
+
+ANGULAR 15 Azure Dev Ops Error
+
+Error: ./src/polyfills.ts:53:0-27 - Error: Module not found: Error: Can't resolve 'zone.js/dist/zone' in '/home/vsts/work/1/s/src'
+
+On newer Angular versions zonejs needs to be installed manually with npm i zone.js then the main import in polyfills needs to be changed to import 'zone.js' and then it works
+To recreate the issue locally by deleting my node modules folder and package lock
+
+----------------------------------
