@@ -113,3 +113,10 @@ Error =>
 	You need to enable Javascript to run this app
 
 ---------------------------------
+
+DEPLOY IN AZURE APP SERVICE (WINDOWS)
+
+bcrypt fails => to diagnose it, go to console in the App Service and just run the node app => node server.js
+The fix is to not use bcrypt but bcryptjs
+	npm install bcryptjs
+	require("bcryptjs");
