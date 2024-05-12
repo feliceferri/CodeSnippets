@@ -40,6 +40,22 @@ steps:
     
 
 ************
+TROUBLESHOOT - PROBLEMS WITH ng Build
+
+Changed pool vmImage to: windows-latest 
+
+- task: CopyFiles@2
+  inputs:
+    targetFolder: '$(Build.ArtifactStagingDirectory)'    
+
+- task: PublishBuildArtifacts@1    
+  displayName: 'Publish Artifact: drop'
+  inputs:
+    PathtoPublish: '$(build.artifactstagingdirectory)'
+
+
+
+*******************
 RELEASE PIPELINE
 
 Selected App Service from Node.js Artificat
