@@ -64,7 +64,17 @@ Toubleshoot Error : o package found with specified pattern: D:\a\r1\a\**\*.zip<b
 
 Edit => Deploy Azure App Service (bottom item) => Edit Button => Package Folder => navigate and change it to something like $(System.DefaultWorkingDirectory)/_Frontend/app/diamond-ng
 
+
+******************
+
+PRINT VM CONTENT
+
+- script: |
+    dir $(System.DefaultWorkingDirectory) /s
+  displayName: 'List Contents of Working Directory'
+
 **************
+
 IF Deploying on LINUX
 Troubleshoot Error: Your web app is running and waiting for your content.
 

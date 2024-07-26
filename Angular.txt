@@ -429,6 +429,26 @@ GetProjectFiles(projectId:string, projectName:string) {
       FileSaver.saveAs(blob, `${projectName}.zip` );});
   }
 
+#ANOTHER APPROACH
+saveChecklist(...): Observable<Blob> {
+	const httpOptions = {
+		responseType: "blob" as "json",
+	};
+
+	return this.httpclient.post<any>(fullURL, JSON.stringify(obj), httpOptions)
+			.pipe(map((res: Blob) => res));
+	
+
+let res = this.emailService..saveChecklist(this.pdfName, this.currentFacility.id, this.currentFontSIze, this.selectedDate.toISOString())
+			.subscribe(
+				(pdfBlob: Blob) => {
+					saveAs(pdfBlob, "filename.pdf"); // Replace with your desired file name
+				},
+				(error) => {
+					console.error("Error downloading PDF", error);
+				}
+			);
+
 ------------------------------
 
 BEHAVIOR SUBJECTS
