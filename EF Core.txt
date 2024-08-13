@@ -170,3 +170,16 @@ For Each entityEntry In Me.glbLocalContext.ChangeTracker.Entries(Of MultiUsuario
 Next
 
 -----------------------
+
+DATABASE RESILIENCY
+
+optionsBuilder.UseSqlServer(
+    Environment.GetEnvironmentVariable("connectionstring").ToString(),
+    providerOptions => providerOptions
+        .EnableRetryOnFailure(
+            maxRetryCount: 5,
+            maxRetryDelay: TimeSpan.FromSeconds(15),
+            errorNumbersToAdd: null)
+        .CommandTimeout(180));  // Set the command timeout to 180 seconds
+
+-------------------------------------
