@@ -1,0 +1,64 @@
+App Service: Linux, Basic 2 $25/month
+
+Environment Variable: 
+  SCM_DO_BUILD_DURING_DEPLOYMENT  true
+
+Configuration => General
+   Startup Command:  streamlit run xxxxx.py --server.port 8000 --server.address 0.0.0.0
+
+Generate requirements.txt file
+streamlit==1.39.0
+pandas==2.1.4
+matplotlib==3.8.2
+seaborn==0.13.2
+numpy==1.24.1
+scikit-learn==1.4.0
+xgboost==2.1.1
+plotly==5.24.1
+scipy==1.11.4
+streamlit-authenticator==0.4.1
+
+--------------------------------
+
+CI/CD .yml
+
+trigger:
+  - main 
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  pythonVersion: '3.11'
+
+steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '$(pythonVersion)'
+      addToPath: true
+
+  - script: |
+      python -m pip install --upgrade pip
+      pip install -r requirements.txt -t $(Build.ArtifactStagingDirectory)/.
+    displayName: 'Install Dependencies'
+
+  - task: ArchiveFiles@2
+    inputs:
+      rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
+      includeRootFolder: false
+      archiveType: 'zip'
+      archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+      replaceExistingArchive: true
+
+  - script: |
+      echo "Listing contents of ArtifactStagingDirectory..."
+      dir $(Build.ArtifactStagingDirectory)
+    displayName: 'List Artifact Contents'
+
+  - task: AzureWebApp@1
+    inputs:
+      azureSubscription: 'BCSC_ServiceConnection'
+      appName: 'bcscanalysistool'
+      package: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+      startupCommand: 'streamlit run report/app_2.py --server.port 8000 --server.address 0.0.0.0'
+      appSettings: '-SCM_DO_BUILD_DURING_DEPLOYMENT true'
