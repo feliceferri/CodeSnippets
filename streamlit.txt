@@ -60,5 +60,84 @@ steps:
       azureSubscription: 'BCSC_ServiceConnection'
       appName: 'bcscanalysistool'
       package: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-      startupCommand: 'streamlit run report/app_2.py --server.port 8000 --server.address 0.0.0.0'
+      startupCommand: 'streamlit run xxxx.py --server.port 8000 --server.address 0.0.0.0'
       appSettings: '-SCM_DO_BUILD_DURING_DEPLOYMENT true'
+
+
+----------------------------------------------
+
+AUTHORIZATION
+
+pip install streamlit-authenticator
+
+############# AUTHORIZATION #######################################################################
+    config = {
+        'cookie': {
+            'expiry_days': 0,
+            'key': os.urandom(24).hex(),  # Must be a string
+            'name': 'some_cookie_name'
+        },
+        'credentials': {
+            'usernames': {
+                'BCSC': {
+                    'email': 'jsmith@gmail.com',
+                    'failed_login_attempts': 0,  # Will be managed automatically
+                    'first_name': 'John',
+                    'last_name': 'Smith',
+                    'logged_in': False,  # Will be managed automatically
+                    'password': 'xxxxxxxx',  # Will be hashed automatically
+                    'roles': [  # Optional
+                        'admin',
+                        'editor',
+                        'viewer'
+                    ]
+                }
+            }
+        },
+        'oauth2': {  # Optional
+            'google': {  # Follow instructions: https://developers.google.com/identity/protocols/oauth2
+                'client_id': '',  # To be filled
+                'client_secret': '',  # To be filled
+                'redirect_uri': ''  # URL to redirect to after OAuth2 authentication
+            },
+            'microsoft': {  # Follow instructions: https://learn.microsoft.com/en-us/graph/auth-register-app-v2
+                'client_id': '',  # To be filled
+                'client_secret': '',  # To be filled
+                'redirect_uri': '',  # URL to redirect to after OAuth2 authentication
+                'tenant_id': ''  # To be filled
+            }
+        },
+        'pre-authorized': {  # Optional
+            'emails': [
+                'melsby@gmail.com'
+            ]
+        }
+    }
+
+
+    #Troubleshooting in azure: https://bcscanalysistool.scm.azurewebsites.net/DebugConsole (Kudu)
+
+    authenticator = stauth.Authenticate(
+        config['credentials'],
+        config['cookie']['name'],
+        config['cookie']['key'],
+        config['cookie']['expiry_days']
+    )
+
+    if st.session_state['authentication_status'] is None or st.session_state['authentication_status'] == False:
+        authenticator.login()
+     
+        if st.session_state['authentication_status'] is False:
+            st.error('Username/password is incorrect')
+            return
+        elif st.session_state['authentication_status'] is None:
+            #st.warning('Please enter your username and password')
+            return
+        elif st.session_state['authentication_status']:
+            authenticator.logout("Logout","sidebar")
+            st.rerun(scope="app")
+            #All godd, user is Authenticated
+    else:
+         authenticator.logout("Logout","sidebar")
+####################################################################################
+
